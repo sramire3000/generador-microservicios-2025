@@ -1,0 +1,13 @@
+spring.application.name=spring-demo-hexagonal2
+server.port=8086
+
+#Configuraciones JPA
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=validate
+
+
+#Para no mostrar los campos nulos en las respuesta Json
+spring.jackson.default-property-inclusion=non-null
+spring.jackson.property-naming-strategy=SNAKE_CASE
+
+logging.level.org.hibernate.SQL= debug

@@ -1,0 +1,42 @@
+[
+  {
+  	"field_name"  :"id",
+	"type"        :"Long",
+	"isNull"      : false,
+	"descripction":"KEY"
+  },
+  {
+	"field_name"  :"nombres",
+	"type"        :"String",
+	"isNull"      : false,
+	"descripction":"nombres",
+	"len"         :100,
+	"isFindLike"  : true
+  },
+  {
+  "field_name"  :"apellidos",
+  "type"        :"String",
+  "isNull"      : false,
+  "descripction":"Apellidos",
+  "len"         :100,
+  "isFindLike"  : true
+  },
+  {
+    "name":"Edad",
+    "type":"Integer",
+    "isNull":false,
+    "description":"SubTotal"
+  },
+  {
+    "name":"fecha_adicion",
+    "type":"Date",
+    "isNull":false,
+    "description":"Fecha de registro"
+  },     
+  {
+    "name":"sueldo",
+    "type":"BigDecimal",
+    "isNull":false,
+    "description":"Precio"
+  }  
+]

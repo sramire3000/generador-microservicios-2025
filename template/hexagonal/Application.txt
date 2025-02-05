@@ -1,0 +1,19 @@
+package com.example.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+/*
+ * 
+ * https://www.youtube.com/watch?v=xn3E3EKK5jM
+ * 
+ * */
+
+@SpringBootApplication
+public class SpringDemoHexagonalApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringDemoHexagonalApplication.class, args);
+	}
+
+}
