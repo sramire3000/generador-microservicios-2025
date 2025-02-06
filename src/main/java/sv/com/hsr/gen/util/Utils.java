@@ -1,17 +1,28 @@
 package sv.com.hsr.gen.util;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.beetl.core.Configuration;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.resource.FileResourceLoader;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.CaseFormat;
+
 import org.beetl.core.Template;
 
+import sv.com.hsr.gen.dto.DataBaseFields;
 import sv.com.hsr.gen.dto.MyTemplate;
 
 public interface Utils {
@@ -136,6 +147,180 @@ public interface Utils {
 	            System.out.println(e.getMessage());
 	        }
 
-	    }		
+	    }
+	   
+	    /* Lectura de los Json */
+	    public static List<DataBaseFields> getMongFieldList(String fileName, String carpetaJson) throws Exception{
+	        List<DataBaseFields> dataBaseFieldsList = new ArrayList<DataBaseFields>();
+	        ObjectMapper objectMapper = new ObjectMapper();
+	        
+	        String file = System.getProperty("user.dir")+ File.separator + carpetaJson + File.separator + fileName;
+	        
+	        //System.out.println(file);
+	        
+			
+			List<Map<String,Object>> list = (List<Map<String,Object>>)objectMapper.readValue(new FileInputStream(file), List.class);
+			
+	        for(Map<String,Object> map : list){
+	        	
+	        	//Instanciando
+	            DataBaseFields dataBaseFields = new DataBaseFields();
+	          
+	            //Name
+	            dataBaseFields.setName(map.get("name").toString());
+	            
+	            //Type
+	            dataBaseFields.setType(map.get("type").toString());
+	            
+	            //Descripcion
+	            if(map.get("description") != null) {dataBaseFields.setDescription(map.get("description").toString());}
+	            
+	            //Length
+	            if(map.get("type").equals("String")) {
+	            	if (map.get("len")!= null) {
+	            		dataBaseFields.setLen(map.get("len").toString());
+	            	}
+	            }      
+	            
+	            //Length
+	            if(map.get("type").equals("Varchar")) {
+	            	if (map.get("len")!= null) {
+	            		dataBaseFields.setLen(map.get("len").toString());
+	            	}
+	            }             
+	            
+	            //Campo de requerido
+	            try {
+	            	dataBaseFields.setNull((Boolean) map.get("isNull"));	
+				} catch (Exception e) {
+					dataBaseFields.setNull(true); //No requerido
+				}
+	            
+	            //Campo de Busqueda
+	            try {
+	                dataBaseFields.setFind((Boolean) map.get("isFind"));
+				} catch (Exception e) {
+					dataBaseFields.setFind(false);
+				}
+	            //Campo de Busqueda Like
+	            try {
+	            	dataBaseFields.setFindLike((Boolean) map.get("isFindLike"));	
+				} catch (Exception e) {
+					dataBaseFields.setFindLike(false);
+				}
+	            
+	            //Campo LLave Primaria
+	            try {
+	            	dataBaseFields.setPk((Boolean) map.get("isPk"));
+	            	try {
+	            		dataBaseFields.setAutoGen((Boolean) map.get("isAutoGen"));
+					} catch (Exception e) {
+						dataBaseFields.setAutoGen(false);
+					}
+				} catch (Exception e) {
+					dataBaseFields.setPk(false);
+					dataBaseFields.setAutoGen(false);
+				}
+	            
+	            //Tabla para las Fk
+	            try {
+	            	dataBaseFields.setTableRef(map.get("tableRef").toString());		
+	            	dataBaseFields.setCamelCasetableRef(map.get("tableRef").toString().substring(0, 1).toUpperCase() + map.get("tableRef").toString().substring(1));
+				} catch (Exception e) {
+					dataBaseFields.setTableRef("");	
+				}
+	            
+	            dataBaseFields.setCamelCaseName(map.get("name").toString().substring(0, 1).toUpperCase() + map.get("name").toString().substring(1));
+	            
+	            String nombre_temp = map.get("name").toString().substring(0, 1).toUpperCase() + map.get("name").toString().substring(1);
+	            
+	            if (nombre_temp.contains("_")) {
+	            	Integer pos = nombre_temp.indexOf("_");
+	            	String uno = nombre_temp.substring(0, pos);
+	            	String dos = nombre_temp.substring(pos, nombre_temp.length()).toLowerCase();
+	            	
+	            	dataBaseFields.setUno_mayuscula_name(uno+dos);
+	            }else {
+	            	dataBaseFields.setUno_mayuscula_name(map.get("name").toString().substring(0, 1).toUpperCase() + map.get("name").toString().substring(1));
+	            }
+	            
+	            //Tabla Ref
+	            if (!dataBaseFields.getTableRef().equals("")){
+		            nombre_temp = map.get("tableRef").toString().substring(0, 1).toUpperCase() + map.get("tableRef").toString().substring(1);
+		            if (nombre_temp.contains("_")) {
+		            	Integer pos = nombre_temp.indexOf("_");
+		            	String uno = nombre_temp.substring(0, pos);
+		            	String dos = nombre_temp.substring(pos, nombre_temp.length()).toLowerCase();
+		            	
+		            	dataBaseFields.setUno_mayuscula_tableRef(uno+dos);
+		            }else {
+		            	dataBaseFields.setUno_mayuscula_tableRef(map.get("tableRef").toString().substring(0, 1).toUpperCase() + map.get("tableRef").toString().substring(1));
+		            }	            	
+	            }
+	            
+	            dataBaseFieldsList.add(dataBaseFields);
+	        }
+	        return dataBaseFieldsList;
+	    }
+	    
+	    public static String ConvertCamelCase(String dato) {
+	    	 String result = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, dato.replaceAll("-", "_"));	    	
+	    	 return result;
+	    }
+	    
+	    public static void createJavaFileRenderComun(MyTemplate myTemplate,String fileName){
+	        try{
+	            
+	            String root = System.getProperty("user.dir") + File.separator + "template/comun"  + File.separator;
+	            
+	            //logger.info("Ruta Template ===>"+root);
+	            
+	            FileResourceLoader resourceLoader = new FileResourceLoader(root,"utf-8");
+	            Configuration cfg = Configuration.defaultConfiguration();
+	            GroupTemplate gt = new GroupTemplate(resourceLoader, cfg);
+
+	            Template t = gt.getTemplate(myTemplate.getTemplateName());
+	   
+	            t.binding("myUtil",myTemplate);
+	    
+	            String str = t.render();
+	            
+	            
+	            File dir = myTemplate.getDir();
+	            
+	            if(!dir.exists() && !dir.isDirectory()){
+	                dir.mkdirs();
+	            }
+	            
+	            //System.out.println(dir + File.separator + fileName);
+	            
+	            File file = new File( dir + File.separator + fileName );
+	            
+	            if(!file.exists()){
+	            	//Nueva
+	                file.createNewFile();
+	                FileWriter fileWriter = new FileWriter(file);
+	                BufferedWriter bw = new BufferedWriter(fileWriter);
+	                
+	                bw.write(str);
+	                bw.flush();
+	                bw.close();
+	                System.out.println("New...."+dir + File.separator + fileName);
+	            }else {
+	            	if (fileName.equals("application.properties")) {
+	            		FileWriter fileWriter = new FileWriter(file);
+	            		BufferedWriter bw = new BufferedWriter(fileWriter);
+	                    bw.write(str);
+	                    bw.flush();
+	                    bw.close();
+	                    System.out.println("Modifi...."+ dir + File.separator + fileName);            		
+	            	}
+	            	//Existente
+	            }
+	        }catch(Exception e){
+	            System.out.println(e.getMessage());
+	        }
+
+	    } 	    
 
 }

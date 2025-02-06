@@ -85,6 +85,7 @@ public class GeneradorMicroserviciosApplication {
 		myTemplate.setGroup(keyboardIn.getGroup());
 		myTemplate.setJdk(keyboardIn.getJdk());	
 		myTemplate.setType(keyboardIn.getType());
+		myTemplate.setSource(keyboardIn.getSource());
 		
 
     	myTemplate.setPackageNameBase(keyboardIn.getProy_package());

@@ -11,7 +11,7 @@ import sv.com.hsr.gen.util.Utils;
 
 public class GeneraHexagonal {
 
-	public static void load(MyTemplate myTemplate) throws IOException  {
+	public static void load(MyTemplate myTemplate) throws IOException, Exception  {
 		String filePath = myTemplate.getPackagePath();
 		
 		myTemplate.setProyecto(myTemplate.getRootPath());		
@@ -77,7 +77,6 @@ public class GeneraHexagonal {
 		Utils.replace("<name>spring-demo-hexagonal</name>", "<name>"+myTemplate.getArtifact()+"</name>", myTemplate);
 		Utils.replace("<description>Demo project for Spring Boot</description>", "<description>"+myTemplate.getDescripcion()+"</description>", myTemplate);
 		
-		
 		//maven-wrapper.jar
 		myTemplate.setTemplateName("maven-wrapper.jar");
 		myTemplate.setFileName("maven-wrapper.jar");
@@ -89,7 +88,8 @@ public class GeneraHexagonal {
 		myTemplate.setTemplateName("maven-wrapper.properties.txt");
 		myTemplate.setFileName("maven-wrapper.properties");
 		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator + ".mvn/wrapper"));
-		UtilCopy.CopyFile(myTemplate);		
+		UtilCopy.CopyFile(myTemplate);
+		
 		
 		//MavenWrapperDownloader.java
 		myTemplate.setTemplateName("MavenWrapperDownloader.java");
@@ -129,6 +129,7 @@ public class GeneraHexagonal {
 		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator + "src/main/resources"));	
 		UtilCopy.CopyFile(myTemplate);
 		Utils.replace("spring.application.name=spring-demo-hexagonal", "spring.application.name="+myTemplate.getArtifact(), myTemplate);		
+		Utils.replace("logging.file.name=/logs/demo-hexagonal-service/demo-hexagonal-service.log", "logging.file.name=/logs/"+myTemplate.getArtifact()+"/"+myTemplate.getArtifact()+".log", myTemplate);
 		
 		//Main
 		String camelCaseMain = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, myTemplate.getArtifact().replaceAll("-", "_"));
@@ -139,7 +140,118 @@ public class GeneraHexagonal {
 		Utils.createJavaFile(myTemplate);		
 		Utils.replace("SpringDemoHexagonalApplication", camelCaseMain+"Application", myTemplate);	
 		Utils.replace("package com.example.demo;","package "+ myTemplate.getPackageName()+";", myTemplate);
-		Utils.replace("---------- Product Service Started ----------", "---------- "+myTemplate.getArtifact()+" Service Started ----------", myTemplate);			
+		Utils.replace("---------- API core Service Started ----------", "---------- "+myTemplate.getArtifact()+" Started ----------", myTemplate);
+		
+		//Creacion de Carpetas
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "application"));		
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "application/ports"));
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "application/ports/input"));
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "application/ports/output"));
+		
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "domain"));
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "domain/exception"));
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "domain/model"));
+		
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "infrastructure"));
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "infrastructure/input/rest"));
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "infrastructure/input/rest/mapper"));
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "infrastructure/input/rest/model"));
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "infrastructure/input/rest/model/request"));
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "infrastructure/input/rest/model/response"));
+		
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "infrastructure/output/persistence"));
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "infrastructure/output/persistence/entity"));
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "infrastructure/output/persistence/mapper"));
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "infrastructure/output/persistence/repository"));
+		
+		
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "utils"));
+		
+		//create application.ports.input.IStudentServicePort
+		createApplicationPortsInputServicePort(myTemplate, "IServicePort.txt");
+		createApplicationPortsOutPutPersistencePort(myTemplate, "IPersistencePort.txt");
+		
 		
 	}
+	
+	
+
+
+
+	public static void createApplicationPortsInputServicePort(MyTemplate myTemplate, String template) throws Exception{
+		 
+			String filePath = myTemplate.getPackagePath();
+			myTemplate.setProyecto(myTemplate.getRootPath());	
+			myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "application/ports/input"));
+			myTemplate.setTemplateName(template);
+
+	    	String sCarpAct = System.getProperty("user.dir") + File.separator + myTemplate.getSource();
+	    	
+	    	
+	    	File carpeta = new File(sCarpAct);
+	    	String[] listado = carpeta.list();
+	    	
+	    	if (listado == null || listado.length == 0) {
+	    	    System.out.println("No hay elementos dentro de la carpeta actual "+sCarpAct);
+	    	    return;
+	    	}
+	    	else {
+	    		
+	    	    for (int i=0; i< listado.length; i++) {
+	    	    	String archivo           = listado[i];
+	    	    	String archivo_sin_ext   = listado[i].substring(0, listado[i].lastIndexOf("."));
+	    	    	String entityClassName   = Utils.ConvertCamelCase(archivo_sin_ext);
+	    	    	String entityName        = archivo_sin_ext.toLowerCase();
+	    	    	String collectionName    = archivo_sin_ext.toLowerCase();
+	 	    	
+	    	    	myTemplate.setList(Utils.getMongFieldList(archivo, myTemplate.getSource()));
+	    	    	myTemplate.setEntityClassName(entityClassName);
+	    	    	myTemplate.setEntityName(entityName);
+	    	    	myTemplate.setCollectionName(collectionName);
+	    	    	
+	    	        String fileName = "I"+myTemplate.getEntityClassName() + "ServicePort.java";
+	    	        Utils.createJavaFileRenderComun(myTemplate,fileName);
+	    	    }
+	    	} 			
+			
+	 }
+	
+	 private static void createApplicationPortsOutPutPersistencePort(MyTemplate myTemplate, String template) throws Exception {
+			String filePath = myTemplate.getPackagePath();
+			myTemplate.setProyecto(myTemplate.getRootPath());	
+			myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "application/ports/output"));
+			myTemplate.setTemplateName(template);
+
+	    	String sCarpAct = System.getProperty("user.dir") + File.separator + myTemplate.getSource();
+	    	
+	    	
+	    	File carpeta = new File(sCarpAct);
+	    	String[] listado = carpeta.list();
+	    	
+	    	if (listado == null || listado.length == 0) {
+	    	    System.out.println("No hay elementos dentro de la carpeta actual "+sCarpAct);
+	    	    return;
+	    	}
+	    	else {
+	    		
+	    	    for (int i=0; i< listado.length; i++) {
+	    	    	String archivo           = listado[i];
+	    	    	String archivo_sin_ext   = listado[i].substring(0, listado[i].lastIndexOf("."));
+	    	    	String entityClassName   = Utils.ConvertCamelCase(archivo_sin_ext);
+	    	    	String entityName        = archivo_sin_ext.toLowerCase();
+	    	    	String collectionName    = archivo_sin_ext.toLowerCase();
+	 	    	
+	    	    	myTemplate.setList(Utils.getMongFieldList(archivo, myTemplate.getSource()));
+	    	    	myTemplate.setEntityClassName(entityClassName);
+	    	    	myTemplate.setEntityName(entityName);
+	    	    	myTemplate.setCollectionName(collectionName);
+	    	    	
+	    	        String fileName = "I"+myTemplate.getEntityClassName() + "PersistencePort.java";
+	    	        Utils.createJavaFileRenderComun(myTemplate,fileName);
+	    	    }
+	    	} 			
+			
+	 }
+	
+	
 }

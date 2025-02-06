@@ -1,19 +1,37 @@
 package com.example.demo;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+import java.util.Date;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-/*
- * 
- * https://www.youtube.com/watch?v=xn3E3EKK5jM
- * 
- * */
 
 @SpringBootApplication
 public class SpringDemoHexagonalApplication {
 
+	private static final Logger logger = LogManager.getLogger(SpringDemoHexagonalApplication.class);
+
 	public static void main(String[] args) {
 		SpringApplication.run(SpringDemoHexagonalApplication.class, args);
+		
+		int mb = 1024 * 1024;
+		
+		MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
+		long xmx = memoryBean.getHeapMemoryUsage().getMax() / mb;
+		long xms = memoryBean.getHeapMemoryUsage().getInit() / mb;
+		
+		logger.info("");
+		logger.info("---------- API core Service Started ----------");
+		logger.info("Date in UTC          : " + new Date().toString());
+		logger.info("Initial Memory (xms) : "+xms+" mb");
+		logger.info("Max Memory (xmx)     : "+xmx+" mb");
+		logger.info("-------------------------------------------");		
+		logger.info("");
+				
 	}
 
 }

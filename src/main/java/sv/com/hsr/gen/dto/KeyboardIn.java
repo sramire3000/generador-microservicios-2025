@@ -53,12 +53,12 @@ public class KeyboardIn {
 		System.out.println("");		
 		
 		if (type.trim().toUpperCase().equals("HEXAGONAL")) {
-			System.out.println("   group          : sv.com.demo.app");
+			System.out.println("   group          : sv.com.acme");
 			
 			System.out.println("   package        : sv.com.demo.springboot.app.api.core");
 			System.out.println("   artifact       : springboot-service-students");
-			System.out.println("   descripcion    : Service Students project for Spring Boot");
-			System.out.println("   target         : /test/spring-mono-proyecto");
+			System.out.println("   descripcion    : Servicio Students project for Spring Boot");
+			System.out.println("   target         : /prueba/springboot-service-students");
 			System.out.println("   JDK            : 21");
 			System.out.println("   source         : test");
 			System.out.println("");	
@@ -175,7 +175,7 @@ public class KeyboardIn {
 
 		//Valida el Target
 		if ((proy_target ==null) || (proy_target.trim().equals(""))) {
-			if (type.trim().toUpperCase().equals("HEXAGONAL"))         {proy_target = "/prueba/spring-test";
+			if (type.trim().toUpperCase().equals("HEXAGONAL"))         {proy_target = "/prueba/springboot-service-students";
 			}
 			
 			

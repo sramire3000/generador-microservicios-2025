@@ -1,0 +1,26 @@
+[
+  {
+    "name":"id",
+    "type":"Long",
+    "isNull":true,
+    "description":"Key",
+    "len":null
+  },
+  {
+    "name":"firstname",
+    "type":"String",
+    "isNull":false,
+    "description":"Nombres del estudiante",
+    "len":100,
+    "isFindLike": true
+  },
+  {
+    "name":"lastname",
+    "type":"String",
+    "isNull":false,
+    "description":"Appelidos del studiante",
+    "len":100,
+    "isFindLike": true
+  }
+  
+]

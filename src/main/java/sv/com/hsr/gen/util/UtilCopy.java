@@ -58,4 +58,10 @@ public class UtilCopy {
             System.err.println("Hubo un error de entrada/salida!!!");
         }    	
     }		
+    
+    public static void createDir(File dir){
+        if(!dir.exists() && !dir.isDirectory()){
+			dir.mkdirs();
+		}    	
+    }	    
 }
