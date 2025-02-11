@@ -268,6 +268,65 @@ public interface Utils {
 	    	 return result;
 	    }
 	    
+	    
+	    /* CREATE JAVA FILE CARPETA COMUN  */
+	    public static void createJavaFileRender(MyTemplate myTemplate,String fileName){
+	        try{
+	            
+	            String root = System.getProperty("user.dir") + File.separator + getRecurso(myTemplate.getType())  + File.separator;
+	            
+	            //logger.info("Ruta Template ===>"+root);
+	            
+	            FileResourceLoader resourceLoader = new FileResourceLoader(root,"utf-8");
+	            Configuration cfg = Configuration.defaultConfiguration();
+	            GroupTemplate gt = new GroupTemplate(resourceLoader, cfg);
+
+	            Template t = gt.getTemplate(myTemplate.getTemplateName());
+	   
+	            t.binding("myUtil",myTemplate);
+	    
+	            String str = t.render();
+	            
+	            
+	            File dir = myTemplate.getDir();
+	            
+	            if(!dir.exists() && !dir.isDirectory()){
+	                dir.mkdirs();
+	            }
+	            
+	            //System.out.println(dir + File.separator + fileName);
+	            
+	            File file = new File( dir + File.separator + fileName );
+	            
+	            if(!file.exists()){
+	            	//Nueva
+	                file.createNewFile();
+	                FileWriter fileWriter = new FileWriter(file);
+	                BufferedWriter bw = new BufferedWriter(fileWriter);
+	                
+	                bw.write(str);
+	                bw.flush();
+	                bw.close();
+	                System.out.println("New...."+dir + File.separator + fileName);
+	            }else {
+	            	if (fileName.equals("application.properties")) {
+	            		FileWriter fileWriter = new FileWriter(file);
+	            		BufferedWriter bw = new BufferedWriter(fileWriter);
+	                    bw.write(str);
+	                    bw.flush();
+	                    bw.close();
+	                    System.out.println("Modifi...."+ dir + File.separator + fileName);            		
+	            	}
+	            	//Existente
+	            }
+	        }catch(Exception e){
+	            System.out.println(e.getMessage());
+	        }
+
+	    }
+	    
+	    
+	    /* CREATE JAVA FILE CARPETA COMUN  */
 	    public static void createJavaFileRenderComun(MyTemplate myTemplate,String fileName){
 	        try{
 	            
@@ -321,6 +380,8 @@ public interface Utils {
 	            System.out.println(e.getMessage());
 	        }
 
-	    } 	    
+	    }
+	    
+	    
 
 }

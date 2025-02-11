@@ -1,0 +1,348 @@
+package ${myUtil.packageName}.entity;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Date;
+import java.math.BigDecimal;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.Email;
+
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import ${myUtil.packageName}.utils.Utils;
+
+/* 
+  Validadores:
+     @NotNull(message="") 
+     @Size(min=1, max=50, message="") 
+	 @Min(value = 1, message="") 
+     @Max(value = 999, message="") 
+	 @Email(message="")
+	 @DecimalMax("30.00", message = "")
+	 @DecimalMin("5.00", message = "")
+	 @Digits(integer=6, fraction=2, message = "")
+	 @Pattern(regexp="\\(\\d{3}\\)\\d{3}-\\d{4}", message="")
+	 @AssertTrue(message = "")
+*/
+
+@SuppressWarnings("unused")
+@NoArgsConstructor									//genera un constructor sin argumentos, uno vacío
+@AllArgsConstructor									//genera un constructor para todos los atributos de la clase.
+@Setter												//Metodos Setters
+@EqualsAndHashCode									//genera los métodos equals y hashcode.
+@ToString											//genera el método toString.
+@Entity(name="${myUtil.entityClassName}")			//Nombre de la Entidad
+@Table (name="${myUtil.entityName}")				//Nombre de la Tabla
+public class ${myUtil.entityClassName} implements Serializable {
+
+<%
+    
+    for(attr in myUtil.list){
+    
+    	//Id
+    	if (attr.isPk == true){
+    	    println("     //" + attr.description);
+        	println("     @Id														//Llave Primaria");
+			if (attr.type=="Long"){
+	        	if (attr.isAutoGen == true){
+	        		println("     @GeneratedValue(strategy = GenerationType.IDENTITY)		//Estrategia de generacion");
+	        	} 	
+	        	println("     private Long " + attr.name + ";" + "     //"+ attr.description);
+	        }else if(attr.type=="Integer"){
+	        	if (attr.isAutoGen == true){
+	        		println("     @GeneratedValue(strategy = GenerationType.IDENTITY)		//Estrategia de generacion");
+	        	} 	
+	        	println("     private Integer " + attr.name + ";" + "     //"+ attr.description);	         		
+			}else if (attr.type=="Varchar" ){
+				println("     private String " + attr.name + ";" + "     //"+ attr.description);
+			}else if (attr.type=="String"){
+				println("     private String " + attr.name + ";" + "     //"+ attr.description);
+			}
+      	
+        	println(""); 
+    	}else{
+    	    if (attr.type=="Varchar"){
+    			println("     //" + attr.description);
+    			if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println(""); 
+    				%>     @Size(min=1, max=${attr.len}, message="El ${attr.description} debe tener de 1 a ${attr.len} caracteres.") <%
+    				println(""); 
+    				%>     @Column(name="${attr.name}" <%
+                    if (attr.type=="Varchar"){
+                       %>, length = ${attr.len}, columnDefinition="varchar(${attr.len})", nullable=false )<%
+                    } 
+                    println("");
+                    println("     private String " + attr.name + ";"); 
+                    println("");    				
+    			}else{//No requerido
+    	    		%>     @Column(name="${attr.name}" <%
+                    if (attr.type=="Varchar"){
+                       %>, length = ${attr.len}, columnDefinition="varchar(${attr.len})" )  <%
+                    }   
+                    println("");
+                    println("     private String " + attr.name + ";");   	
+                    println("");			
+    			}   	    
+    	    }else if (attr.type=="String"){
+    			println("     //" + attr.description);
+    			if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println(""); 
+    				%>     @Size(min=1, max=${attr.len}, message="El ${attr.description} debe tener de 1 a ${attr.len} caracteres.") <%
+    				println(""); 
+    				%>     @Column(name="${attr.name}" <%
+                    if (attr.type=="String"){
+                       %>, length = ${attr.len}, columnDefinition="char(${attr.len})", nullable=false )<%
+                    } 
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");    				
+    			}else{//No requerido
+    				%>     @Column(name="${attr.name}" <%
+                    if (attr.type=="String"){
+                       %>, length = ${attr.len}, columnDefinition="char(${attr.len})" )  <%
+                    }   
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";");   	
+                    println("");			
+    			}
+    		}else if (attr.type=="Short"){
+        		println("     //" + attr.description);
+    			if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println("");
+    				%>     @Min(value = 1, message="El valor del campo ${attr.description} debe ser mayor a 1.") <% 
+    				println("");
+    				%>     @Max(value = 999, message="El valor del campo ${attr.description} debe ser menos que 999") <% 
+    				println("");
+    				%>     @Column(name="${attr.name}", columnDefinition="smallint", nullable=false)<%
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");         				
+    			} else { //No requerido
+    				%>     @Column(name="${attr.name}", columnDefinition="smallint")<%
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");      			
+    			}     		
+        	}else if (attr.type=="Integer"){
+        		println("     //" + attr.description);
+    			if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println("");
+    				%>     @Min(value = 1, message="El valor del campo ${attr.description} debe ser mayor a 1.") <% 
+    				println("");
+    				%>     @Max(value = 99999999, message="El valor del campo ${attr.description} debe ser menos que 99999999") <% 
+    				println("");
+    				%>     @Column(name="${attr.name}", columnDefinition="int", nullable=false)<%
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");         				
+    			} else { //No requerido
+    				%>     @Column(name="${attr.name}", columnDefinition="int")<%
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");      			
+    			}        		
+    		}else if (attr.type=="Long") {
+    			println("     //" + attr.description);
+    			if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println("");
+    				%>     @Min(value = 1, message="El valor del campo ${attr.description} debe ser mayor a 1.") <% 
+    				println("");
+    				%>     @Max(value = 99999999, message="El valor del campo ${attr.description} debe ser menos que 99999999") <% 
+    				println("");
+    				%>     @Column(name="${attr.name}", columnDefinition="bigint", nullable=false)<%
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");         				
+    			} else { //No requerido
+    				%>     @Column(name="${attr.name}", columnDefinition="bigint" )<%
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");      			
+    			}
+    		}else if (attr.type=="Double") {
+    			println("     //" + attr.description);
+    			if(attr.isNull == false){ 
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println(""); 
+    				%>     @Column(name="${attr.name}", columnDefinition="double", nullable=false )<%
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");     				
+    				    			
+    			} else { //No requerido
+    				%>     @Column(name="${attr.name}", columnDefinition="double" )<%
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");     			
+    			} 
+    	    }else if (attr.type=="BigDecimal"){   	
+    	        println("     //" + attr.description);
+    	        if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println("");
+    				%>     @Min(value = 1, message="El valor del campo ${attr.description} debe ser mayor a 1.") <% 
+    				println("");
+    				%>     @Max(value = 999999999, message="El valor del campo ${attr.description} debe ser menor que 99,999,999.00") <% 
+    				println("");
+    				%>     @Column(name="${attr.name}", columnDefinition="decimal", nullable=false)<%
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println(""); 
+    	        } else { //No requerido
+    				%>     @Column(name="${attr.name}", columnDefinition="decimal" )<%
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");      	        
+    	        }
+    		}else if (attr.type=="Date") {
+    			println("     //" + attr.description);
+    			if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println(""); 
+    				println("     @Temporal(TemporalType.DATE)");
+    				%>     @Column(name="${attr.name}", nullable=false)<%
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");      			
+    			} else { //No requerido
+    			    println("     @Temporal(TemporalType.DATE)");
+    				%>     @Column(name="${attr.name}" )<%
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");      			
+    			}    			
+    		} else if(attr.type=="TIMESTAMP"){
+    			println("     //" + attr.description);
+    			if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println(""); 
+    				println("     @Temporal(TemporalType.TIMESTAMP)");
+    				%>     @Column(name="${attr.name}", nullable=false)<%
+                    println("");
+                    println("     private Date "+ attr.name + ";"); 
+                    println("");      			
+    			} else { //No requerido
+    			    println("     @Temporal(TemporalType.TIMESTAMP)");
+    				%>     @Column(name="${attr.name}" )<%
+                    println("");
+                    println("     private Date " + attr.name + ";"); 
+                    println("");      			
+    			}     		
+    		}else if(attr.type=="Boolean"){
+    			println("     //" + attr.description);
+    			if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println(""); 
+        				%>     @Column(name="${attr.name}", nullable=false)<%
+                    println("");
+                    println("     private Date "+ attr.name + ";"); 
+                    println("");      			
+    			} else { //No requerido
+    				%>     @Column(name="${attr.name}" )<%
+                    println("");
+                    println("     private Boolean " + attr.name + ";"); 
+                    println("");      			
+    			}   
+    		}else if(attr.type=="ManyToOne"){
+    			println("     //" + attr.description);
+    		    println("     @ManyToOne(optional = " + attr.isNull + ", cascade = CascadeType.ALL, fetch = FetchType.EAGER)");	
+    		    %>     @JoinColumn(name="${attr.name}", nullable=${attr.isNull})<%
+    		    println("");
+    		    println("     private " + attr.tableRef + " " + attr.tableRef_lower + ";");   
+				println("");
+			}else if(attr.type=="ManyToMany"){
+			    println("     //" + attr.description);
+			    println("     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)");
+			    %>     @JoinTable(name="${myUtil.entityName}s_${attr.nombre_lower}s", joinColumns        = @JoinColumn(name="${myUtil.entityName}_id")
+			                         , inverseJoinColumns = @JoinColumn(name="${attr.nombre_lower}_id")
+			                         , uniqueConstraints  = {@UniqueConstraint(columnNames = {"${myUtil.entityName}_id","${attr.nombre_lower}_id"})})
+			    <%
+				println("");
+				println("     private List<" + attr.name + "> " + attr.nombre_lower + "s;");   
+				println("");
+    		}else{
+    			println("     //" + attr.description);
+   				%>     @Column(name="${attr.name}") <%
+                println("");
+                println("     private " + attr.type + " " + attr.name + ";");   	
+                println("");    			
+		}
+    	}
+    }
+
+%>
+<%
+	
+	println("    //Metodos Get's");
+	
+	for(attr in myUtil.list){
+		if (attr.type=="Varchar"){
+			%>    public String get${attr.camelCaseName}() {return Utils.validateString(${attr.name});}<%
+			println("");
+		}else if (attr.type=="String"){
+			%>    public String get${attr.camelCaseName}() {return Utils.validateString(${attr.name});}<%
+			println("");
+		}else if (attr.type=="Short"){
+			%>    public Short get${attr.camelCaseName}() {return Utils.validateShort(${attr.name});}<%
+			println("");			
+		}else if (attr.type=="Integer"){
+			%>    public Integer get${attr.camelCaseName}() {return Utils.validateInteger(${attr.name});}<%
+			println("");			
+		}else if (attr.type=="Long"){
+			%>    public Long get${attr.camelCaseName}() {return ${attr.name};}<%
+			println("");				
+		}else if (attr.type=="Double") {
+			%>    public Double get${attr.camelCaseName}() {return Utils.validateDouble(${attr.name});}<%
+			println("");				
+		}else if (attr.type=="BigDecimal"){
+			%>    public BigDecimal get${attr.camelCaseName}() {return Utils.validateBigDecimal(${attr.name});}<%
+			println("");			
+		}else if (attr.type=="Date"){
+			%>    public Date get${attr.camelCaseName}() {return Utils.validateDateSql(${attr.name});}<%
+			println("");				
+		}else if(attr.type=="TIMESTAMP"){
+			%>    public Timestamp get${attr.camelCaseName}() {return ${attr.name};}<%
+			println("");			
+		}else if(attr.type=="Boolean"){
+			%>    public Boolean get${attr.camelCaseName}() {return ${attr.name};}<%
+			println("");			
+		}else if(attr.type=="ManyToOne"){
+		    %>    public ${attr.camelCasetableRef} get${attr.uno_mayuscula_tableRef}() {return ${attr.tableRef_lower};}<%
+			println("");
+		}
+	}
+%>
+
+    //Serializacion
+    private static final long serialVersionUID = 1L;
+  }

@@ -1,0 +1,7 @@
+package ${myUtil.packageName}.domain.exception;
+
+public class ${myUtil.entityClassName}NotFoundException extends RuntimeException{
+
+	private static final long serialVersionUID = 1L;
+
+}

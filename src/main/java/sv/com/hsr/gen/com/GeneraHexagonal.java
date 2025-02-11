@@ -142,11 +142,26 @@ public class GeneraHexagonal {
 		Utils.replace("package com.example.demo;","package "+ myTemplate.getPackageName()+";", myTemplate);
 		Utils.replace("---------- API core Service Started ----------", "---------- "+myTemplate.getArtifact()+" Started ----------", myTemplate);
 		
+		//application.properties
+		myTemplate.setTemplateName("UtilValidate.txt");
+		myTemplate.setFileName("UtilValidate.java");
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "utils"));	
+		UtilCopy.CopyFile(myTemplate);	
+		Utils.replace("package com.example.demo;", "package "+myTemplate.getPackageName()+".utils;", myTemplate);
+
+		
+		myTemplate.setTemplateName("ErrorResponse.txt");
+		myTemplate.setFileName("ErrorResponse.java");
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "domain/model"));	
+		UtilCopy.CopyFile(myTemplate);	
+		Utils.replace("package com.example.demo;", "package "+myTemplate.getPackageName()+".domain.model;", myTemplate);
+		
 		//Creacion de Carpetas
 		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "application"));		
 		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "application/ports"));
 		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "application/ports/input"));
 		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "application/ports/output"));
+		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "application/service"));
 		
 		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "domain"));
 		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "domain/exception"));
@@ -167,14 +182,131 @@ public class GeneraHexagonal {
 		
 		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "utils"));
 		
-		//create application.ports.input.IStudentServicePort
 		createApplicationPortsInputServicePort(myTemplate, "IServicePort.txt");
 		createApplicationPortsOutPutPersistencePort(myTemplate, "IPersistencePort.txt");
+		createApplicationService(myTemplate, "StudentService.txt");
+		createDomainNotFoundException(myTemplate, "NotFoundException.txt");
+		createDomainModel(myTemplate, "Model.txt");
 		
 		
 	}
-	
-	
+
+	private static void createDomainNotFoundException(MyTemplate myTemplate, String template)  throws Exception{
+		String filePath = myTemplate.getPackagePath();
+		myTemplate.setProyecto(myTemplate.getRootPath());	
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "domain/exception"));
+		myTemplate.setTemplateName(template);
+
+    	String sCarpAct = System.getProperty("user.dir") + File.separator + myTemplate.getSource();
+    	
+    	File carpeta = new File(sCarpAct);
+    	String[] listado = carpeta.list();
+    	
+    	if (listado == null || listado.length == 0) {
+    	    System.out.println("No hay elementos dentro de la carpeta actual "+sCarpAct);
+    	    return;
+    	}
+    	else {
+    		
+    	    for (int i=0; i< listado.length; i++) {
+    	    	String archivo           = listado[i];
+    	    	String archivo_sin_ext   = listado[i].substring(0, listado[i].lastIndexOf("."));
+    	    	String entityClassName   = Utils.ConvertCamelCase(archivo_sin_ext);
+    	    	String entityName        = archivo_sin_ext.toLowerCase();
+    	    	String collectionName    = archivo_sin_ext.toLowerCase();
+ 	    	
+    	    	myTemplate.setList(Utils.getMongFieldList(archivo, myTemplate.getSource()));
+    	    	myTemplate.setEntityClassName(entityClassName);
+    	    	myTemplate.setEntityName(entityName);
+    	    	myTemplate.setCollectionName(collectionName);
+    	    	
+    	        String fileName = myTemplate.getEntityClassName() + "NotFoundException.java";
+
+    	        Utils.createJavaFileRender(myTemplate,fileName);
+    	    }
+    	}
+		
+	}
+
+
+	private static void createApplicationService(MyTemplate myTemplate, String template)  throws Exception{
+		String filePath = myTemplate.getPackagePath();
+		myTemplate.setProyecto(myTemplate.getRootPath());	
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "application/service"));
+		myTemplate.setTemplateName(template);
+
+    	String sCarpAct = System.getProperty("user.dir") + File.separator + myTemplate.getSource();
+    	
+    	File carpeta = new File(sCarpAct);
+    	String[] listado = carpeta.list();
+    	
+    	if (listado == null || listado.length == 0) {
+    	    System.out.println("No hay elementos dentro de la carpeta actual "+sCarpAct);
+    	    return;
+    	}
+    	else {
+    		
+    	    for (int i=0; i< listado.length; i++) {
+    	    	String archivo           = listado[i];
+    	    	String archivo_sin_ext   = listado[i].substring(0, listado[i].lastIndexOf("."));
+    	    	String entityClassName   = Utils.ConvertCamelCase(archivo_sin_ext);
+    	    	String entityName        = archivo_sin_ext.toLowerCase();
+    	    	String collectionName    = archivo_sin_ext.toLowerCase();
+ 	    	
+    	    	myTemplate.setList(Utils.getMongFieldList(archivo, myTemplate.getSource()));
+    	    	myTemplate.setEntityClassName(entityClassName);
+    	    	myTemplate.setEntityName(entityName);
+    	    	myTemplate.setCollectionName(collectionName);
+    	    	
+    	        String fileName = myTemplate.getEntityClassName() + "Service.java";
+
+    	        Utils.createJavaFileRender(myTemplate,fileName);
+    	    }
+    	}
+		
+	}
+
+
+
+
+
+	private static void createDomainModel(MyTemplate myTemplate, String template) throws Exception{
+		String filePath = myTemplate.getPackagePath();
+		myTemplate.setProyecto(myTemplate.getRootPath());	
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "domain/model"));
+		myTemplate.setTemplateName(template);
+
+    	String sCarpAct = System.getProperty("user.dir") + File.separator + myTemplate.getSource();
+    	
+    	File carpeta = new File(sCarpAct);
+    	String[] listado = carpeta.list();
+    	
+    	if (listado == null || listado.length == 0) {
+    	    System.out.println("No hay elementos dentro de la carpeta actual "+sCarpAct);
+    	    return;
+    	}
+    	else {
+    		
+    	    for (int i=0; i< listado.length; i++) {
+    	    	String archivo           = listado[i];
+    	    	String archivo_sin_ext   = listado[i].substring(0, listado[i].lastIndexOf("."));
+    	    	String entityClassName   = Utils.ConvertCamelCase(archivo_sin_ext);
+    	    	String entityName        = archivo_sin_ext.toLowerCase();
+    	    	String collectionName    = archivo_sin_ext.toLowerCase();
+ 	    	
+    	    	myTemplate.setList(Utils.getMongFieldList(archivo, myTemplate.getSource()));
+    	    	myTemplate.setEntityClassName(entityClassName);
+    	    	myTemplate.setEntityName(entityName);
+    	    	myTemplate.setCollectionName(collectionName);
+    	    	
+    	        String fileName = myTemplate.getEntityClassName() + ".java";
+
+    	        Utils.createJavaFileRenderComun(myTemplate,fileName);
+    	    }
+    	} 	
+	}
+
+
 
 
 
@@ -186,7 +318,6 @@ public class GeneraHexagonal {
 			myTemplate.setTemplateName(template);
 
 	    	String sCarpAct = System.getProperty("user.dir") + File.separator + myTemplate.getSource();
-	    	
 	    	
 	    	File carpeta = new File(sCarpAct);
 	    	String[] listado = carpeta.list();
@@ -210,7 +341,8 @@ public class GeneraHexagonal {
 	    	    	myTemplate.setCollectionName(collectionName);
 	    	    	
 	    	        String fileName = "I"+myTemplate.getEntityClassName() + "ServicePort.java";
-	    	        Utils.createJavaFileRenderComun(myTemplate,fileName);
+
+	    	        Utils.createJavaFileRender(myTemplate,fileName);
 	    	    }
 	    	} 			
 			
@@ -247,7 +379,7 @@ public class GeneraHexagonal {
 	    	    	myTemplate.setCollectionName(collectionName);
 	    	    	
 	    	        String fileName = "I"+myTemplate.getEntityClassName() + "PersistencePort.java";
-	    	        Utils.createJavaFileRenderComun(myTemplate,fileName);
+	    	        Utils.createJavaFileRender(myTemplate,fileName);
 	    	    }
 	    	} 			
 			

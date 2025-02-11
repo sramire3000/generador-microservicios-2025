@@ -3,6 +3,7 @@
     "name":"id",
     "type":"Long",
     "isNull":true,
+	"isPk":true,
     "description":"Key",
     "len":null
   },
@@ -18,7 +19,7 @@
     "name":"lastname",
     "type":"String",
     "isNull":false,
-    "description":"Appelidos del studiante",
+    "description":"Apellidos del estudiante",
     "len":100,
     "isFindLike": true
   }

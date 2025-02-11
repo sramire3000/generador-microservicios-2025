@@ -1,11 +1,11 @@
-package ${myUtil.packageName}.application.ports.output;
+package ${myUtil.packageName}.application.ports.input;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import ${myUtil.packageName}.domain.model.${myUtil.entityClassName};
 
-public interface I${myUtil.entityClassName}PeristencePort {
+public interface I${myUtil.entityClassName}ServicePort {
 
 	//Lista todos los Objectos
 	public Page<${myUtil.entityClassName}> findAll(Pageable pageable);
@@ -24,8 +24,12 @@ public interface I${myUtil.entityClassName}PeristencePort {
     public ${myUtil.entityClassName} save(${myUtil.entityClassName} ${myUtil.entityName});
     
     //Metodo Update
-    public ${myUtil.entityClassName} update(${myUtil.entityClassName} ${myUtil.entityName});    
-    
+    public ${myUtil.entityClassName} update(${myUtil.entityClassName} ${myUtil.entityName}, <%for(attr in myUtil.list){
+                                                                                                                      	if(attr.isPk == true){
+	                                                                                                                       %>${attr.type} ${attr.name}<%
+	                                                                                                                    }
+                                                                                                                      }%>);     
+
     //Metodo Delete
     public void deleteById(<%
         for(attr in myUtil.list){

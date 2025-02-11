@@ -1,0 +1,112 @@
+package ${myUtil.packageName}.application.service;
+
+import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import ${myUtil.packageName}.application.ports.input.IStudentServicePort;
+import ${myUtil.packageName}.application.ports.output.IStudentPersistencePort;
+import ${myUtil.packageName}.domain.exception.StudentNotFoundException;
+
+import ${myUtil.packageName}.domain.model.Student;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassName}ServicePort  {
+
+	private final I${myUtil.entityClassName}PersistencePort ${myUtil.entityName}PersistencePort;
+
+	//Implementacion del Metodo buscar todos
+    @Override
+    public Page<${myUtil.entityClassName}> findAll(Pageable pageable){
+        return ${myUtil.entityName}PersistencePort.findAll(pageable);
+    }
+
+	//Implementacion del Metodo Buscar por Id
+	@Override
+    public ${myUtil.entityClassName} findById(<%
+        for(attr in myUtil.list){
+            if(attr.name == "id")
+                print(attr.type);
+        }
+    %> id){
+        return ${myUtil.entityName}PersistencePort.findById(id).orElseThrow(${myUtil.entityClassName}NotFoundException::new);
+    }
+    
+	//Implementacion del Metodo Save
+	@Override
+    public ${myUtil.entityClassName} save(${myUtil.entityClassName} ${myUtil.entityName}){
+        return ${myUtil.entityName}PersistencePort.save(${myUtil.entityName});
+    }
+    
+	/* Implementacion del Metodo Update */
+    public ${myUtil.entityClassName} update(${myUtil.entityClassName} ${myUtil.entityName}, <%for(attr in myUtil.list){
+                                                                                                                      	if(attr.isPk == true){
+	                                                                                                                       %>${attr.type} ${attr.name}<%
+	                                                                                                                    }
+                                                                                                                      }%>) {
+    	return ${myUtil.entityName}PersistencePort.findById(id)
+    	      .map(save${myUtil.entityClassName} -> {
+     	<%
+     	    println("              //Paso de Variables");
+    	    for(attr in myUtil.list){
+    	    	if (attr.name == "id"){
+    	    	    
+    	    	}else{
+                    if (!(attr.type=="ManyToMany" || attr.type=="ManyToOne")){
+                       %>                      save${myUtil.entityClassName}.set${attr.camelCaseName}(${myUtil.entityName}.get${attr.camelCaseName}());<%
+                       println("");
+                    }   
+    	    	}
+    	    }
+	    	%>
+    	             return ${myUtil.entityName}PersistencePort.save(save${myUtil.entityClassName});
+    	      })
+    	      .orElseThrow(${myUtil.entityClassName}NotFoundException::new);
+    }
+        
+    //Implementacion del Metodo Delete
+	@Override
+    public void deleteById(<%
+        for(attr in myUtil.list){
+            if(attr.name == "id")
+                print(attr.type);
+        }
+    %> id){
+        ${myUtil.entityName}PersistencePort.deleteById(id);
+    }
+    
+<%
+    for(attr in myUtil.list){
+    	if (attr.type=="String"){
+        		
+    		if (attr.isFind == true){
+	    	  println("    //Busqueda por "+ attr.description);
+              println("    @Override");
+              %>    public Page<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}, Pageable pageable){ <%
+              println("");
+              %>        return ${myUtil.entityName}PersistencePort.findBy${attr.camelCaseName}(${attr.name}, pageable); <%
+              println("");
+              %>    }<%
+              println("");
+              println("");              
+    		}
+
+    		if (attr.isFindLike == true){
+	    	  println("    //Busqueda por "+ attr.description);
+              println("    @Override");
+              %>    public Page<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}, Pageable pageable){ <%
+              println("");
+              %>        return ${myUtil.entityName}PersistencePort.findBy${attr.camelCaseName}("%"+${attr.name}.trim()+"%", pageable); <%
+              println("");
+              %>    }<%
+              println("");
+              println("");              
+    		}
+    	} 
+        
+    }	
+%>
+}

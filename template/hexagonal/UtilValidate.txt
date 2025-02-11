@@ -1,0 +1,183 @@
+package com.example.demo;
+
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+public class UtilValidate {
+
+    static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+    /***************/
+	/* VALIDADORES */
+	/***************/
+	public static String validateString(String field) {
+		try {
+			if (field != null) {
+				if (field.equalsIgnoreCase("NULL")) {
+					return "";
+				} else {
+					return field.trim();
+				}
+			} else {
+				return "";
+			}
+		} catch (Exception e) {
+			return "";
+		}
+	}
+	
+    public static String validateString(String field, Integer tam) {
+		try {
+			if (field != null) {
+				if (field.equalsIgnoreCase("NULL")) {
+					return "";
+				} else {
+					if (field.trim().length() <= tam) {
+						return field.trim();
+					} else {
+						return field.trim().substring(0, tam);
+					}
+				}
+			} else {
+				return "";
+			}
+		} catch (Exception e) {
+			return "";
+		}
+	}
+	
+    public static Double validateDouble(BigDecimal val) {
+ 		try {
+ 			if (val == null) {
+ 				return Double.valueOf(0);
+ 			}
+ 			return val.doubleValue();
+ 		} catch (Exception e) {
+ 			return Double.valueOf(0);
+ 		}
+ 	} 	
+	
+    public static Double validateDouble(String val) {
+ 		try {
+ 			if (val == null) {
+ 				return Double.valueOf(0);
+ 			}else if (val.trim().equals("")){
+ 				return Double.valueOf("0");
+ 			}
+ 			return Double.valueOf(val);
+ 		} catch (Exception e) {
+ 			return Double.valueOf(0);
+ 		}
+ 	}
+ 	
+	public static Short validateShort(Short val) {
+		try {
+			if (val == null) {
+				return Short.valueOf("0");
+			}
+			return val;
+		} catch (Exception e) {
+			return Short.valueOf("0");
+		}
+	} 
+	
+	public static Short validateShort(String val) {
+		try {
+			if (val == null || val.trim().equals("")) {
+				return Short.valueOf("0");
+			}else{
+				return Short.valueOf(val);	
+			}
+		} catch (Exception e) {
+			return Short.valueOf("0");
+		}
+	}	
+	
+	public static String validateIntegerString(Integer i){
+		if(i == null){
+			return "";
+		}else{
+			return i.toString();
+		}
+	}			
+
+	public static BigDecimal validateBigDecimal(Double val) {
+		try {
+			if (val == null) {
+				return BigDecimal.ZERO;
+			}
+			return BigDecimal.valueOf(val);
+		} catch (Exception e) {
+			return BigDecimal.ZERO;
+		}
+	}
+	
+	public static BigDecimal validateBigDecimal(BigDecimal val) {
+		try {
+			if (val == null) {
+				return BigDecimal.ZERO;
+			}
+			return val;
+		} catch (Exception e) {
+			return BigDecimal.ZERO;
+		}
+	}	
+	
+	public static Double validateDouble(Double val){
+		try {
+			if (val == null) {
+				return Double.valueOf(0);
+			}
+			return val.doubleValue();
+		} catch (Exception e) {
+			return Double.valueOf(0);
+		}
+	}
+	
+	public static Character validateCharacter(Character field){
+		try {
+			if (field != null) {
+					return field;
+			} else {
+				return ' ';
+			}
+		} catch (Exception e) {
+			return ' ';
+		}		
+	}	
+		
+	public static Integer validateInteger(Integer val) {
+		try {
+			if (val == null) {
+				return Integer.valueOf(0);
+			}
+
+			return val;
+		} catch (Exception e) {
+			return Integer.valueOf(0);
+		}
+	}		
+	
+	public static Integer validateInteger(String val) {
+		try {
+			if (val == null) {
+				return Integer.valueOf(0);
+			}
+
+			return Integer.parseInt(val.trim());
+		} catch (Exception e) {
+			return Integer.valueOf(0);
+		}
+	}	
+	
+	/**
+	 * 
+	 * @param theList
+	 * @return
+	 */
+	public static boolean isEmptyList(List<?> theList) {
+		return theList == null || theList.size() == 0;
+	}	
+	
+}

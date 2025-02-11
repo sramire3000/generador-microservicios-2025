@@ -1,0 +1,512 @@
+package com.example.demo;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.security.SecureRandom;
+import java.util.List;
+
+import org.springframework.web.util.HtmlUtils;
+
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.time.YearMonth;
+import java.util.Calendar;
+import java.util.Date;
+import java.text.DecimalFormat;
+
+public class UtilFormat {
+
+    static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+
+	/************/
+	/* FORMATOS */
+	/************/
+	public static String decimalFormat(BigDecimal decimal) {
+		NumberFormat formatter = new DecimalFormat("###############.00");
+		String texto = "";
+		try{texto = formatter.format(decimal);} catch (Exception ex) {texto = formatter.format(0);}
+		return texto;
+	}
+	
+	public static String decimalFormat(Double decimal) {
+		NumberFormat formatter = new DecimalFormat("###############.00");
+		String texto = "";
+		try{texto = formatter.format(decimal);} catch (Exception ex) {texto = formatter.format(0);}
+		return texto;
+	}		
+	
+	public static String FormatMoney(BigDecimal decimal) {
+		NumberFormat formatter = new DecimalFormat("$###,###,###,###,##0.00");
+		String texto = "";
+		try{texto = formatter.format(decimal);} catch (Exception ex) {texto = formatter.format(0);}
+		return texto;
+	}
+	
+	public static String FormatMoneyM(BigDecimal decimal) {
+		NumberFormat formatter = new DecimalFormat("###,###,###,###,##0.00");
+		String texto = "";
+		try{texto = formatter.format(decimal);} catch (Exception ex) {texto = formatter.format(0);}		
+		return texto;
+	}		
+	
+	public static String interesFormat(BigDecimal decimal) {
+		NumberFormat formatter = new DecimalFormat("###.0000");
+		return formatter.format(decimal);
+	}	
+	
+	public static String porcentajeFormat(BigDecimal decimal) {
+		NumberFormat formatter = new DecimalFormat("##0.00");
+		String texto = "";
+		try{texto = formatter.format(decimal);} catch (Exception ex) {texto = formatter.format(0);}		
+		return texto;
+	}	
+	
+	public static String plazoFormat(Integer decimal) {
+		NumberFormat formatter = new DecimalFormat("####");
+		String texto = "";
+		try{texto = formatter.format(decimal);} catch (Exception ex) {texto = formatter.format(0);}			
+		return texto;
+	}	
+	
+	/* Formatea el NIT */
+	public static String getFormatNit(String nit) {
+		try {
+			String nitFormateado = "";
+			
+			nit = nit.replaceAll("-", "");
+			
+			if (nit == null	|| nit.equals("")) {
+				return "";
+			} else {
+				nitFormateado = nit.substring(0, 4)
+						+ "-" + nit.substring(4, 10)
+						+ "-" + nit.substring(10, 13)
+						+ "-" + nit.substring(13);
+			}
+			return nitFormateado;
+		} catch (Exception e) {
+			return nit;
+		} 
+	}
+	
+	/* Formatea el DUI */
+	public static String getFormatDui(String dui){
+		try {
+			String duiFormateado = "";
+			
+			dui = dui.replaceAll("-", "");
+			
+			if (dui == null	|| dui.equals("")) {
+				return "";
+			} else {
+				duiFormateado = dui.substring(0, 8)
+						+ "-" + dui.substring(8, 9);
+
+			}
+			return duiFormateado;
+		} catch (Exception e) {
+			return dui;
+		} 		
+	}	
+	
+	public static String formatoFechaddMMyy(Date fecha) {
+		if (fecha != null) {
+			String cadenaFecha = "";
+			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			cadenaFecha = df.format(fecha);
+
+			return cadenaFecha;
+		} else {
+			return "";
+		}
+	}		
+	
+	public static String formatoFechayyMMdd(Date fecha) {
+		if (fecha != null) {
+			String cadenaFecha = "";
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			cadenaFecha = df.format(fecha);
+
+			return cadenaFecha;
+		} else {
+			return "";
+		}
+	}
+	
+	//Genera Aleatorio
+	public static String generarAleatorioEntero() {
+		Double ramdom = new SecureRandom().nextDouble();
+		String numero = (ramdom*1000 + 1)+"";
+		System.out.println("Numero generado: "+numero.replace(".", "").substring(0,5));
+		return "0000000000000"+numero.replace(".", "").substring(0,5);
+	}	
+	
+	public static String doLPad(String data, int lenght, String param) {
+		int dataLenght = data.length();
+		for (int i = dataLenght; i < lenght; i++) {
+			data = param + data;
+		}
+		return data;
+	}	
+	
+	public static String doRpad(String valueToPad, char filler, int size) {
+		String str_temp;
+		Integer i;
+		Integer Termina;
+		if (!(valueToPad == null)) {
+			str_temp = valueToPad.trim();
+			Termina = size - valueToPad.length();
+			for (i = 1; i < Termina; i++) {
+				str_temp = str_temp + filler;
+			}
+			;
+		} else {
+			str_temp = " ";
+		}
+		return str_temp;
+	}	
+	
+	public static String MesToLetras(Date fecha) {
+		String nombre_mes = "";
+		try {
+			Calendar cal_fecha    = Calendar.getInstance();
+
+			cal_fecha.setTime(fecha);
+			
+			Integer mes = cal_fecha.get(Calendar.MONTH);
+			
+			if (mes.equals(0))  {nombre_mes = "Enero";}
+			if (mes.equals(1))  {nombre_mes = "Febrero";}
+			if (mes.equals(2))  {nombre_mes = "Marzo";}
+			if (mes.equals(3))  {nombre_mes = "Abril";}
+			if (mes.equals(4))  {nombre_mes = "Mayo";}
+			if (mes.equals(5))  {nombre_mes = "Junio";}
+			if (mes.equals(6))  {nombre_mes = "Julio";}
+			if (mes.equals(7))  {nombre_mes = "Agosto";}
+			if (mes.equals(8))  {nombre_mes = "Septiembre";}
+			if (mes.equals(9))  {nombre_mes = "Octubre";}
+			if (mes.equals(10)) {nombre_mes = "Noviembre";}
+			if (mes.equals(11)) {nombre_mes = "Diciembre";}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return nombre_mes;
+	}
+	
+	public static Integer DiaToNumero(Date fecha) {
+		Integer dia = 0;
+		try {
+			Calendar cal_fecha    = Calendar.getInstance();
+
+			cal_fecha.setTime(fecha);
+			
+			dia = cal_fecha.get(Calendar.DAY_OF_MONTH);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dia;
+	}	
+	
+	public static Integer AnioToNumero(Date fecha) {
+		Integer anio = 0;
+		try {
+			Calendar cal_fecha    = Calendar.getInstance();
+
+			cal_fecha.setTime(fecha);
+			
+			anio = cal_fecha.get(Calendar.YEAR);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return anio;
+	}	
+	
+	public static BigDecimal fraccionar2decimales(BigDecimal number) {
+		
+		return new BigDecimal(number.toString()).setScale(2, RoundingMode.FLOOR);
+	}		
+	
+	public static Integer getEdad(Date fchNacimiento) {
+		try {
+			Calendar fecha = Calendar.getInstance();
+			Calendar fechaNac = Calendar.getInstance();
+
+			if (fchNacimiento == null) {
+				return 0;
+			}
+
+			fechaNac.setTime(fchNacimiento);
+			
+			if (fecha.get(Calendar.MONTH) >= fechaNac.get(Calendar.MONTH)) {
+				return  validateInteger(fecha.get(Calendar.YEAR) - fechaNac.get(Calendar.YEAR));
+			} else {
+				return validateInteger((fecha.get(Calendar.YEAR) - fechaNac.get(Calendar.YEAR)) - 1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}		
+	
+	@SuppressWarnings("unused")
+	public static Date validateDateSql(Date fecha) {
+		
+		boolean ok= true;
+		
+		if (fecha != null) {
+			
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(fecha);
+
+			
+			int dia = calendar.get(Calendar.DAY_OF_MONTH); // dia del mes
+			int mes = calendar.get(Calendar.MONTH); 	   // mes, de 0 a 11
+			int anio = calendar.get(Calendar.YEAR);        // año
+			
+			//if (anio < 1753) {ok = false;}
+			if (anio < 1901) {ok = false;}
+			if (anio > 9999) {ok = false;}
+			if (mes < 1)     {ok = false;}
+			if (mes > 12)    {ok = false;}
+			
+			if (ok == false) {fecha = null;}
+		}
+		
+		return fecha;
+	}	
+	
+	public static java.sql.Time extractTime(Date date){
+		java.sql.Time time = new java.sql.Time(date.getTime());
+		return 	time;
+	}	
+	
+	//Para Veracode
+	public static String formatCRLFInjectionLogs(Object input) {
+	     if (input != null) {
+	       return HtmlUtils.htmlEscape(input.toString()); // Action method
+	     }
+	     
+	     return null;
+   }	
+	
+	/**
+	 * <h1>Método Utilizado para Aproximación a dos decimales.</h1>
+	 * <p>
+	 * @param numero Parámetro del valor a aproximar.
+	 * <p>
+	 * @return El número aproximado de tipo doublé
+	 * <p>
+	 * @exception 0
+	 */
+	public static double aproxim(double numero){
+		double val = 0;
+		try {
+	        val = numero*100;
+	        val = java.lang.Math.round(val);
+	        val = val/100;			
+		} catch (Exception e) {
+			e.printStackTrace();
+			val = 0;
+		}
+		return val;
+	}	
+	
+	/**
+	 * <h1>Método Utilizado para Aproximación a 4 decimales.</h1>
+	 * <p>
+	 * @param numero Parámetro del valor a aproximar.
+	 * <p>
+	 * @return El número aproximado de tipo doublé
+	 * <p>
+	 * @exception 0
+	 */	
+	public static double aproxim4(double num){
+		double val = 0;
+		try {
+	        val = num*10000;
+	        val = java.lang.Math.round(val);
+	        val = val/10000;			
+		} catch (Exception e) {
+			val = 0;
+		}
+		return val;
+	}	
+	
+	/**
+	 * <h1>Método Utilizado para truncar el valor a dos decimales.</h1>
+	 * <p>
+	 * @param numero Parámetro del valor a aproximar.
+	 * <p>
+	 * @return El número truncado de tipo doublé
+	 * <p>
+	 * @exception 0
+	 */	
+	public static double truncate(double numero){
+		double val = 0;
+		try {
+	        val = numero*100;
+	        val = java.lang.Math.floor(val);
+	        val = val/100;			
+		} catch (Exception e) {
+			e.printStackTrace();
+			val = 0;
+		}
+
+		return val;
+	}	
+	
+	/**
+	 * <h1>Método Utilizado para truncar el valor a 4 decimales.</h1>
+	 * <p>
+	 * @param numero Parámetro del valor a aproximar.
+	 * <p>
+	 * @return El número truncado de tipo doublé
+	 * <p>
+	 * @exception 0
+	 */		
+	public static double truncate4(double num){
+		double val = 0;
+		try {
+	        val = num*10000;
+	        val = java.lang.Math.floor(val);
+	        val = val/10000;
+		} catch (Exception e) {
+			e.printStackTrace();
+			val = 0;
+		}
+		return val;
+	}	
+	
+	/**
+	 * <h1>Se utiliza para obtener la potencia del primer argumento al segundo argumento.</h1>
+	 * <p>
+	 * @param numero Parámetro del valor a elevar a la potencia.
+	 * @param n potencia.
+	 * <p>
+	 * @return El número elevado a la potencia de tipo doublé
+	 * <p>
+	 * @exception 0
+	 */		
+	public static double power(double x, int n) {
+		int bitMask = n;
+		double evenPower = x;
+		double result;
+		if ((bitMask & 1) != 0) {
+			result = x;
+		} else {
+			result = 1;
+		}
+		bitMask >>>= 1;
+		while (bitMask != 0) {
+			evenPower *= evenPower;
+			if ((bitMask & 1) != 0) {
+				result *= evenPower;
+			}
+			bitMask >>>= 1;
+		} // end while
+		return result;
+	}	
+		
+		
+	/**
+	 * <h1>Se utiliza para obtener el Valor sin IVA.</h1>
+	 * <p>
+	 * @param monto Parámetro monto.
+	 * <p>
+	 * @return El monto sin IVA
+	 * <p>
+	 * @exception 0
+	 */			
+	public static double montoSinIva(double monto) {
+		double result = 0;
+		
+		try {
+			result = aproxim(truncate(monto)/1.13);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = 0;
+		}
+		
+		return result;
+	}	
+	
+	/**
+	 * <h1>Funcion que se utiliza para obtener la fecha de nacimiento a partir del NIT.</h1>
+	 * <p>
+	 * @param nit Parámetro nit.
+	 * <p>
+	 * @return date  fecha de nacimiento
+	 * <p>
+	 * @exception null fecha invalida
+	 */		
+	public static Date getBirthDayFromNIT(String nit) {
+		Date result = null;
+		
+		int year;
+		String fecha_str;
+		
+		nit   = nit.replaceAll("-","");
+		
+		String nitFormat = "\\d{4}-\\d{6}-\\d{3}-\\d|\\d{14}";
+		
+		if (!nit.matches(nitFormat)){
+            System.out.println(nit+ " no tiene el formato correcto de un nit");
+            return null;
+        }
+		
+
+	    year = YearMonth.now().getYear()%100;
+	    
+	    fecha_str= nit.substring(4,6)+"/"+nit.substring(6,8)+"/"+ ( Integer.parseInt(nit.substring(8,10))> year?"19":"20") + nit.substring(8,10);
+	    
+	    try{          
+	    	result = dateFormat.parse(fecha_str);
+        }catch(Exception e){
+            System.out.println("El NIT no contiene fecha válida");
+            return null;
+        }
+	    
+	    System.out.println("Fecha de Naciemiento"+result);
+		return result;
+	}
+	
+	public static String toCamelCase(String s, Boolean nextCapital) {
+
+		// create a StringBuilder to create our output string
+		StringBuilder sb = new StringBuilder();
+
+		// loop through the string
+		for (int i = 0; i < s.length(); i++) {
+
+			// if the current character is a letter
+			if (Character.isLetter(s.charAt(i))) {
+
+				// get the current character
+				char tmp = s.charAt(i);
+
+				// make it a capital if required
+				if (nextCapital)
+					tmp = Character.toUpperCase(tmp);
+
+				// add it to our output string
+				sb.append(tmp);
+
+				// make sure the next character isn't a capital
+				nextCapital = false;
+
+			} else {
+				// otherwise the next letter should be a capital
+				nextCapital = true;
+			}
+		}
+
+		// return our output string
+		return sb.toString();
+	}	
+}
