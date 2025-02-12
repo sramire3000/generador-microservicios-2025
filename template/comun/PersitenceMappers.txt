@@ -1,0 +1,19 @@
+package ${myUtil.packageName}.infrastructure.adapters.output.persistence.mapper;
+
+import java.util.List;
+
+import org.mapstruct.Mapper;
+
+import ${myUtil.packageName}.domain.model.${myUtil.entityClassName};
+import ${myUtil.packageName}.infrastructure.adapters.output.persistence.entity.${myUtil.entityClassName}Entity;
+
+@Mapper(componentModel = "spring")
+public interface I${myUtil.entityClassName}PersitenceMappers {
+
+	${myUtil.entityClassName}Entity to${myUtil.entityClassName}Entity(${myUtil.entityClassName} ${myUtil.entityName});
+	
+	${myUtil.entityClassName} to${myUtil.entityClassName}(${myUtil.entityClassName}Entity entity);
+	
+	List<${myUtil.entityClassName}> to${myUtil.entityClassName}List(List<${myUtil.entityClassName}Entity> entityList);
+	
+}

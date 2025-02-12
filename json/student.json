@@ -4,6 +4,7 @@
     "type":"Long",
     "isNull":true,
 	"isPk":true,
+	"isAutoGen":true,
     "description":"Key",
     "len":null
   },

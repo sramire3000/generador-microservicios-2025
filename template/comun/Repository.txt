@@ -1,0 +1,57 @@
+package ${myUtil.packageName}.infrastructure.adapters.output.persistence.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+<%
+    var entra = false;
+	for(attr in myUtil.list){
+		if (attr.type=="String"){
+		   if ((attr.isFind == true) || (attr.isFindLike == true)){
+				entra = true;
+           }
+		}
+		
+		if (attr.type=="ManyToOne"){
+		   if ((attr.isFind == true)){
+				entra = true;
+           }
+		}		
+	}
+	
+	if (entra == true){
+       println("import org.springframework.data.jpa.repository.Query;");
+       println("import org.springframework.data.domain.Page;");
+       println("import org.springframework.data.domain.Pageable;");		
+	}
+%>
+
+import ${myUtil.packageName}.infrastructure.adapters.output.persistence.entity.${myUtil.entityClassName}Entity;
+
+public interface I${myUtil.entityClassName}Repository extends JpaRepository<${myUtil.entityClassName}Entity, Long> {
+<%
+    println("");    
+    for(attr in myUtil.list){
+    
+    	if (attr.type=="String"){
+    		if (attr.isFindLike == true){
+	    	  println("     //Busqueda por "+ attr.description);
+	    	  %>     @Query("SELECT c FROM ${myUtil.entityClassName}Entity c where c.${attr.name} like ?1")  <%
+	    	  println("");
+              %>     Page<${myUtil.entityClassName}Entity> findBy${attr.camelCaseName}(String ${attr.name}, Pageable pageable);<%
+              println("");
+              println("");
+    		}
+    	} 
+    	
+    	if (attr.type=="ManyToOne"){
+    		if (attr.isFind == true){
+	    	  println("     //Busqueda por "+attr.nombre_lower+"_id");
+	    	  %>     @Query("SELECT c FROM ${myUtil.entityClassName}Entity c where c.${attr.tableRef_lower}.${attr.nombre_lower} = ?1")  <%
+	    	  println("");
+              %>     Page<${myUtil.entityClassName}Entity> findBy${attr.camelCaseName}(Long ${attr.nombre_lower}, Pageable pageable);<%
+              println("");
+              println("");
+    		}    	
+    	}
+	}        
+%>
+}

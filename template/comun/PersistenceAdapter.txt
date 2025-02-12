@@ -1,0 +1,82 @@
+package ${myUtil.packageName}.infrastructure.adapters.output.persistence;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
+
+import ${myUtil.packageName}.domain.model.${myUtil.entityClassName};
+import ${myUtil.packageName}.application.ports.output.I${myUtil.entityClassName}PersistencePort;
+
+import ${myUtil.packageName}.infrastructure.adapters.output.persistence.mapper.I${myUtil.entityClassName}PersitenceMappers;
+import ${myUtil.packageName}.infrastructure.adapters.output.persistence.repository.I${myUtil.entityClassName}Repository;
+
+@SuppressWarnings("unused")
+@Component
+@RequiredArgsConstructor
+public class ${myUtil.entityClassName}PersistenceAdapter implements I${myUtil.entityClassName}PersistencePort{
+
+	private final I${myUtil.entityClassName}Repository repository;
+	
+	private final I${myUtil.entityClassName}PersitenceMappers mapper;
+	
+	//Lista todos los Objectos
+	public Page<${myUtil.entityClassName}> findAll(Pageable pageable){
+	   return null;
+	}
+	
+	//Busca el Objeto por Id
+    public Optional<${myUtil.entityClassName}> findById(<%
+        for(attr in myUtil.list){
+            if(attr.isPk == true){
+            	print(attr.type +" "+attr.name);
+            }
+                
+        }
+    %>){
+       return null;
+    }
+    
+    //Metodo Guardar
+    public ${myUtil.entityClassName} save(${myUtil.entityClassName} ${myUtil.entityName}){
+    	return mapper.to${myUtil.entityClassName}(repository.save(mapper.to${myUtil.entityClassName}Entity(${myUtil.entityName})));
+    }    
+    
+    //Metodo Delete
+    public void deleteById(<%
+        for(attr in myUtil.list){
+            if(attr.isPk == true){
+            	print(attr.type +" "+attr.name);
+            }
+        }
+    %>){
+    	repository.deleteById(id);
+    }    
+
+<%
+    for(attr in myUtil.list){
+    
+    	if (attr.type=="String"){
+    		if (attr.isFindLike == true){
+	    	  println("    //Busqueda por "+ attr.description);
+              %>    public Page<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}, Pageable pageable){return null;}<%
+              println("");
+              println("");    		
+    		}
+    	} 
+    	
+    	if (attr.type=="ManyToOne"){
+    		if (attr.isFind == true){
+	    	  println("    //Busqueda por "+attr.nombre_lower);
+              %>    public Page<${myUtil.entityClassName}> findBy${attr.camelCaseName}(Long ${attr.nombre_lower}, Pageable pageable){return null;}<%
+              println("");
+              println("");    		
+    		}
+    	}     	
+    }	
+%>
+}
