@@ -1,0 +1,232 @@
+package ${myUtil.packageName}.infrastructure.adapters.input.rest.model.request;
+
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import ${myUtil.packageName}.utils.UtilValidate;
+
+@SuppressWarnings("unused")
+@Builder
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class ${myUtil.entityClassName}CreateRequest  {
+
+<%
+    
+    for(attr in myUtil.list){
+    
+    	//Id
+    	if (attr.isPk == true){
+        	println(""); 
+    	}else{
+    	    if (attr.type=="Varchar"){
+    			println("     //" + attr.description);
+    			if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println(""); 
+    				%>     @Size(min=1, max=${attr.len}, message="El ${attr.description} debe tener de 1 a ${attr.len} caracteres.") <%
+    				println(""); 
+                    println("     private String " + attr.name + ";"); 
+                    println("");    				
+    			}else{//No requerido
+                    println("");
+                    println("     private String " + attr.name + ";");   	
+                    println("");			
+    			}   	    
+    	    }else if (attr.type=="String"){
+    			println("     //" + attr.description);
+    			if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println(""); 
+    				%>     @Size(min=1, max=${attr.len}, message="El ${attr.description} debe tener de 1 a ${attr.len} caracteres.") <%
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");    				
+    			}else{//No requerido
+                    if (attr.type=="String"){
+                       %>, length = ${attr.len}, columnDefinition="char(${attr.len})" )  <%
+                    }   
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";");   	
+                    println("");			
+    			}
+    		}else if (attr.type=="Short"){
+        		println("     //" + attr.description);
+    			if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println("");
+    				%>     @Min(value = 1, message="El valor del campo ${attr.description} debe ser mayor a 1.") <% 
+    				println("");
+    				%>     @Max(value = 999, message="El valor del campo ${attr.description} debe ser menos que 999") <% 
+    				println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");         				
+    			} else { //No requerido
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");      			
+    			}     		
+        	}else if (attr.type=="Integer"){
+        		println("     //" + attr.description);
+    			if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println("");
+    				%>     @Min(value = 1, message="El valor del campo ${attr.description} debe ser mayor a 1.") <% 
+    				println("");
+    				%>     @Max(value = 99999999, message="El valor del campo ${attr.description} debe ser menos que 99999999") <% 
+    				println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");         				
+    			} else { //No requerido
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");      			
+    			}        		
+    		}else if (attr.type=="Long") {
+    			println("     //" + attr.description);
+    			if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println("");
+    				%>     @Min(value = 1, message="El valor del campo ${attr.description} debe ser mayor a 1.") <% 
+    				println("");
+    				%>     @Max(value = 99999999, message="El valor del campo ${attr.description} debe ser menos que 99999999") <% 
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");         				
+    			} else { //No requerido
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");      			
+    			}
+    		}else if (attr.type=="Double") {
+    			println("     //" + attr.description);
+    			if(attr.isNull == false){ 
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");     				
+    				    			
+    			} else { //No requerido
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");     			
+    			} 
+    	    }else if (attr.type=="BigDecimal"){   	
+    	        println("     //" + attr.description);
+    	        if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println("");
+    				%>     @Min(value = 1, message="El valor del campo ${attr.description} debe ser mayor a 1.") <% 
+    				println("");
+    				%>     @Max(value = 999999999, message="El valor del campo ${attr.description} debe ser menor que 99,999,999.00") <% 
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println(""); 
+    	        } else { //No requerido
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");      	        
+    	        }
+    		}else if (attr.type=="Date") {
+    			println("     //" + attr.description);
+    			if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");      			
+    			} else { //No requerido
+                    println("");
+                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    println("");      			
+    			}    			
+    		} else if(attr.type=="TIMESTAMP"){
+    			println("     //" + attr.description);
+    			if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+                    println("");
+                    println("     private Date "+ attr.name + ";"); 
+                    println("");      			
+    			} else { //No requerido
+                    println("");
+                    println("     private Date " + attr.name + ";"); 
+                    println("");      			
+    			}     		
+    		}else if(attr.type=="Boolean"){
+    			println("     //" + attr.description);
+    			if(attr.isNull == false){ //Requerido
+    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
+    				println(""); 
+                    println("");
+                    println("     private Date "+ attr.name + ";"); 
+                    println("");      			
+    			} else { //No requerido
+                    println("");
+                    println("     private Boolean " + attr.name + ";"); 
+                    println("");      			
+    			}   
+    		}else{
+    			println("     //" + attr.description);
+                println("");
+                println("     private " + attr.type + " " + attr.name + ";");   	
+                println("");    			
+		}
+    	}
+    }
+
+%>
+<%
+	
+	println("    //Metodos Get's");
+	
+	for(attr in myUtil.list){
+		if (attr.isPk == true){
+        	println(""); 
+		}else if (attr.type=="Varchar"){
+			%>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
+			println("");
+		}else if (attr.type=="String"){
+			%>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
+			println("");
+		}else if (attr.type=="Short"){
+			%>    public Short get${attr.camelCaseName}() {return UtilValidate.validateShort(${attr.name});}<%
+			println("");			
+		}else if (attr.type=="Integer"){
+			%>    public Integer get${attr.camelCaseName}() {return UtilValidate.validateInteger(${attr.name});}<%
+			println("");			
+		}else if (attr.type=="Long"){
+			%>    public Long get${attr.camelCaseName}() {return ${attr.name};}<%
+			println("");				
+		}else if (attr.type=="Double") {
+			%>    public Double get${attr.camelCaseName}() {return UtilValidate.validateDouble(${attr.name});}<%
+			println("");				
+		}else if (attr.type=="BigDecimal"){
+			%>    public BigDecimal get${attr.camelCaseName}() {return UtilValidate.validateBigDecimal(${attr.name});}<%
+			println("");			
+		}else if (attr.type=="Date"){
+			%>    public Date get${attr.camelCaseName}() {return UtilValidate.validateDateSql(${attr.name});}<%
+			println("");				
+		}else if(attr.type=="TIMESTAMP"){
+			%>    public Timestamp get${attr.camelCaseName}() {return ${attr.name};}<%
+			println("");			
+		}else if(attr.type=="Boolean"){
+			%>    public Boolean get${attr.camelCaseName}() {return ${attr.name};}<%
+			println("");			
+		}else if(attr.type=="ManyToOne"){
+		    %>    public ${attr.camelCasetableRef} get${attr.uno_mayuscula_tableRef}() {return ${attr.tableRef_lower};}<%
+			println("");
+		}
+	}
+%>
+
+
+  }

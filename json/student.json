@@ -23,6 +23,19 @@
     "description":"Apellidos del estudiante",
     "len":100,
     "isFindLike": true
-  }
+  },
+  {
+    "name":"age",
+    "type":"Integer",
+    "isNull":false,
+    "description":"Edad"
+  },
+  {
+    "name":"address",
+    "type":"String",
+    "isNull":false,
+    "description":"Direccion",
+    "len":255
+  }  
   
 ]

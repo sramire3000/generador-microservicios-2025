@@ -156,13 +156,29 @@ public class GeneraHexagonal {
 		Utils.replace("package com.example.demo;","package "+ myTemplate.getPackageName()+";", myTemplate);
 		Utils.replace("---------- API core Service Started ----------", "---------- "+myTemplate.getArtifact()+" Started ----------", myTemplate);
 		
-		//application.properties
+		//UtilValidate
 		myTemplate.setTemplateName("UtilValidate.txt");
 		myTemplate.setFileName("UtilValidate.java");
 		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "utils"));	
 		UtilCopy.CopyFile(myTemplate);	
 		Utils.replace("package com.example.demo;", "package "+myTemplate.getPackageName()+".utils;", myTemplate);
-
+		
+		
+		//ErrorCatalog
+		myTemplate.setTemplateName("ErrorCatalog.txt");
+		myTemplate.setFileName("ErrorCatalog.java");
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "utils"));	
+		UtilCopy.CopyFile(myTemplate);			
+		Utils.replace("package com.example.demo;", "package "+myTemplate.getPackageName()+".utils;", myTemplate);
+		
+		//GlobalControllerAdvice
+		myTemplate.setTemplateName("GlobalControllerAdvice.txt");
+		myTemplate.setFileName("GlobalControllerAdvice.java");
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "infrastructure/adapters/input/rest"));	
+		UtilCopy.CopyFile(myTemplate);			
+		Utils.replace("com.example.demo", myTemplate.getPackageName(), myTemplate);
+		
+		
 		
 		myTemplate.setTemplateName("ErrorResponse.txt");
 		myTemplate.setFileName("ErrorResponse.java");
@@ -208,7 +224,160 @@ public class GeneraHexagonal {
 		createDomainRepository(myTemplate, "Repository.txt");
 		createInfraPersitenceMappers(myTemplate, "PersitenceMappers.txt");
 		createInfraPersistenceAdapter(myTemplate, "PersistenceAdapter.txt");
+		createInfraPersistenceCreateRequest(myTemplate, "CreateRequest.txt");
+		createInfraPersistenceStudentRsponse(myTemplate, "StudentResponse.txt");
 		
+		createInfraInputRestaMpper(myTemplate, "IStudentRestMapper.txt");
+		
+		createInfraRestAdapter(myTemplate, "StudentRestAdapter.txt");
+	
+		
+	}
+
+	private static void createInfraRestAdapter(MyTemplate myTemplate, String template) throws Exception{
+		String filePath = myTemplate.getPackagePath();
+		myTemplate.setProyecto(myTemplate.getRootPath());	
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "infrastructure/adapters/input/rest"));
+		myTemplate.setTemplateName(template);
+
+    	String sCarpAct = System.getProperty("user.dir") + File.separator + myTemplate.getSource();
+    	
+    	File carpeta = new File(sCarpAct);
+    	String[] listado = carpeta.list();
+    	
+    	if (listado == null || listado.length == 0) {
+    	    System.out.println("No hay elementos dentro de la carpeta actual "+sCarpAct);
+    	    return;
+    	}
+    	else {
+    		
+    	    for (int i=0; i< listado.length; i++) {
+    	    	String archivo           = listado[i];
+    	    	String archivo_sin_ext   = listado[i].substring(0, listado[i].lastIndexOf("."));
+    	    	String entityClassName   = Utils.ConvertCamelCase(archivo_sin_ext);
+    	    	String entityName        = archivo_sin_ext.toLowerCase();
+    	    	String collectionName    = archivo_sin_ext.toLowerCase();
+ 	    	
+    	    	myTemplate.setList(Utils.getMongFieldList(archivo, myTemplate.getSource()));
+    	    	myTemplate.setEntityClassName(entityClassName);
+    	    	myTemplate.setEntityName(entityName);
+    	    	myTemplate.setCollectionName(collectionName);
+    	    	
+    	        String fileName = myTemplate.getEntityClassName() + "RestAdapter.java";
+
+    	        Utils.createJavaFileRenderComun(myTemplate,fileName);
+    	    }
+    	} 
+	}
+
+	private static void createInfraInputRestaMpper(MyTemplate myTemplate, String template) throws Exception{
+		String filePath = myTemplate.getPackagePath();
+		myTemplate.setProyecto(myTemplate.getRootPath());	
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "infrastructure/adapters/input/rest/mapper"));
+		myTemplate.setTemplateName(template);
+
+    	String sCarpAct = System.getProperty("user.dir") + File.separator + myTemplate.getSource();
+    	
+    	File carpeta = new File(sCarpAct);
+    	String[] listado = carpeta.list();
+    	
+    	if (listado == null || listado.length == 0) {
+    	    System.out.println("No hay elementos dentro de la carpeta actual "+sCarpAct);
+    	    return;
+    	}
+    	else {
+    		
+    	    for (int i=0; i< listado.length; i++) {
+    	    	String archivo           = listado[i];
+    	    	String archivo_sin_ext   = listado[i].substring(0, listado[i].lastIndexOf("."));
+    	    	String entityClassName   = Utils.ConvertCamelCase(archivo_sin_ext);
+    	    	String entityName        = archivo_sin_ext.toLowerCase();
+    	    	String collectionName    = archivo_sin_ext.toLowerCase();
+ 	    	
+    	    	myTemplate.setList(Utils.getMongFieldList(archivo, myTemplate.getSource()));
+    	    	myTemplate.setEntityClassName(entityClassName);
+    	    	myTemplate.setEntityName(entityName);
+    	    	myTemplate.setCollectionName(collectionName);
+    	    	
+    	        String fileName = "I"+myTemplate.getEntityClassName() + "RestMapper.java";
+
+    	        Utils.createJavaFileRenderComun(myTemplate,fileName);
+    	    }
+    	} 
+		
+	}
+
+	private static void createInfraPersistenceStudentRsponse(MyTemplate myTemplate, String template) throws Exception{
+		String filePath = myTemplate.getPackagePath();
+		myTemplate.setProyecto(myTemplate.getRootPath());	
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "infrastructure/adapters/input/rest/model/response"));
+		myTemplate.setTemplateName(template);
+
+    	String sCarpAct = System.getProperty("user.dir") + File.separator + myTemplate.getSource();
+    	
+    	File carpeta = new File(sCarpAct);
+    	String[] listado = carpeta.list();
+    	
+    	if (listado == null || listado.length == 0) {
+    	    System.out.println("No hay elementos dentro de la carpeta actual "+sCarpAct);
+    	    return;
+    	}
+    	else {
+    		
+    	    for (int i=0; i< listado.length; i++) {
+    	    	String archivo           = listado[i];
+    	    	String archivo_sin_ext   = listado[i].substring(0, listado[i].lastIndexOf("."));
+    	    	String entityClassName   = Utils.ConvertCamelCase(archivo_sin_ext);
+    	    	String entityName        = archivo_sin_ext.toLowerCase();
+    	    	String collectionName    = archivo_sin_ext.toLowerCase();
+ 	    	
+    	    	myTemplate.setList(Utils.getMongFieldList(archivo, myTemplate.getSource()));
+    	    	myTemplate.setEntityClassName(entityClassName);
+    	    	myTemplate.setEntityName(entityName);
+    	    	myTemplate.setCollectionName(collectionName);
+    	    	
+    	        String fileName = myTemplate.getEntityClassName() + "Response.java";
+
+    	        Utils.createJavaFileRenderComun(myTemplate,fileName);
+    	    }
+    	} 
+		
+	}
+
+	private static void createInfraPersistenceCreateRequest(MyTemplate myTemplate, String template) throws Exception{
+		String filePath = myTemplate.getPackagePath();
+		myTemplate.setProyecto(myTemplate.getRootPath());	
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "infrastructure/adapters/input/rest/model/request"));
+		myTemplate.setTemplateName(template);
+
+    	String sCarpAct = System.getProperty("user.dir") + File.separator + myTemplate.getSource();
+    	
+    	File carpeta = new File(sCarpAct);
+    	String[] listado = carpeta.list();
+    	
+    	if (listado == null || listado.length == 0) {
+    	    System.out.println("No hay elementos dentro de la carpeta actual "+sCarpAct);
+    	    return;
+    	}
+    	else {
+    		
+    	    for (int i=0; i< listado.length; i++) {
+    	    	String archivo           = listado[i];
+    	    	String archivo_sin_ext   = listado[i].substring(0, listado[i].lastIndexOf("."));
+    	    	String entityClassName   = Utils.ConvertCamelCase(archivo_sin_ext);
+    	    	String entityName        = archivo_sin_ext.toLowerCase();
+    	    	String collectionName    = archivo_sin_ext.toLowerCase();
+ 	    	
+    	    	myTemplate.setList(Utils.getMongFieldList(archivo, myTemplate.getSource()));
+    	    	myTemplate.setEntityClassName(entityClassName);
+    	    	myTemplate.setEntityName(entityName);
+    	    	myTemplate.setCollectionName(collectionName);
+    	    	
+    	        String fileName = myTemplate.getEntityClassName() + "CreateRequest.java";
+
+    	        Utils.createJavaFileRenderComun(myTemplate,fileName);
+    	    }
+    	} 
 		
 	}
 

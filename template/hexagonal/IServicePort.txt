@@ -1,5 +1,10 @@
 package ${myUtil.packageName}.application.ports.input;
 
+/*
+ * FUNCIONALIDAD QUE SE VA EXPONER O CASOS DE USO
+ * 
+ * */
+
 import java.util.List;
 
 import ${myUtil.packageName}.domain.model.${myUtil.entityClassName};

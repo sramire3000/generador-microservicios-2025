@@ -1,0 +1,22 @@
+package ${myUtil.packageName}.infrastructure.adapters.input.rest.mapper;
+
+import java.util.List;
+
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
+
+import ${myUtil.packageName}.domain.model.${myUtil.entityClassName};
+
+import ${myUtil.packageName}.infrastructure.adapters.input.rest.model.request.${myUtil.entityClassName}CreateRequest;
+import ${myUtil.packageName}.infrastructure.adapters.input.rest.model.response.${myUtil.entityClassName}Response;
+
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface I${myUtil.entityClassName}RestMapper {
+
+	${myUtil.entityClassName} to${myUtil.entityClassName}(${myUtil.entityClassName}CreateRequest request);
+	
+	${myUtil.entityClassName}Response to${myUtil.entityClassName}Response(${myUtil.entityClassName} ${myUtil.entityName});
+	
+	List<${myUtil.entityClassName}Response> to${myUtil.entityClassName}ResponeList(List<${myUtil.entityClassName}> ${myUtil.entityName}List);
+	
+}

@@ -2,14 +2,14 @@
 spring.application.name=spring-demo-hexagonal
 
 #Puerto Statico
-server.port=8086
+#server.port=8086
 
 #Puerto Dinamico
-#server.port=${PORT:0}
+server.port=${PORT:0}
 
 #Configuraciones JPA
 spring.jpa.show-sql=true
-spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.hibernate.ddl-auto=create
 
 #Para no mostrar los campos nulos en las respuesta Json
 spring.jackson.default-property-inclusion=non-null

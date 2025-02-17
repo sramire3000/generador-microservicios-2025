@@ -21,7 +21,7 @@ import ${myUtil.packageName}.utils.UtilValidate;
 @AllArgsConstructor						//genera un constructor para todos los atributos de la clase.
 @NoArgsConstructor						//genera un constructor sin argumentos, uno vacío
 @ToString								//genera el método toString.
-@Entity(name="${myUtil.entityClassName}")			
+@Entity(name="${myUtil.entityClassName}Entity")			
 @Table (name="${myUtil.entityName}")				
 public class ${myUtil.entityClassName}Entity {
 
