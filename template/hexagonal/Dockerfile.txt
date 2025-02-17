@@ -1,0 +1,4 @@
+FROM openjdk:openjdk:21-jdk
+RUN mkdir service-name
+ADD ./target/service-name.jar /service-name/service-name.jar
+ENTRYPOINT ["java","-XX:+UseG1GC", "-Xms200m","-Xmx1024m","-XX:MaxGCPauseMillis=500", "-XX:G1PeriodicGCInterval=10000","-XX:InitiatingHeapOccupancyPercent=15","-Duser.timezone=America/El_Salvador","-jar","/service-name/service-name.jar"]

@@ -19,8 +19,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 	
 	if (entra == true){
        println("import org.springframework.data.jpa.repository.Query;");
-       println("import org.springframework.data.domain.Page;");
-       println("import org.springframework.data.domain.Pageable;");		
+       println("import java.util.List;");
 	}
 %>
 
@@ -36,7 +35,7 @@ public interface I${myUtil.entityClassName}Repository extends JpaRepository<${my
 	    	  println("     //Busqueda por "+ attr.description);
 	    	  %>     @Query("SELECT c FROM ${myUtil.entityClassName}Entity c where c.${attr.name} like ?1")  <%
 	    	  println("");
-              %>     Page<${myUtil.entityClassName}Entity> findBy${attr.camelCaseName}(String ${attr.name}, Pageable pageable);<%
+              %>     List<${myUtil.entityClassName}Entity> findBy${attr.camelCaseName}(String ${attr.name});<%
               println("");
               println("");
     		}
@@ -47,7 +46,7 @@ public interface I${myUtil.entityClassName}Repository extends JpaRepository<${my
 	    	  println("     //Busqueda por "+attr.nombre_lower+"_id");
 	    	  %>     @Query("SELECT c FROM ${myUtil.entityClassName}Entity c where c.${attr.tableRef_lower}.${attr.nombre_lower} = ?1")  <%
 	    	  println("");
-              %>     Page<${myUtil.entityClassName}Entity> findBy${attr.camelCaseName}(Long ${attr.nombre_lower}, Pageable pageable);<%
+              %>     List<${myUtil.entityClassName}Entity> findBy${attr.camelCaseName}(Long ${attr.nombre_lower});<%
               println("");
               println("");
     		}    	

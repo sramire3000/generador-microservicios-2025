@@ -23,3 +23,6 @@ While most of the inheritance is fine, it also inherits unwanted elements like `
 To prevent this, the project POM contains empty overrides for these elements.
 If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
 
+###JVM
+
+  -XX:+UseG1GC -Xms200m -Xmx1024m -XX:MaxGCPauseMillis=500 -XX:G1PeriodicGCInterval=10000 -XX:InitiatingHeapOccupancyPercent=15 -Duser.timezone=America/El_Salvador

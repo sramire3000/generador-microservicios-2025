@@ -54,6 +54,20 @@ public class GeneraHexagonal {
 		myTemplate.setDir(new File(myTemplate.getProyecto()));
 		UtilCopy.CopyFile(myTemplate);	
 		
+		//Dockerfile
+		myTemplate.setTemplateName("Dockerfile.txt");
+		myTemplate.setFileName("Dockerfile");
+		myTemplate.setDir(new File(myTemplate.getProyecto()));
+		UtilCopy.CopyFile(myTemplate);
+		Utils.replace("service-name", myTemplate.getArtifact(), myTemplate);	
+		
+		//k8s-config-development
+		myTemplate.setTemplateName("k8s-config-development.txt");
+		myTemplate.setFileName("k8s-config-development.txt");
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator + "k8s"));		
+		UtilCopy.CopyFile(myTemplate);
+		
+		
 		//mvnw
 		myTemplate.setTemplateName("mvnw.txt");
 		myTemplate.setFileName("mvnw");
@@ -83,7 +97,7 @@ public class GeneraHexagonal {
 		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator + ".mvn/wrapper"));
 		UtilCopy.CopyFile(myTemplate);
 		
-		
+
 		//maven-wrapper.properties
 		myTemplate.setTemplateName("maven-wrapper.properties.txt");
 		myTemplate.setFileName("maven-wrapper.properties");

@@ -1,8 +1,8 @@
 package ${myUtil.packageName}.application.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import ${myUtil.packageName}.application.ports.input.IStudentServicePort;
 import ${myUtil.packageName}.application.ports.output.IStudentPersistencePort;
@@ -20,8 +20,8 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
 
 	//Implementacion del Metodo buscar todos
     @Override
-    public Page<${myUtil.entityClassName}> findAll(Pageable pageable){
-        return ${myUtil.entityName}PersistencePort.findAll(pageable);
+    public List<${myUtil.entityClassName}> findAll(){
+        return ${myUtil.entityName}PersistencePort.findAll();
     }
 
 	//Implementacion del Metodo Buscar por Id
@@ -85,9 +85,9 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
     		if (attr.isFind == true){
 	    	  println("    //Busqueda por "+ attr.description);
               println("    @Override");
-              %>    public Page<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}, Pageable pageable){ <%
+              %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}){ <%
               println("");
-              %>        return ${myUtil.entityName}PersistencePort.findBy${attr.camelCaseName}(${attr.name}, pageable); <%
+              %>        return ${myUtil.entityName}PersistencePort.findBy${attr.camelCaseName}(${attr.name}); <%
               println("");
               %>    }<%
               println("");
@@ -97,9 +97,9 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
     		if (attr.isFindLike == true){
 	    	  println("    //Busqueda por "+ attr.description);
               println("    @Override");
-              %>    public Page<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}, Pageable pageable){ <%
+              %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}){ <%
               println("");
-              %>        return ${myUtil.entityName}PersistencePort.findBy${attr.camelCaseName}("%"+${attr.name}.trim()+"%", pageable); <%
+              %>        return ${myUtil.entityName}PersistencePort.findBy${attr.camelCaseName}("%"+${attr.name}.trim()+"%"); <%
               println("");
               %>    }<%
               println("");

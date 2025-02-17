@@ -1,14 +1,13 @@
 package ${myUtil.packageName}.application.ports.input;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import java.util.List;
 
 import ${myUtil.packageName}.domain.model.${myUtil.entityClassName};
 
 public interface I${myUtil.entityClassName}ServicePort {
 
 	//Lista todos los Objectos
-	public Page<${myUtil.entityClassName}> findAll(Pageable pageable);
+	public List<${myUtil.entityClassName}> findAll();
 	
 	//Busca el Objeto por Id
     public ${myUtil.entityClassName} findById(<%
@@ -45,7 +44,7 @@ public interface I${myUtil.entityClassName}ServicePort {
     	if (attr.type=="String"){
     		if (attr.isFindLike == true){
 	    	  println("    //Busqueda por "+ attr.description);
-              %>    public Page<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}, Pageable pageable);<%
+              %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name});<%
               println("");
               println("");    		
     		}
@@ -54,7 +53,7 @@ public interface I${myUtil.entityClassName}ServicePort {
     	if (attr.type=="ManyToOne"){
     		if (attr.isFind == true){
 	    	  println("    //Busqueda por "+attr.nombre_lower);
-              %>    public Page<${myUtil.entityClassName}> findBy${attr.camelCaseName}(Long ${attr.nombre_lower}, Pageable pageable);<%
+              %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(Long ${attr.nombre_lower});<%
               println("");
               println("");    		
     		}
