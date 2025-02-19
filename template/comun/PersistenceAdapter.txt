@@ -31,7 +31,7 @@ public class ${myUtil.entityClassName}PersistenceAdapter implements I${myUtil.en
 	@Override
     public Optional<${myUtil.entityClassName}> findById(<%
         for(attr in myUtil.list){
-            if(attr.name == "id")
+            if(attr.isPk == true)
                 print(attr.type);
         }
     %> id){
@@ -48,7 +48,7 @@ public class ${myUtil.entityClassName}PersistenceAdapter implements I${myUtil.en
 	@Override
     public void deleteById(<%
         for(attr in myUtil.list){
-            if(attr.name == "id")
+            if(attr.isPk == true)
                 print(attr.type);
         }
     %> id){

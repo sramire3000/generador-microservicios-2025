@@ -1,0 +1,27 @@
+[
+  {
+    "name":"s_tipo_cedula",
+    "type":"String",
+    "isNull":true,
+	"isPk":true,
+	"isAutoGen":true,
+    "description":"Key",
+	"len":2
+  },
+  {
+    "name":"s_tc_es_descripcion",
+    "type":"String",
+    "isNull":false,
+    "description":"Descripcion ESP",
+    "len":80,
+    "isFindLike": true
+  },
+  {
+    "name":"s_tc_en_descripcion",
+    "type":"String",
+    "isNull":false,
+    "description":"Descripcion ENG",
+    "len":80,
+    "isFindLike": true
+  }  
+]

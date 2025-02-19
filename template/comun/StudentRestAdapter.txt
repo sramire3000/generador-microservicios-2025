@@ -51,7 +51,7 @@ public class ${myUtil.entityClassName}RestAdapter {
     }
     
 	/* Metodo buscar por Id */
-	@GetMapping("/v1/api/${myUtil.entityName}/{<%for(attr in myUtil.list){
+	@GetMapping("/v1/api/{<%for(attr in myUtil.list){
 			                                if(attr.isPk == true){
 			                                   %>${attr.name}<%
 			                                }
@@ -68,7 +68,7 @@ public class ${myUtil.entityClassName}RestAdapter {
 			                                                               }
 		                                                                }%>);
     	
-        return restMapper.to${myUtil.entityClassName}Response(serviceport.findById(id));
+        return restMapper.to${myUtil.entityClassName}Response(serviceport.findById(<%for(attr in myUtil.list){if(attr.isPk == true)print(attr.name);}%>));
     }
    
 
@@ -105,7 +105,7 @@ public class ${myUtil.entityClassName}RestAdapter {
                                                                                 }%>, request);
                                                                                 
 		return restMapper.to${myUtil.entityClassName}Response(
-				serviceport.update(restMapper.to${myUtil.entityClassName}(request), id)
+				serviceport.update(restMapper.to${myUtil.entityClassName}(request), <%for(attr in myUtil.list){if(attr.isPk == true)print(attr.name);}%>)
 		);
     }
    

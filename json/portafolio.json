@@ -1,0 +1,19 @@
+[
+  {
+    "name":"id_portafolio",
+    "type":"Integer",
+    "isNull":true,
+	"isPk":true,
+	"isAutoGen":true,
+    "description":"Key",
+	"len":2
+  },
+  {
+    "name":"s_portafolio_descripcion",
+    "type":"String",
+    "isNull":false,
+    "description":"Descripcion portafolio",
+    "len":80,
+    "isFindLike": true
+  } 
+]

@@ -25,7 +25,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import ${myUtil.packageName}.infrastructure.adapters.output.persistence.entity.${myUtil.entityClassName}Entity;
 
-public interface I${myUtil.entityClassName}Repository extends JpaRepository<${myUtil.entityClassName}Entity, Long> {
+public interface I${myUtil.entityClassName}Repository extends JpaRepository<${myUtil.entityClassName}Entity, <%
+        for(attr in myUtil.list){
+            if(attr.isPk == true)
+                print(attr.type);
+        }
+    %>> {
 <%
     println("");    
     for(attr in myUtil.list){

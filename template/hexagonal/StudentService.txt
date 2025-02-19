@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import ${myUtil.packageName}.application.ports.input.IStudentServicePort;
-import ${myUtil.packageName}.application.ports.output.IStudentPersistencePort;
-import ${myUtil.packageName}.domain.exception.StudentNotFoundException;
+import ${myUtil.packageName}.application.ports.input.I${myUtil.entityClassName}ServicePort;
+import ${myUtil.packageName}.application.ports.output.I${myUtil.entityClassName}PersistencePort;
+import ${myUtil.packageName}.domain.exception.${myUtil.entityClassName}NotFoundException;
 
-import ${myUtil.packageName}.domain.model.Student;
+import ${myUtil.packageName}.domain.model.${myUtil.entityClassName};
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,11 +28,11 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
 	@Override
     public ${myUtil.entityClassName} findById(<%
         for(attr in myUtil.list){
-            if(attr.name == "id")
+            if(attr.isPk == true)
                 print(attr.type);
         }
-    %> id){
-        return ${myUtil.entityName}PersistencePort.findById(id).orElseThrow(${myUtil.entityClassName}NotFoundException::new);
+    %> <%for(attr in myUtil.list){if(attr.isPk == true)print(attr.name);}%>){
+        return ${myUtil.entityName}PersistencePort.findById(<%for(attr in myUtil.list){if(attr.isPk == true)print(attr.name);}%>).orElseThrow(${myUtil.entityClassName}NotFoundException::new);
     }
     
 	//Implementacion del Metodo Save
@@ -47,7 +47,7 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
 	                                                                                                                       %>${attr.type} ${attr.name}<%
 	                                                                                                                    }
                                                                                                                       }%>) {
-    	return ${myUtil.entityName}PersistencePort.findById(id)
+    	return ${myUtil.entityName}PersistencePort.findById(<%for(attr in myUtil.list){if(attr.isPk == true)print(attr.name);}%>)
     	      .map(save${myUtil.entityClassName} -> {
      	<%
      	    println("              //Paso de Variables");
@@ -71,11 +71,11 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
 	@Override
     public void deleteById(<%
         for(attr in myUtil.list){
-            if(attr.name == "id")
+            if(attr.isPk == true)
                 print(attr.type);
         }
-    %> id){
-        ${myUtil.entityName}PersistencePort.deleteById(id);
+    %> <%for(attr in myUtil.list){if(attr.isPk == true)print(attr.name);}%>){
+        ${myUtil.entityName}PersistencePort.deleteById(<%for(attr in myUtil.list){if(attr.isPk == true)print(attr.name);}%>);
     }
     
 <%

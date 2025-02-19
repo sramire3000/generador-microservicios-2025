@@ -3,6 +3,7 @@ package ${myUtil.packageName}.infrastructure.adapters.output.persistence.mapper;
 import java.util.List;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import ${myUtil.packageName}.domain.model.${myUtil.entityClassName};
 import ${myUtil.packageName}.infrastructure.adapters.output.persistence.entity.${myUtil.entityClassName}Entity;
@@ -10,10 +11,20 @@ import ${myUtil.packageName}.infrastructure.adapters.output.persistence.entity.$
 @Mapper(componentModel = "spring")
 public interface I${myUtil.entityClassName}PersitenceMappers {
 
+	/* source = ${myUtil.entityClassName}  target = ${myUtil.entityClassName}Entity */
+<%
+    for(attr in myUtil.list){
+       println('    @Mapping(source="'+ attr.name+'", target="'+attr.name+'")');
+    }	
+%>
+
+    //Entity a Model
 	${myUtil.entityClassName}Entity to${myUtil.entityClassName}Entity(${myUtil.entityClassName} ${myUtil.entityName});
 	
+    //Model a Entity	
 	${myUtil.entityClassName} to${myUtil.entityClassName}(${myUtil.entityClassName}Entity entity);
 	
+    //List<Entity> a List<Model>
 	List<${myUtil.entityClassName}> to${myUtil.entityClassName}List(List<${myUtil.entityClassName}Entity> entityList);
 	
 }

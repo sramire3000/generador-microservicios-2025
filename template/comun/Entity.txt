@@ -44,8 +44,22 @@ public class ${myUtil.entityClassName}Entity {
 	        	} 	
 	        	println("     private Integer " + attr.name + ";");	         		
 			}else if (attr.type=="Varchar" ){
+	        	if (attr.isAutoGen == true){
+	        		println("     @GeneratedValue(strategy = GenerationType.UUID)		//Estrategia de generacion");
+	        		%>     @Column(name="${attr.name}", length = 64, columnDefinition="varchar(64)" )<%
+	        	}else{
+	        	    %>     @Column(name="${attr.name}", length = ${attr.len}, columnDefinition="varchar(${attr.len})" )<%
+	        	} 			
+			    println("");
 				println("     private String " + attr.name + ";");
 			}else if (attr.type=="String"){
+	        	if (attr.isAutoGen == true){
+	        		println("     @GeneratedValue(strategy = GenerationType.UUID)		//Estrategia de generacion");
+	        		%>     @Column(name="${attr.name}", length = 64, columnDefinition="varchar(64)" )<%
+	        	}else{
+	        	    %>     @Column(name="${attr.name}", length = ${attr.len}, columnDefinition="varchar(${attr.len})" )<%
+	        	} 				
+			    println("");
 				println("     private String " + attr.name + ";");
 			}
       	
