@@ -42,7 +42,23 @@ public class ${myUtil.entityClassName}Entity {
 	        	if (attr.isAutoGen == true){
 	        		println("     @GeneratedValue(strategy = GenerationType.IDENTITY)		//Estrategia de generacion");
 	        	} 	
-	        	println("     private Integer " + attr.name + ";");	         		
+	        	println("     private Integer " + attr.name + ";");	
+	        	
+	        }else if(attr.type=="BigInteger"){	 
+	        	if (attr.isAutoGen == true){
+	        		println("     @GeneratedValue(strategy = GenerationType.IDENTITY)		//Estrategia de generacion");
+	        	} 	
+	        	println("     private BigInteger " + attr.name + ";");
+	        }else if(attr.type=="Numeric"){	 
+	        	if (attr.isAutoGen == true){
+	        		println("     @GeneratedValue(strategy = GenerationType.IDENTITY)		//Estrategia de generacion");
+	        	} 	
+	        	println("     private BigInteger " + attr.name + ";");	        	
+	        }else if(attr.type=="Integer"){
+	        	if (attr.isAutoGen == true){
+	        		println("     @GeneratedValue(strategy = GenerationType.IDENTITY)		//Estrategia de generacion");
+	        	} 	
+	        	println("     private Integer " + attr.name + ";");		                		
 			}else if (attr.type=="Varchar" ){
 	        	if (attr.isAutoGen == true){
 	        		println("     @GeneratedValue(strategy = GenerationType.UUID)		//Estrategia de generacion");

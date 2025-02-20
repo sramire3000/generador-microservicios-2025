@@ -145,7 +145,17 @@
 		        </exclusion>
 	        </exclusions>
 		</dependency>
-		<!-- LOG4J2 -->		       	   
+		<!-- LOG4J2 -->		  
+		
+		<!-- DB POSTGRES -->
+		<!--
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		-->
+		<!-- DB POSTGRES -->		     	   
 	    		
 	</dependencies>
 
