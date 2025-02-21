@@ -49,11 +49,6 @@ public class ${myUtil.entityClassName}Entity {
 	        		println("     @GeneratedValue(strategy = GenerationType.IDENTITY)		//Estrategia de generacion");
 	        	} 	
 	        	println("     private BigInteger " + attr.name + ";");
-	        }else if(attr.type=="Numeric"){	 
-	        	if (attr.isAutoGen == true){
-	        		println("     @GeneratedValue(strategy = GenerationType.IDENTITY)		//Estrategia de generacion");
-	        	} 	
-	        	println("     private BigInteger " + attr.name + ";");	        	
 	        }else if(attr.type=="Integer"){
 	        	if (attr.isAutoGen == true){
 	        		println("     @GeneratedValue(strategy = GenerationType.IDENTITY)		//Estrategia de generacion");
