@@ -224,12 +224,16 @@ public interface Utils {
 	            
 	            //Tabla para las Fk
 	            try {
-	            	dataBaseFields.setTableRef(map.get("tableRef").toString());		
-	            	dataBaseFields.setCamelCasetableRef(map.get("tableRef").toString().substring(0, 1).toUpperCase() + map.get("tableRef").toString().substring(1));
+	            	String tablaref      = map.get("tableRef").toString().replaceAll("_", "");
+	            	String tablarefCamel = map.get("tableRef").toString().substring(0, 1).toUpperCase() + map.get("tableRef").toString().substring(1).replaceAll("_", "");
+	            	
+	            	dataBaseFields.setTableRef(tablaref);		
+	            	dataBaseFields.setCamelCasetableRef(tablarefCamel);
 				} catch (Exception e) {
 					dataBaseFields.setTableRef("");	
 				}
 	            
+            
 	            dataBaseFields.setCamelCaseName(map.get("name").toString().substring(0, 1).toUpperCase() + map.get("name").toString().substring(1));
 	            
 	            String nombre_temp = map.get("name").toString().substring(0, 1).toUpperCase() + map.get("name").toString().substring(1);
@@ -251,8 +255,7 @@ public interface Utils {
 		            	Integer pos = nombre_temp.indexOf("_");
 		            	String uno = nombre_temp.substring(0, pos);
 		            	String dos = nombre_temp.substring(pos, nombre_temp.length()).toLowerCase();
-		            	
-		            	dataBaseFields.setUno_mayuscula_tableRef(uno+dos);
+		            	dataBaseFields.setUno_mayuscula_tableRef((uno+dos));
 		            }else {
 		            	dataBaseFields.setUno_mayuscula_tableRef(map.get("tableRef").toString().substring(0, 1).toUpperCase() + map.get("tableRef").toString().substring(1));
 		            }	            	

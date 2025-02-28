@@ -49,10 +49,10 @@ public class GeneraHexagonal {
 		
 		
 		//HELP.md
-		myTemplate.setTemplateName("HELP.md.txt");
-		myTemplate.setFileName("HELP.md");
-		myTemplate.setDir(new File(myTemplate.getProyecto()));
-		UtilCopy.CopyFile(myTemplate);	
+//		myTemplate.setTemplateName("HELP.md.txt");
+//		myTemplate.setFileName("HELP.md");
+//		myTemplate.setDir(new File(myTemplate.getProyecto()));
+//		UtilCopy.CopyFile(myTemplate);	
 		
 		//Dockerfile
 		myTemplate.setTemplateName("Dockerfile.txt");
@@ -64,21 +64,62 @@ public class GeneraHexagonal {
 		//k8s-config-development
 		myTemplate.setTemplateName("k8s-config-development.txt");
 		myTemplate.setFileName("k8s-config-development.txt");
-		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator + "k8s"));		
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator + "scm"));		
 		UtilCopy.CopyFile(myTemplate);
 		
+		//k8s-config-master
+		myTemplate.setTemplateName("k8s-config-master.txt");
+		myTemplate.setFileName("k8s-config-master.txt");
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator + "scm"));		
+		UtilCopy.CopyFile(myTemplate);
 		
-		//mvnw
-		myTemplate.setTemplateName("mvnw.txt");
-		myTemplate.setFileName("mvnw");
+		//k8s-config-qa
+		myTemplate.setTemplateName("k8s-config-qa.txt");
+		myTemplate.setFileName("k8s-config-qa.txt");
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator + "scm"));		
+		UtilCopy.CopyFile(myTemplate);	
+		
+		//parameters
+		myTemplate.setTemplateName("parameters.txt");
+		myTemplate.setFileName("parameters.txt");
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator + "scm"));		
+		UtilCopy.CopyFile(myTemplate);
+		
+		//Jenkinsfile
+		myTemplate.setTemplateName("Jenkinsfile");
+		myTemplate.setFileName("Jenkinsfile");
 		myTemplate.setDir(new File(myTemplate.getProyecto()));
 		UtilCopy.CopyFile(myTemplate);			
 		
-		//mvnw.cmd
-		myTemplate.setTemplateName("mvnw.cmd.txt");
-		myTemplate.setFileName("mvnw.cmd");
+		//pom-archetype.template
+		myTemplate.setTemplateName("pom-archetype.template");
+		myTemplate.setFileName("pom-archetype.template");
+		myTemplate.setDir(new File(myTemplate.getProyecto()));
+		UtilCopy.CopyFile(myTemplate);		
+		
+		//README.md
+		myTemplate.setTemplateName("README.md");
+		myTemplate.setFileName("README.md");
 		myTemplate.setDir(new File(myTemplate.getProyecto()));
 		UtilCopy.CopyFile(myTemplate);	
+		
+		//JkfArchetype
+		myTemplate.setTemplateName("JkfArchetype");
+		myTemplate.setFileName("JkfArchetype");
+		myTemplate.setDir(new File(myTemplate.getProyecto()));
+		UtilCopy.CopyFile(myTemplate);		
+		
+		//mvnw
+//		myTemplate.setTemplateName("mvnw.txt");
+//		myTemplate.setFileName("mvnw");
+//		myTemplate.setDir(new File(myTemplate.getProyecto()));
+//		UtilCopy.CopyFile(myTemplate);			
+		
+		//mvnw.cmd
+//		myTemplate.setTemplateName("mvnw.cmd.txt");
+//		myTemplate.setFileName("mvnw.cmd");
+//		myTemplate.setDir(new File(myTemplate.getProyecto()));
+//		UtilCopy.CopyFile(myTemplate);	
 		
 		//pom.xml
 		myTemplate.setTemplateName("pom.xml.txt");

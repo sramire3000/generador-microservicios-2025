@@ -1,0 +1,61 @@
+pipeline {
+    agent {kubernetes {
+            yaml '''
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: maven
+    image: "225546126523.dkr.ecr.us-east-1.amazonaws.com/devops-bancus-maven-slim:2.0.0"
+    imagePullPolicy: "Always"
+    resources:
+      limits:
+        memory: "2Gi"
+        cpu: "1000m"
+      requests:
+        memory: "2Gi"
+        cpu: "1000m"
+    tty: true
+    command:
+    - sleep
+    args:
+    - infinity
+    volumeMounts:
+    - mountPath: "/root/.m2"
+      name: "volume-0"
+    - mountPath: "/usr/share/maven/ref/settings.xml"
+      name: "config-settings"
+      subPath: settings.xml
+  volumes:
+  - name: "volume-0"
+    persistentVolumeClaim:
+      claimName: "maven-agent-pvc"
+  - configMap:
+      name: "settings-maven-xml"
+    name: "config-settings"
+'''
+            defaultContainer 'maven'
+        }}
+    
+    stages {
+        stage('create archetype'){
+            steps {
+                sh "mvn archetype:create-from-project"
+            }
+        }
+        stage('Deploy Archetype'){
+            steps {
+                sh "chmod -R 777 target"
+                //sh "chown -R 100:100 target"
+                sh "ls target/generated-sources/archetype/"
+                sh "cd target/generated-sources/archetype/"
+                sh "ls -ltr"
+                sh "pwd"
+                sh "cp pom-archetype.template target/generated-sources/archetype/pom.xml"
+                dir("target/generated-sources/archetype/"){
+                    sh "mvn deploy -U -B -DskipTests"
+                }
+            }
+        }
+    }
+}

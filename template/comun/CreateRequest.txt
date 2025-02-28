@@ -1,5 +1,10 @@
 package ${myUtil.packageName}.infrastructure.adapters.input.rest.model.request;
 
+import java.util.List;
+import java.util.Date;
+
+import java.math.BigDecimal;
+
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -39,7 +44,6 @@ public class ${myUtil.entityClassName}CreateRequest  {
                     println("     private String " + attr.name + ";"); 
                     println("");    				
     			}else{//No requerido
-                    println("");
                     println("     private String " + attr.name + ";");   	
                     println("");			
     			}   	    
@@ -53,10 +57,6 @@ public class ${myUtil.entityClassName}CreateRequest  {
                     println("     private " + attr.type + " " + attr.name + ";"); 
                     println("");    				
     			}else{//No requerido
-                    if (attr.type=="String"){
-                       %>, length = ${attr.len}, columnDefinition="char(${attr.len})" )  <%
-                    }   
-                    println("");
                     println("     private " + attr.type + " " + attr.name + ";");   	
                     println("");			
     			}
@@ -72,7 +72,6 @@ public class ${myUtil.entityClassName}CreateRequest  {
                     println("     private " + attr.type + " " + attr.name + ";"); 
                     println("");         				
     			} else { //No requerido
-                    println("");
                     println("     private " + attr.type + " " + attr.name + ";"); 
                     println("");      			
     			}     		
@@ -88,7 +87,6 @@ public class ${myUtil.entityClassName}CreateRequest  {
                     println("     private " + attr.type + " " + attr.name + ";"); 
                     println("");         				
     			} else { //No requerido
-                    println("");
                     println("     private " + attr.type + " " + attr.name + ";"); 
                     println("");      			
     			}        		
@@ -104,7 +102,6 @@ public class ${myUtil.entityClassName}CreateRequest  {
                     println("     private " + attr.type + " " + attr.name + ";"); 
                     println("");         				
     			} else { //No requerido
-                    println("");
                     println("     private " + attr.type + " " + attr.name + ";"); 
                     println("");      			
     			}
@@ -117,7 +114,6 @@ public class ${myUtil.entityClassName}CreateRequest  {
                     println("");     				
     				    			
     			} else { //No requerido
-                    println("");
                     println("     private " + attr.type + " " + attr.name + ";"); 
                     println("");     			
     			} 

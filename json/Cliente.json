@@ -1,0 +1,55 @@
+[
+	{
+	"isPk": true,
+	"isAutoGen": true,
+	"name":"id_cliente",
+	"type":"Long",
+	"description":"Key"	
+	},
+  {
+    "name":"cust_name",
+    "type":"String",
+    "isNull":false,
+    "description":"Nombre del cliente",
+    "len":100,
+    "isFindLike": true
+  },
+  {
+    "name":"campo",
+    "type":"Varchar",
+    "isNull":true,
+    "description":"direccion",
+    "len":250
+   },
+   {
+     "name":"edad",
+     "type":"Integer",
+     "isNull":false,
+     "description":"edad"
+   },
+   {
+     "name":"serie",
+     "type":"Long",
+     "isNull":false,
+     "description":"Serie"
+   },   
+   {
+     "name":"sueldo",
+     "type":"BigDecimal",
+     "isNull":true,
+     "description":"Sueldo"
+   },   
+   {
+     "name":"fch_ingreso",
+     "type":"Date",
+     "isNull":false,
+     "description":"fecha de ingreso"
+   },   
+  {
+    "name":"estado",
+    "type":"String",
+    "isNull":false,
+    "description":"Estado del Registro",
+    "len":3
+  }
+]

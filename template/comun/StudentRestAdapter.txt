@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +42,7 @@ public class ${myUtil.entityClassName}RestAdapter {
 
     
 	/* Metodo listar todos con pagineo */
-    @GetMapping("/v1/api")
+    @GetMapping(path="/v1/api", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<${myUtil.entityClassName}Response> findAll() {
     
         log.info("REST request to get all ${myUtil.entityClassName}");
@@ -51,11 +52,11 @@ public class ${myUtil.entityClassName}RestAdapter {
     }
     
 	/* Metodo buscar por Id */
-	@GetMapping("/v1/api/{<%for(attr in myUtil.list){
+	@GetMapping(path="/v1/api/{<%for(attr in myUtil.list){
 			                                if(attr.isPk == true){
 			                                   %>${attr.name}<%
 			                                }
-		                                }%>}")
+		                                }%>}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ${myUtil.entityClassName}Response findId(@PathVariable <%for(attr in myUtil.list){
 			                                          if(attr.isPk == true){
 			                                             %>${attr.type} ${attr.name}<%
@@ -73,7 +74,7 @@ public class ${myUtil.entityClassName}RestAdapter {
    
 
 	/* Metodo Guardar */
-    @PostMapping("/v1/api")
+    @PostMapping(path="/v1/api", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<${myUtil.entityClassName}Response> save(@Valid @RequestBody ${myUtil.entityClassName}CreateRequest request) {
     
         log.info("REST request to save ${myUtil.entityClassName} : {}", request);
@@ -85,13 +86,13 @@ public class ${myUtil.entityClassName}RestAdapter {
     }
    
 	/* Metodo Update */
-    @PutMapping("/v1/api/{<%
+    @PutMapping(path="/v1/api/{<%
 		for(attr in myUtil.list){
 			if(attr.isPk == true){
 			 %>${attr.name}<%
 			}
 		}             
-		%>}")
+		%>}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ${myUtil.entityClassName}Response update(@Valid @RequestBody ${myUtil.entityClassName}CreateRequest request, @PathVariable <%for(attr in myUtil.list){
                                                                                                                       	if(attr.isPk == true){
 	                                                                                                                       %>${attr.type} ${attr.name}<%
@@ -111,13 +112,13 @@ public class ${myUtil.entityClassName}RestAdapter {
    
    
 	/* Metodo Delete */
-    @DeleteMapping("/v1/api/{<%
+    @DeleteMapping(path="/v1/api/{<%
 		for(attr in myUtil.list){
 			if(attr.isPk == true){
 			 %>${attr.name}<%
 			}
 		}             
-		%>}")
+		%>}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable <%for(attr in myUtil.list){
 	                                     if(attr.isPk == true){
@@ -146,7 +147,7 @@ public class ${myUtil.entityClassName}RestAdapter {
     		if (attr.isFindLike == true){
     		    println("");
     		    println("    /* Busqueda por "+ attr.description +" */");
-    		    %>    @GetMapping("/v1/api/${attr.name}/{${attr.name}}")<%
+    		    %>    @GetMapping(path="/v1/api/${attr.name}/{${attr.name}}", produces = MediaType.APPLICATION_JSON_VALUE)<%
     		    println("");
     		    %>    public List<${myUtil.entityClassName}Response> find${attr.camelCaseName}(@PathVariable String ${attr.name}) {<%
     		    println("");
@@ -163,7 +164,7 @@ public class ${myUtil.entityClassName}RestAdapter {
     		    println("");
     		    println("");
     		    println("    //Busqueda por "+attr.nombre_lower);
-    		    %>    @GetMapping("/v1/api/${attr.nombre_lower}/{${attr.nombre_lower}}")<% 		
+    		    %>    @GetMapping(path="/v1/api/${attr.nombre_lower}/{${attr.nombre_lower}}", produces = MediaType.APPLICATION_JSON_VALUE)<% 		
     		    println("");
     		    %>    public List<${myUtil.entityClassName}Response> find${attr.camelCaseName}(@PathVariable Long ${attr.nombre_lower}) {<%
     		    println("");

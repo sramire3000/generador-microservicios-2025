@@ -1,0 +1,47 @@
+#Definicion de arctyfacts y extension para generación de imagen docker
+create_image=true
+deploy_cluster=false
+
+arctyfact_id=bancus-config-server
+extension_type=jar
+
+#Definición de valores para fortify
+
+#defición de agente a utilizar
+agent_label=maven-exec
+
+#compiled
+#variable para identificar tipo, java, python, gradle, node, net
+compile_type=java
+
+#variable para identificar el contenedor a usar para compilar mavenContainer, PythonContainer.
+container_exec=maven
+
+#se incluye parámetro para poder hacer debug_maven
+debug_container=false
+skip_test_container=false
+
+#Sonar analytics
+upload_sonarqube=true
+
+#url para archivos de deployment
+url_get_files_deploy=http://10.23.23.20:7990/scm/devops/ks8-deployments.git
+
+context_publish=access-control-bo
+
+#Veracode
+#Un proceso importante con la implementación de Veracode es que el artifactid debe compartirse al equipo de ciberseguridad para que ellos creen la aplicación en Veracode.
+#Para realizar/saltar los escaneos en veracode se utilza será necesario el valor de upload_veracode
+upload_veracode=false
+#veracode_team es un parámetro que nos debe compartir el equipo de ciberseguridad, para asociar el proyecto a un team creado en el dashboard de Veracode.
+veracode_team=Nueva APP Banca Digital
+
+#Integración con OpenTelemetry
+branch_deployment=telemetry
+
+#Notifications
+#El administrador del canal, deberá activar un webhook para poder asociarlo en la variable channel_url para informar al equipo sobre los resultados de los pipelines
+channel_url=# <<https://url-webhook>>
+
+#Namespace on K8S - default value: fabrica-digital / other values: app-crediya|app-digital|app-pasivos-digitales|app-servicio-digitales|app-sitio-web|app-tarjetaya|app-tienda-virtual
+namespace=fabrica-digital
