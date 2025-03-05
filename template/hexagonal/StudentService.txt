@@ -124,7 +124,7 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
     
 <%
     for(attr in myUtil.list){
-    	if (attr.type=="String"){
+    	if (attr.type=="String" || attr.type=="Varchar"){
         		
     		if (attr.isFind == true){
 	    	  println("    //Busqueda por "+ attr.description);

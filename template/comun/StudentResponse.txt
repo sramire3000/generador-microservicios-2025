@@ -113,7 +113,7 @@ public class ${myUtil.entityClassName}Response  {
 		    if (attr.isEncrypt==false){
 		       %>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
 		    }else{
-		       %>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name}), key, salt);}<%
+		       %>    public String get${attr.camelCaseName}() {return UtilAES256.encrypt(UtilValidate.validateString(${attr.name}), key, salt);}<%
 		    }
 			println("");
 		}else if (attr.type=="Short"){

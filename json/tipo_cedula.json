@@ -1,27 +1,35 @@
 [
   {
-    "name":"s_tipo_cedula",
+    "name":"codigo",
     "type":"String",
     "isNull":true,
 	"isPk":true,
 	"isAutoGen":true,
     "description":"Key",
-	"len":2
+	"len":2,
+	"nameLabel":"cedula_id"
   },
   {
-    "name":"s_tc_es_descripcion",
-    "type":"String",
+    "name":"descripcion",
+    "type":"Varchar",
     "isNull":false,
     "description":"Descripcion ESP",
     "len":80,
-    "isFindLike": true
+    "isFindLike": true,
+	"nameLabel":"cedula_descripcion"
   },
   {
-    "name":"s_tc_en_descripcion",
+    "name":"serial",
     "type":"String",
     "isNull":false,
-    "description":"Descripcion ENG",
+    "description":"Serial",
     "len":80,
-    "isFindLike": true
+    "isFindLike": false,
+    "nameLabel":"cedula_serial",
+    "isEncrypt": true
   }  
+  
+  
+  
+
 ]

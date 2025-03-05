@@ -59,7 +59,7 @@ public interface I${myUtil.entityClassName}ServicePort {
 <%
     for(attr in myUtil.list){
     
-    	if (attr.type=="String"){
+    	if (attr.type=="String" || attr.type=="Varchar"){
     		if (attr.isFindLike == true){
 	    	  println("    //Busqueda por "+ attr.description);
 	    	  if (attr.nameLabel==""){
