@@ -212,7 +212,7 @@ public class ${myUtil.entityClassName}CreateRequest  {
 			%>    public Date get${attr.camelCaseName}() {return UtilValidate.validateDateSql(${attr.name});}<%
 			println("");				
 		}else if(attr.type=="TIMESTAMP"){
-			%>    public Timestamp get${attr.camelCaseName}() {return ${attr.name};}<%
+			%>    public Date get${attr.camelCaseName}() {return ${attr.name};}<%
 			println("");			
 		}else if(attr.type=="Boolean"){
 			%>    public Boolean get${attr.camelCaseName}() {return ${attr.name};}<%

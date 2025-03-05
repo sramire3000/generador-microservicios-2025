@@ -6,7 +6,7 @@
 	"type":"Long",
 	"description":"Key"	
 	},
-  {
+   {
     "name":"cust_name",
     "type":"String",
     "isNull":false,

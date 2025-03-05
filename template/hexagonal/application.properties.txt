@@ -38,29 +38,6 @@ logging.logback.rollingpolicy.max-file-size=10MB
 logging.pattern.dateformat="dd-MM-yyyy HH:mm:ss.SSSZ"
 logging.level.org.hibernate.SQL=debug
 
-#Configuracion hiraki
-
-#Esta propiedad nos indica el numero maximo de milisegundos que el servicio 
-#puede esperar a obtener una conexion por defecto 30 segundos.
-spring.datasource.hikari.connection-timeout: 20000
-
-#La propiedade minimumIdle de Hikari es el numero minimo de conexiones inactivas 
-#que se puede mantener en el Pool de conexiones. El numero por defecto es 10.
-spring.datasource.hikari.minimum-idle: 1
-
-#La propiedad maxLifetime de Hikari nos ofrece el tiempo en milisegundos de vida util 
-#despues que se cierra una conexion. Ten cuidado de no establecer un tiempo muy alto.
-spring.datasource.hikari.max-lifetime: 120000
-
-#La propiedad de maximumPoolSize nos indica el tamanio maximo que vamos a tener en el pool de conexiones. 
-#El valor por defecto es 10.
-spring.datasource.hikari.maximum-pool-size: 10
-
-#La configuracion de idleTimeout es el tiempo maximo que vamos a permitir que una conexion este inactiva 
-#en el grupo de conexiones. 300000
-spring.datasource.hikari.idle-timeout: 55000 
-
-#Esta propiedad establece confirmacion automatica de las conexiones que son devueltas al Pool de conexiones. 
-#En el caso en el que no se modifique tendra un valor por defecto de TRUE.
-spring.datasource.hikari.auto-commit: true
-
+#Secret Fields
+field.secret.key=my_super_secret_key
+field.secret.salt=ssshhhhhhhhhhh!!!!

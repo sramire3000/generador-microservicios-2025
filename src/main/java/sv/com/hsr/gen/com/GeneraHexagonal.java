@@ -204,6 +204,12 @@ public class GeneraHexagonal {
 		UtilCopy.CopyFile(myTemplate);	
 		Utils.replace("package com.example.demo;", "package "+myTemplate.getPackageName()+".utils;", myTemplate);
 		
+		//UtilAES256
+		myTemplate.setTemplateName("UtilAES256.txt");
+		myTemplate.setFileName("UtilAES256.java");
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "utils"));	
+		UtilCopy.CopyFile(myTemplate);	
+		Utils.replace("package com.example.demo;", "package "+myTemplate.getPackageName()+".utils;", myTemplate);		
 		
 		//ErrorCatalog
 		myTemplate.setTemplateName("ErrorCatalog.txt");

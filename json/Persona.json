@@ -1,0 +1,214 @@
+[
+	{
+	  "isPk": true,
+	  "isAutoGen": false,
+	  "name":"id_persona",
+	  "type":"Long",
+	  "description":"Llave primaria"
+	},
+	{
+	  "name":"uuid_persona",
+	  "type":"String",
+	  "isNull":false,
+	  "description":"UUID",
+	  "len":100,
+	  "isFindLike": true,
+	  "isUnique": true
+	},		
+	{
+		"name": "s_tipo_cedula",
+		"type": "Varchar",
+		"isNull": false,
+		"description": "Tipo de Cedula",
+		"len": 3
+	},	
+	{
+	  "name":"s_persona_cedula",
+	  "type":"Varchar",
+	  "isNull":false,
+	  "description":"No. de la Cedula",
+	  "len":20,
+	  "isEncrypt": true
+	},
+	{
+	  "name":"s_persona_username",
+	  "type":"Varchar",
+	  "isNull":false,
+	  "description":"Usuario",
+	  "len":30
+	},
+	{
+	  "name":"s_persona_apellido",
+	  "type":"Varchar",
+	  "isNull":false,
+	  "description":"Apellidos persona",
+	  "len":80
+	},
+	{
+	  "name":"s_persona_nombre",
+	  "type":"Varchar",
+	  "isNull":false,
+	  "description":"Nombres persona",
+	  "len":80
+	}, 
+	{
+	  "name":"b_persona_ingreso",
+	  "type":"Short",
+	  "isNull":false,
+	  "description":"Estado de ingreso"
+	},
+	{
+	  "name":"b_persona_bloqueada",
+	  "type":"Short",
+	  "isNull":false,
+	  "description":"Estado de bloqueo"
+	},
+	{
+	  "name":"n_persona_fallidos",
+	  "type":"Short",
+	  "isNull":false,
+	  "description":"Intentos fallidos"
+	},
+	{
+	  "name":"dt_persona_clave",
+	  "type":"Date",
+	  "isNull":false,
+	  "description":"Descripcion del campo"
+	},
+	{
+	  "name":"dt_persona_ingreso",
+	  "type":"Date",
+	  "isNull":false,
+	  "description":"Descripcion del campo"
+	},
+	{
+	  "name":"s_persona_clave",
+	  "type":"Varchar",
+	  "isNull":false,
+	  "description":"Clave",
+	  "len":256
+	},
+	{
+	  "name":"s_i18n_codigo",
+	  "type":"Varchar",
+	  "isNull":false,
+	  "description":"Clave",
+	  "len":2
+	},	
+	{
+	  "name":"b_persona_cyberbank",
+	  "type":"Short",
+	  "isNull":false,
+	  "description":"codigo persona cyberbank"
+	},	 
+	{
+	  "name":"s_persona_ip",
+	  "type":"Varchar",
+	  "isNull":true,
+	  "description":"IP del cliente",
+	  "len":80
+	},		
+	{
+	  "name":"b_notificacion_enviada",
+	  "type":"Short",
+	  "isNull":false,
+	  "description":"Estado de notificacion enviada"
+	},		
+	{
+	  "name":"s_mail_notificacion",
+	  "type":"Varchar",
+	  "isNull":true,
+	  "description":"Email del cliente notificacion",
+	  "len":80
+	},	  
+	{
+	  "name":"b_nick_autogenerado",
+	  "type":"Short",
+	  "isNull":false,
+	  "description":"Estado de notificacion enviada"
+	},							
+	{
+	  "name":"s_tipo_notificacion",
+	  "type":"Varchar",
+	  "isNull":true,
+	  "description":"Tipo de notificacion",
+	  "len":4
+	},	
+	{
+	  "name":"b_reposicion_clave",
+	  "type":"Short",
+	  "isNull":false,
+	  "description":"Reposicion clave"
+	},	
+	{
+	  "name":"n_persona_reseteo_fallidos",
+	  "type":"Long",
+	  "isNull":false,
+	  "description":"Reseteos fallidos"
+	},
+	{
+	  "name":"dt_persona_reseteo",
+	  "type":"Date",
+	  "isNull":true,
+	  "description":"Fecha de reset"
+	},	
+	{
+	  "name":"s_esquema_seguridad",
+	  "type":"Varchar",
+	  "isNull":false,
+	  "description":"Esquema de seguridad",
+	  "len":2
+	},	
+	{
+	  "name":"s_esquema_seguridad_anterior",
+	  "type":"Varchar",
+	  "isNull":false,
+	  "description":"Esquema de seguridad anterior",
+	  "len":2
+	},	
+	{
+	  "name":"s_codigo_dispositivo_token",
+	  "type":"Varchar",
+	  "isNull":true,
+	  "description":"Dispositivo token",
+	  "len":20
+	},		
+	{
+	  "name":"dt_fecha_nacimiento",
+	  "type":"Date",
+	  "isNull":false,
+	  "description":"Fecha nacimiento"
+	},	 
+	{
+	  "name":"b_cdata_actualizada",
+	  "type":"Short",
+	  "isNull":false,
+	  "description":"Data actualizada"
+	},		 
+	{
+	  "name":"dt_persona_actualizada",
+	  "type":"Date",
+	  "isNull":false,
+	  "description":"Fecha data actualizada"
+	},		
+	{
+	  "name":"s_estado",
+	  "type":"Varchar",
+	  "isNull":false,
+	  "description":"Estado",
+	  "len":3
+	},		
+	{
+	  "name":"dt_created_at",
+	  "type":"TIMESTAMP",
+	  "isNull":false,
+	  "description":"Feha de registro creada"
+	},	
+	{
+	  "name":"dt_modified_at",
+	  "type":"TIMESTAMP",
+	  "isNull":false,
+	  "description":"Feha de registro modificada"
+	}
+
+]

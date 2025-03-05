@@ -222,6 +222,20 @@ public interface Utils {
 					dataBaseFields.setAutoGen(false);
 				}
 	            
+	            //Unique
+	            try {
+	            	dataBaseFields.setUnique((Boolean) map.get("isUnique"));
+				} catch (Exception e) {
+					dataBaseFields.setUnique(false);
+				}	  
+	            
+	            //isEncrypt
+	            try {
+	            	dataBaseFields.setEncrypt((Boolean) map.get("isEncrypt"));
+				} catch (Exception e) {
+					dataBaseFields.setEncrypt(false);
+				}	            
+	            
 	            //Tabla para las Fk
 	            try {
 	            	String tablaref      = map.get("tableRef").toString().replaceAll("_", "");

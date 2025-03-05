@@ -29,6 +29,9 @@ public class DataBaseFields {
     private String type;				//Tipo de Campo Varchar, String, Short, Integer, Long, Double, BigDecimal, Date, TIMESTAMP, Boolean, ManyToOne
     private String description;			//Descripcion del Campo
     private String len;					//Tamaño
+    private boolean isUnique;           //Campo Unico
+    private boolean isEncrypt;         //Encriptado
+    
     
 	public String getNombre_lower() {
 		return name.toLowerCase();
@@ -36,5 +39,13 @@ public class DataBaseFields {
 	
 	public String getTableRef_lower() {
 		return tableRef.toLowerCase();
+	}
+	
+	public String getNameUpper() {
+		return name.toUpperCase();
+	}
+	
+	public String nameUpper() {
+		return name.toUpperCase();
 	}
 }

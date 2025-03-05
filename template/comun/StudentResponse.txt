@@ -10,7 +10,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import ${myUtil.packageName}.utils.UtilValidate;
+import ${myUtil.packageName}.utils.UtilAES256;
 
 @SuppressWarnings("unused")
 @Builder
@@ -19,6 +22,12 @@ import ${myUtil.packageName}.utils.UtilValidate;
 @AllArgsConstructor
 @ToString
 public class ${myUtil.entityClassName}Response  {
+
+	@Value("field.secret.key")
+	private String key;
+	
+	@Value("field.secret.salt")
+	private String salt;	
 
 <%
     
@@ -93,10 +102,19 @@ public class ${myUtil.entityClassName}Response  {
 	
 	for(attr in myUtil.list){
 		if (attr.type=="Varchar"){
-			%>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
+			if (attr.isEncrypt==false){
+			   %>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
+			}else{
+			   %>    public String get${attr.camelCaseName}() {return UtilAES256.encrypt(UtilValidate.validateString(${attr.name}), key, salt);}<%
+			}
+			
 			println("");
 		}else if (attr.type=="String"){
-			%>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
+		    if (attr.isEncrypt==false){
+		       %>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
+		    }else{
+		       %>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name}), key, salt);}<%
+		    }
 			println("");
 		}else if (attr.type=="Short"){
 			%>    public Short get${attr.camelCaseName}() {return UtilValidate.validateShort(${attr.name});}<%
@@ -117,7 +135,7 @@ public class ${myUtil.entityClassName}Response  {
 			%>    public Date get${attr.camelCaseName}() {return UtilValidate.validateDateSql(${attr.name});}<%
 			println("");				
 		}else if(attr.type=="TIMESTAMP"){
-			%>    public Timestamp get${attr.camelCaseName}() {return ${attr.name};}<%
+			%>    public Date get${attr.camelCaseName}() {return ${attr.name};}<%
 			println("");			
 		}else if(attr.type=="Boolean"){
 			%>    public Boolean get${attr.camelCaseName}() {return ${attr.name};}<%
