@@ -30,7 +30,9 @@ public class DataBaseFields {
     private String description;			//Descripcion del Campo
     private String len;					//Tamaño
     private boolean isUnique;           //Campo Unico
-    private boolean isEncrypt;         //Encriptado
+    private boolean isEncrypt;          //Encriptado
+    private String  nameLabel;          //Para el Mapper
+    private String camelCaseNameLabel;  //Nombre del Campo camelCase
     
     
 	public String getNombre_lower() {

@@ -14,7 +14,12 @@ public interface I${myUtil.entityClassName}PersistencePort {
     public Optional<${myUtil.entityClassName}> findById(<%
         for(attr in myUtil.list){
             if(attr.isPk == true){
-            	print(attr.type +" "+attr.name);
+            	if (attr.nameLabel==""){
+            	   print(attr.type +" "+attr.name);
+            	}else{
+            	   print(attr.type +" "+attr.nameLabel);
+            	}
+            	
             }
                 
         }
@@ -27,7 +32,12 @@ public interface I${myUtil.entityClassName}PersistencePort {
     public void deleteById(<%
         for(attr in myUtil.list){
             if(attr.isPk == true){
-            	print(attr.type +" "+attr.name);
+            	if (attr.nameLabel==""){
+            	   print(attr.type +" "+attr.name);
+            	}else{
+            	   print(attr.type +" "+attr.nameLabel);
+            	}
+            	
             }
         }
     %>);
@@ -38,7 +48,11 @@ public interface I${myUtil.entityClassName}PersistencePort {
     	if (attr.type=="String"){
     		if (attr.isFindLike == true){
 	    	  println("    //Busqueda por "+ attr.description);
-              %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name});<%
+	    	  if (attr.nameLabel==""){
+	    	     %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name});<%
+	    	  }else{
+	    	     %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameLabel}(String ${attr.nameLabel});<%
+	    	  }
               println("");
               println("");    		
     		}

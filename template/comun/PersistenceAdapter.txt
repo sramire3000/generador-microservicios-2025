@@ -62,9 +62,19 @@ public class ${myUtil.entityClassName}PersistenceAdapter implements I${myUtil.en
     		if (attr.isFind == true){
 	    	  println("    //Busqueda por "+ attr.description);
               println("    @Override");
-              %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}){ <%
+              if (attr.nameLabel==""){
+                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}){ <%
+              }else{
+                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameLabel}(String ${attr.nameLabel}){ <%
+              }
+              
               println("");
-              %>        return mapper.to${myUtil.entityClassName}List(repository.findBy${attr.camelCaseName}(${attr.name})); <%
+              if (attr.nameLabel==""){
+                 %>        return mapper.to${myUtil.entityClassName}List(repository.findBy${attr.camelCaseName}(${attr.name})); <%
+              }else{
+                 %>        return mapper.to${myUtil.entityClassName}List(repository.findBy${attr.camelCaseNameLabel}(${attr.nameLabel})); <%
+              }
+              
               println("");
               %>    }<%
               println("");
@@ -74,9 +84,18 @@ public class ${myUtil.entityClassName}PersistenceAdapter implements I${myUtil.en
     		if (attr.isFindLike == true){
 	    	  println("    //Busqueda por "+ attr.description);
               println("    @Override");
-              %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}){ <%
+              if (attr.nameLabel==""){
+                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}){ <%
+              }else{
+                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameLabel}(String ${attr.nameLabel}){ <%
+              }
               println("");
-              %>        return mapper.to${myUtil.entityClassName}List(repository.findBy${attr.camelCaseName}("%"+${attr.name}.trim()+"%")); <%
+              if (attr.nameLabel==""){
+                 %>        return mapper.to${myUtil.entityClassName}List(repository.findBy${attr.camelCaseName}("%"+${attr.name}.trim()+"%")); <%
+              }else{
+                 %>        return mapper.to${myUtil.entityClassName}List(repository.findBy${attr.camelCaseName}("%"+${attr.nameLabel}.trim()+"%")); <%              
+              }
+              
               println("");
               %>    }<%
               println("");

@@ -4,17 +4,23 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import ${myUtil.packageName}.domain.model.${myUtil.entityClassName};
 import ${myUtil.packageName}.infrastructure.adapters.output.persistence.entity.${myUtil.entityClassName}Entity;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface I${myUtil.entityClassName}PersitenceMappers {
 
 	/* source = ${myUtil.entityClassName}  target = ${myUtil.entityClassName}Entity */
 <%
     for(attr in myUtil.list){
-       println('    @Mapping(source="'+ attr.name+'", target="'+attr.name+'")');
+       if (attr.nameLabel==""){
+          println('    @Mapping(source="'+ attr.name+'", target="'+attr.name+'")');
+       }else{
+          println('    @Mapping(source="'+ attr.nameLabel+'", target="'+attr.name+'")');
+       }
+       
     }	
 %>
 

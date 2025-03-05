@@ -30,61 +30,112 @@ public class ${myUtil.entityClassName}  {
     	if (attr.isPk == true){
     	    println("    //" + attr.description);
 			if (attr.type=="Long"){
-	        	println("    private Long " + attr.name + ";" + "     //"+ attr.description);
+				if (attr.nameLabel==""){
+				   println("    private Long " + attr.name + ";" + "     //"+ attr.description);
+				}else{
+				   println("    private Long " + attr.nameLabel + ";" + "     //"+ attr.description);
+				}
 	        }else if(attr.type=="Integer"){
-	        	println("    private Integer " + attr.name + ";" + "     //"+ attr.description);	         		
+	            if (attr.nameLabel==""){
+	               println("    private Integer " + attr.name + ";" + "     //"+ attr.description);
+	            }else{
+	               println("    private Integer " + attr.nameLabel + ";" + "     //"+ attr.description);
+	            }
 			}else if (attr.type=="Varchar" ){
-				println("    private String " + attr.name + ";" + "     //"+ attr.description);
+			    if (attr.nameLabel==""){
+			       println("    private String " + attr.name + ";" + "     //"+ attr.description);
+			    }else{
+			       println("    private String " + attr.nameLabel + ";" + "     //"+ attr.description);
+			    }
 			}else if (attr.type=="String"){
-				println("    private String " + attr.name + ";" + "     //"+ attr.description);
+			    if (attr.nameLabel==""){
+			       println("    private String " + attr.name + ";" + "     //"+ attr.description);
+			    }else{
+			       println("    private String " + attr.nameLabel + ";" + "     //"+ attr.description);
+			    }
+				
 			}
         	println(""); 
     	}else{
     	    if (attr.type=="Varchar"){
     			println("    //" + attr.description);
-                println("    private String " + attr.name + ";"); 
-                println("");    				
+    			if (attr.nameLabel==""){
+    			    println("    private String " + attr.name + ";");
+    			}else{
+    			    println("    private String " + attr.nameLabel + ";");
+    			}
     	    }else if (attr.type=="String"){
     			println("    //" + attr.description);
-                println("    private " + attr.type + " " + attr.name + ";"); 
-                println("");    				
+    			if (attr.nameLabel==""){
+    			   println("    private " + attr.type + " " + attr.name + ";");
+    			}else{
+    			   println("    private String " + attr.nameLabel + ";");
+    			}
     		}else if (attr.type=="Short"){
         		println("    //" + attr.description);
-                println("    private " + attr.type + " " + attr.name + ";"); 
-                println("");         				
+        		if (attr.nameLabel==""){
+        		   println("    private " + attr.type + " " + attr.name + ";");
+        		}else{
+        		   println("    private " + attr.type + " " + attr.nameLabel + ";");
+        		}
         	}else if (attr.type=="Integer"){
         		println("    //" + attr.description);
-                println("    private " + attr.type + " " + attr.name + ";"); 
-                println("");         				
+        		if (attr.nameLabel==""){
+        		   println("    private " + attr.type + " " + attr.name + ";");
+        		}else{
+        		   println("    private " + attr.type + " " + attr.nameLabel + ";");
+        		}
     		}else if (attr.type=="Long") {
     			println("    //" + attr.description);
-                println("    private " + attr.type + " " + attr.name + ";"); 
-                println("");         				
+    			if (attr.nameLabel==""){
+                   println("    private " + attr.type + " " + attr.name + ";");
+                }else{
+                   println("    private " + attr.type + " " + attr.nameLabel + ";");
+                } 
     		}else if (attr.type=="Double") {
     			println("    //" + attr.description);
-                println("    private " + attr.type + " " + attr.name + ";"); 
-                println("");     				
+    			if (attr.nameLabel==""){
+    			   println("    private " + attr.type + " " + attr.name + ";");
+    			}else{
+    			   println("    private " + attr.type + " " + attr.nameLabel + ";");
+    			}
     	    }else if (attr.type=="BigDecimal"){   	
     	        println("    //" + attr.description);
-                println("    private " + attr.type + " " + attr.name + ";"); 
-                println(""); 
+    	        if (attr.nameLabel==""){
+    	           println("    private " + attr.type + " " + attr.name + ";");
+    	        }else{
+    	           println("    private " + attr.type + " " + attr.nameLabel + ";");
+    	        }
     		}else if (attr.type=="Date") {
     			println("    //" + attr.description);
-                println("    private " + attr.type + " " + attr.name + ";"); 
-                println("");      			
+    			if (attr.nameLabel==""){
+    			   println("    private " + attr.type + " " + attr.name + ";");
+    			}else{
+    			   println("    private " + attr.type + " " + attr.nameLabel + ";");
+    			}
     		} else if(attr.type=="TIMESTAMP"){
     			println("    //" + attr.description);
-                println("    private Date "+ attr.name + ";"); 
-                println("");      			
+    			if (attr.nameLabel==""){
+    			   println("    private Date "+ attr.name + ";");
+    			}else{
+    			   println("    private Date "+ attr.nameLabel + ";");
+    			}
     		}else if(attr.type=="Boolean"){
     			println("    //" + attr.description);
-                println("    private Boolean "+ attr.name + ";"); 
-                println("");      			
+    			if (attr.nameLabel==""){
+    			   println("    private Boolean "+ attr.name + ";");
+    			}else{
+    			   println("    private Boolean "+ attr.nameLabel + ";");
+    			}
     		}else{
     			println("    //" + attr.description);
-                println("    private " + attr.type + " " + attr.name + ";");   	
-                println("");    			
-		}
+    			if (attr.nameLabel==""){
+    			   println("    private " + attr.type + " " + attr.name + ";");
+    			}else{
+    			   println("    private " + attr.type + " " + attr.nameLabel + ";");
+    			}
+        	}
+        	println("");
     	}
     }
 
@@ -94,37 +145,70 @@ public class ${myUtil.entityClassName}  {
 	println("    //Metodos Get's");
 	
 	for(attr in myUtil.list){
+	
 		if (attr.type=="Varchar"){
-			%>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
-			println("");
+			if (attr.nameLabel==""){
+			   %>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
+			}else{
+			   %>    public String get${attr.camelCaseNameLabel}() {return UtilValidate.validateString(${attr.nameLabel});}<%
+			}
 		}else if (attr.type=="String"){
-			%>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
-			println("");
+		    if (attr.nameLabel==""){
+		       %>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
+		    }else{
+		       %>    public String get${attr.camelCaseNameLabel}() {return UtilValidate.validateString(${attr.nameLabel});}<%
+		    }
 		}else if (attr.type=="Short"){
-			%>    public Short get${attr.camelCaseName}() {return UtilValidate.validateShort(${attr.name});}<%
-			println("");			
+		    if (attr.nameLabel==""){
+		       %>    public Short get${attr.camelCaseName}() {return UtilValidate.validateShort(${attr.name});}<%
+		    }else{
+		       %>    public Short get${attr.camelCaseNameLabel}() {return UtilValidate.validateShort(${attr.nameLabel});}<%
+		    }
 		}else if (attr.type=="Integer"){
-			%>    public Integer get${attr.camelCaseName}() {return UtilValidate.validateInteger(${attr.name});}<%
-			println("");			
+		    if (attr.nameLabel==""){
+		       %>    public Integer get${attr.camelCaseName}() {return UtilValidate.validateInteger(${attr.name});}<%
+		    }else{
+		       %>    public Integer get${attr.camelCaseNameLabel}() {return UtilValidate.validateInteger(${attr.nameLabel});}<%
+		    }
 		}else if (attr.type=="Long"){
-			%>    public Long get${attr.camelCaseName}() {return ${attr.name};}<%
-			println("");				
+		    if (attr.nameLabel==""){
+		       %>    public Long get${attr.camelCaseName}() {return ${attr.name};}<%
+		    }else{
+		       %>    public Long get${attr.camelCaseNameLabel}() {return ${attr.nameLabel};}<%
+		    }
 		}else if (attr.type=="Double") {
-			%>    public Double get${attr.camelCaseName}() {return UtilValidate.validateDouble(${attr.name});}<%
-			println("");				
+		    if (attr.nameLabel==""){
+		       %>    public Double get${attr.camelCaseName}() {return UtilValidate.validateDouble(${attr.name});}<%
+		    }else{
+		       %>    public Double get${attr.camelCaseNameLabel}() {return UtilValidate.validateDouble(${attr.nameLabel});}<%
+		    }
 		}else if (attr.type=="BigDecimal"){
-			%>    public BigDecimal get${attr.camelCaseName}() {return UtilValidate.validateBigDecimal(${attr.name});}<%
-			println("");			
+		    if (attr.nameLabel==""){
+		       %>    public BigDecimal get${attr.camelCaseName}() {return UtilValidate.validateBigDecimal(${attr.name});}<%
+		    }else{
+		       %>    public BigDecimal get${attr.camelCaseNameLabel}() {return UtilValidate.validateBigDecimal(${attr.nameLabel});}<%
+		    }
 		}else if (attr.type=="Date"){
-			%>    public Date get${attr.camelCaseName}() {return UtilValidate.validateDateSql(${attr.name});}<%
-			println("");				
+		    if (attr.nameLabel==""){
+		       %>    public Date get${attr.camelCaseName}() {return UtilValidate.validateDateSql(${attr.name});}<%
+		    }else{
+		       %>    public Date get${attr.camelCaseNameLabel}() {return UtilValidate.validateDateSql(${attr.nameLabel});}<%
+		    }
 		}else if(attr.type=="TIMESTAMP"){
-			%>    public Date get${attr.camelCaseName}() {return ${attr.name};}<%
-			println("");			
+		    if (attr.nameLabel==""){
+		       %>    public Date get${attr.camelCaseName}() {return ${attr.name};}<%
+		    }else{
+		       %>    public Date get${attr.camelCaseNameLabel}() {return ${attr.nameLabel};}<%
+		    }
 		}else if(attr.type=="Boolean"){
-			%>    public Boolean get${attr.camelCaseName}() {return ${attr.name};}<%
-			println("");			
+		    if (attr.nameLabel==""){
+		       %>    public Boolean get${attr.camelCaseName}() {return ${attr.name};}<%
+		    }else{
+		       %>    public Boolean get${attr.camelCaseNameLabel}() {return ${attr.nameLabel};}<%
+		    }
+			
 		}
+		println("");
 	}
 %>
 

@@ -169,6 +169,14 @@ public interface Utils {
 	            //Name
 	            dataBaseFields.setName(map.get("name").toString());
 	            
+	            //Label
+	            try {
+	            	dataBaseFields.setNameLabel(map.get("nameLabel").toString());
+				} catch (Exception e) {
+					dataBaseFields.setNameLabel("");
+				}
+	            
+	            
 	            //Type
 	            dataBaseFields.setType(map.get("type").toString());
 	            
@@ -249,6 +257,13 @@ public interface Utils {
 	            
             
 	            dataBaseFields.setCamelCaseName(map.get("name").toString().substring(0, 1).toUpperCase() + map.get("name").toString().substring(1));
+	            
+	            if (!dataBaseFields.getNameLabel().equals("")) {
+	            	dataBaseFields.setCamelCaseNameLabel(map.get("nameLabel").toString().substring(0, 1).toUpperCase() + map.get("nameLabel").toString().substring(1));	
+	            }else {
+	            	dataBaseFields.setCamelCaseNameLabel("");
+	            }
+	            
 	            
 	            String nombre_temp = map.get("name").toString().substring(0, 1).toUpperCase() + map.get("name").toString().substring(1);
 	            

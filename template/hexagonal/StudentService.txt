@@ -28,11 +28,32 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
 	@Override
     public ${myUtil.entityClassName} findById(<%
         for(attr in myUtil.list){
-            if(attr.isPk == true)
-                print(attr.type);
+            if(attr.isPk == true){
+               print(attr.type);
+            }
         }
-    %> <%for(attr in myUtil.list){if(attr.isPk == true)print(attr.name);}%>){
-        return ${myUtil.entityName}PersistencePort.findById(<%for(attr in myUtil.list){if(attr.isPk == true)print(attr.name);}%>).orElseThrow(${myUtil.entityClassName}NotFoundException::new);
+    %> <%
+        for(attr in myUtil.list){
+           if(attr.isPk == true){
+              if (attr.nameLabel==""){
+                 print(attr.name);
+              }else{
+                 print(attr.nameLabel);
+              }
+           }
+        }
+        %>){
+        return ${myUtil.entityName}PersistencePort.findById(<%
+           for(attr in myUtil.list){
+              if(attr.isPk == true){
+                 if (attr.nameLabel==""){
+                    print(attr.name);
+                 }else{
+                    print(attr.nameLabel);
+                 }
+              }
+           }
+           %>).orElseThrow(${myUtil.entityClassName}NotFoundException::new);
     }
     
 	//Implementacion del Metodo Save
@@ -44,24 +65,44 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
 	/* Implementacion del Metodo Update */
     public ${myUtil.entityClassName} update(${myUtil.entityClassName} ${myUtil.entityName}, <%for(attr in myUtil.list){
                                                                                                                       	if(attr.isPk == true){
-	                                                                                                                       %>${attr.type} ${attr.name}<%
+                                                                                                                      	   if (attr.nameLabel==""){
+                                                                                                                      	      %>${attr.type} ${attr.name}<%
+                                                                                                                      	   }else{
+                                                                                                                      	      %>${attr.type} ${attr.nameLabel}<%
+                                                                                                                      	   }
+	                                                                                                                       
 	                                                                                                                    }
                                                                                                                       }%>) {
-    	return ${myUtil.entityName}PersistencePort.findById(<%for(attr in myUtil.list){if(attr.isPk == true)print(attr.name);}%>)
+    	return ${myUtil.entityName}PersistencePort.findById(<%
+    	for(attr in myUtil.list){
+    	    if(attr.isPk == true){
+	    	    if (attr.nameLabel==""){
+	    	        print(attr.name);
+	    	    }else{
+	    	        print(attr.nameLabel);
+	    	    }
+    	    }
+    	}
+    	%>)
     	      .map(save${myUtil.entityClassName} -> {
      	<%
      	    println("              //Paso de Variables");
+     	    
     	    for(attr in myUtil.list){
     	    	if (attr.name == "id"){
     	    	    
     	    	}else{
                     if (!(attr.type=="ManyToMany" || attr.type=="ManyToOne")){
-                       %>                      save${myUtil.entityClassName}.set${attr.camelCaseName}(${myUtil.entityName}.get${attr.camelCaseName}());<%
+                       if (attr.nameLabel==""){
+                          %>                      save${myUtil.entityClassName}.set${attr.camelCaseName}(${myUtil.entityName}.get${attr.camelCaseName}());<%
+                       }else{
+                          %>                      save${myUtil.entityClassName}.set${attr.camelCaseNameLabel}(${myUtil.entityName}.get${attr.camelCaseNameLabel}());<%                       
+                       }
                        println("");
                     }   
     	    	}
     	    }
-	    	%>
+	    %>
     	             return ${myUtil.entityName}PersistencePort.save(save${myUtil.entityClassName});
     	      })
     	      .orElseThrow(${myUtil.entityClassName}NotFoundException::new);
@@ -71,11 +112,14 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
 	@Override
     public void deleteById(<%
         for(attr in myUtil.list){
-            if(attr.isPk == true)
-                print(attr.type);
+            if(attr.isPk == true){
+               print(attr.type);
+            }
         }
-    %> <%for(attr in myUtil.list){if(attr.isPk == true)print(attr.name);}%>){
-        ${myUtil.entityName}PersistencePort.deleteById(<%for(attr in myUtil.list){if(attr.isPk == true)print(attr.name);}%>);
+    %> <%for(attr in myUtil.list){if(attr.isPk == true){if (attr.nameLabel==""){print(attr.name);}else{print(attr.nameLabel);}}}%>){
+        ${myUtil.entityName}PersistencePort.deleteById(<%for(attr in myUtil.list){if(attr.isPk == true){
+          if (attr.nameLabel==""){print(attr.name);}else{print(attr.nameLabel);}
+        }}%>);
     }
     
 <%
@@ -85,9 +129,18 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
     		if (attr.isFind == true){
 	    	  println("    //Busqueda por "+ attr.description);
               println("    @Override");
-              %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}){ <%
+              if (attr.nameLabel==""){
+                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}){ <%
+              }else{
+                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameLabel}(String ${attr.nameLabel}){ <%
+              } 
               println("");
-              %>        return ${myUtil.entityName}PersistencePort.findBy${attr.camelCaseName}(${attr.name}); <%
+              if (attr.nameLabel==""){
+                 %>        return ${myUtil.entityName}PersistencePort.findBy${attr.camelCaseName}(${attr.name}); <%
+              }else{
+                 %>        return ${myUtil.entityName}PersistencePort.findBy${attr.camelCaseNameLabel}(${attr.nameLabel}); <%
+              }
+              
               println("");
               %>    }<%
               println("");
@@ -97,9 +150,19 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
     		if (attr.isFindLike == true){
 	    	  println("    //Busqueda por "+ attr.description);
               println("    @Override");
-              %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}){ <%
+              if (attr.nameLabel==""){
+                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}){ <%
+              }else{
+                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameLabel}(String ${attr.nameLabel}){ <%
+              }
+              
               println("");
-              %>        return ${myUtil.entityName}PersistencePort.findBy${attr.camelCaseName}("%"+${attr.name}.trim()+"%"); <%
+              if (attr.nameLabel==""){
+                 %>        return ${myUtil.entityName}PersistencePort.findBy${attr.camelCaseName}("%"+${attr.name}.trim()+"%"); <%
+              }else{
+                 %>        return ${myUtil.entityName}PersistencePort.findBy${attr.camelCaseNameLabel}("%"+${attr.nameLabel}.trim()+"%"); <%
+              }
+              
               println("");
               %>    }<%
               println("");

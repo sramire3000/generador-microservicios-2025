@@ -4,7 +4,8 @@
 	  "isAutoGen": false,
 	  "name":"id_persona",
 	  "type":"Long",
-	  "description":"Llave primaria"
+	  "description":"Llave primaria",
+	  "nameLabel":"persona_id"
 	},
 	{
 	  "name":"uuid_persona",
@@ -13,14 +14,16 @@
 	  "description":"UUID",
 	  "len":100,
 	  "isFindLike": true,
-	  "isUnique": true
+	  "isUnique": true,
+	  "nameLabel":"persona_uuid"
 	},		
 	{
 		"name": "s_tipo_cedula",
 		"type": "Varchar",
 		"isNull": false,
 		"description": "Tipo de Cedula",
-		"len": 3
+		"len": 3,
+		"nameLabel":"persona_tipo_cedula"
 	},	
 	{
 	  "name":"s_persona_cedula",
@@ -28,187 +31,216 @@
 	  "isNull":false,
 	  "description":"No. de la Cedula",
 	  "len":20,
-	  "isEncrypt": true
+	  "isEncrypt": true,
+	  "nameLabel":"persona_numero_cedula"
 	},
 	{
 	  "name":"s_persona_username",
 	  "type":"Varchar",
 	  "isNull":false,
 	  "description":"Usuario",
-	  "len":30
+	  "len":30,
+	  "nameLabel":"persona_usuario"
 	},
 	{
 	  "name":"s_persona_apellido",
 	  "type":"Varchar",
 	  "isNull":false,
 	  "description":"Apellidos persona",
-	  "len":80
+	  "len":80,
+	  "nameLabel":"persona_apellidos"
 	},
 	{
 	  "name":"s_persona_nombre",
 	  "type":"Varchar",
 	  "isNull":false,
 	  "description":"Nombres persona",
-	  "len":80
+	  "len":80,
+	  "nameLabel":"persona_nombres"
 	}, 
 	{
 	  "name":"b_persona_ingreso",
 	  "type":"Short",
 	  "isNull":false,
-	  "description":"Estado de ingreso"
+	  "description":"Estado de ingreso",
+	  "nameLabel":"persona_flag_ingreso"
 	},
 	{
 	  "name":"b_persona_bloqueada",
 	  "type":"Short",
 	  "isNull":false,
-	  "description":"Estado de bloqueo"
+	  "description":"Estado de bloqueo",
+	  "nameLabel":"persona_flag_bloqueo"
 	},
 	{
 	  "name":"n_persona_fallidos",
 	  "type":"Short",
 	  "isNull":false,
-	  "description":"Intentos fallidos"
+	  "description":"Intentos fallidos",
+	  "nameLabel":"persona_intentos_fallidos"
 	},
 	{
 	  "name":"dt_persona_clave",
 	  "type":"Date",
 	  "isNull":false,
-	  "description":"Descripcion del campo"
+	  "description":"Fecha ult. registro clave",
+	  "nameLabel":"persona_fecha_clave"
 	},
 	{
 	  "name":"dt_persona_ingreso",
 	  "type":"Date",
 	  "isNull":false,
-	  "description":"Descripcion del campo"
+	  "description":"Fecha de ingreso",
+	  "nameLabel":"persona_fecha_ingreso"
 	},
 	{
 	  "name":"s_persona_clave",
 	  "type":"Varchar",
 	  "isNull":false,
 	  "description":"Clave",
-	  "len":256
+	  "len":256,
+	  "nameLabel":"persona_clave"
 	},
 	{
 	  "name":"s_i18n_codigo",
 	  "type":"Varchar",
 	  "isNull":false,
 	  "description":"Clave",
-	  "len":2
+	  "len":2,
+	  "nameLabel":"persona_i18n_codigo"
 	},	
 	{
 	  "name":"b_persona_cyberbank",
 	  "type":"Short",
 	  "isNull":false,
-	  "description":"codigo persona cyberbank"
+	  "description":"codigo persona cyberbank",
+	  "nameLabel":"persona_cyberbank_id"
 	},	 
 	{
 	  "name":"s_persona_ip",
 	  "type":"Varchar",
 	  "isNull":true,
 	  "description":"IP del cliente",
-	  "len":80
+	  "len":80,
+	  "nameLabel":"persona_host_ip"
 	},		
 	{
 	  "name":"b_notificacion_enviada",
 	  "type":"Short",
 	  "isNull":false,
-	  "description":"Estado de notificacion enviada"
+	  "description":"Estado de notificacion enviada",
+	  "nameLabel":"persona_flag_notifi_enviada"
 	},		
 	{
 	  "name":"s_mail_notificacion",
 	  "type":"Varchar",
 	  "isNull":true,
 	  "description":"Email del cliente notificacion",
-	  "len":80
+	  "len":80,
+	  "nameLabel":"persona_email_notificacion"
 	},	  
 	{
 	  "name":"b_nick_autogenerado",
 	  "type":"Short",
 	  "isNull":false,
-	  "description":"Estado de notificacion enviada"
+	  "description":"Estado de notificacion enviada",
+	  "nameLabel":"persona_nick"
 	},							
 	{
 	  "name":"s_tipo_notificacion",
 	  "type":"Varchar",
 	  "isNull":true,
 	  "description":"Tipo de notificacion",
-	  "len":4
+	  "len":4,
+	  "nameLabel":"persona_tipo_notificacion"
 	},	
 	{
 	  "name":"b_reposicion_clave",
 	  "type":"Short",
 	  "isNull":false,
-	  "description":"Reposicion clave"
+	  "description":"Reposicion clave",
+	  "nameLabel":"persona_flag_reposicion_clave"
 	},	
 	{
 	  "name":"n_persona_reseteo_fallidos",
 	  "type":"Long",
 	  "isNull":false,
-	  "description":"Reseteos fallidos"
+	  "description":"Reseteos fallidos",
+	  "nameLabel":"persona_cantidad_intentos_fallidos"
 	},
 	{
 	  "name":"dt_persona_reseteo",
 	  "type":"Date",
 	  "isNull":true,
-	  "description":"Fecha de reset"
+	  "description":"Fecha de reset clave",
+	  "nameLabel":"persona_fch_reset_clave"
 	},	
 	{
 	  "name":"s_esquema_seguridad",
 	  "type":"Varchar",
 	  "isNull":false,
 	  "description":"Esquema de seguridad",
-	  "len":2
+	  "len":2,
+	  "nameLabel":"persona_esquema_seguridad"
 	},	
 	{
 	  "name":"s_esquema_seguridad_anterior",
 	  "type":"Varchar",
 	  "isNull":false,
 	  "description":"Esquema de seguridad anterior",
-	  "len":2
+	  "len":2,
+	  "nameLabel":"persona_esquema_seguridad_ant"
 	},	
 	{
 	  "name":"s_codigo_dispositivo_token",
 	  "type":"Varchar",
 	  "isNull":true,
 	  "description":"Dispositivo token",
-	  "len":20
+	  "len":20,
+	  "nameLabel":"persona_disp_token"
 	},		
 	{
 	  "name":"dt_fecha_nacimiento",
 	  "type":"Date",
 	  "isNull":false,
-	  "description":"Fecha nacimiento"
+	  "description":"Fecha nacimiento",
+	  "nameLabel":"persona_fch_nacimiento"
 	},	 
 	{
 	  "name":"b_cdata_actualizada",
 	  "type":"Short",
 	  "isNull":false,
-	  "description":"Data actualizada"
+	  "description":"Data actualizada",
+	  "nameLabel":"persona_flg_data_act"
 	},		 
 	{
 	  "name":"dt_persona_actualizada",
 	  "type":"Date",
 	  "isNull":false,
-	  "description":"Fecha data actualizada"
+	  "description":"Fecha data actualizada",
+	  "nameLabel":"persona_fch_data_act"
 	},		
 	{
 	  "name":"s_estado",
 	  "type":"Varchar",
 	  "isNull":false,
 	  "description":"Estado",
-	  "len":3
+	  "len":3,
+	  "nameLabel":"persona_estado"
 	},		
 	{
 	  "name":"dt_created_at",
 	  "type":"TIMESTAMP",
 	  "isNull":false,
-	  "description":"Feha de registro creada"
+	  "description":"Feha de registro creada",
+	  "nameLabel":"persona_fch_creacion"
 	},	
 	{
 	  "name":"dt_modified_at",
 	  "type":"TIMESTAMP",
 	  "isNull":false,
-	  "description":"Feha de registro modificada"
+	  "description":"Feha de registro modificada",
+	  "nameLabel":"persona_fch_modificacion"
 	}
 
 ]
