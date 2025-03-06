@@ -6,8 +6,7 @@
 	"isPk":true,
 	"isAutoGen":true,
     "description":"Key",
-	"len":2,
-	"nameLabel":"cedula_id"
+	"len":2
   },
   {
     "name":"descripcion",
@@ -17,19 +16,6 @@
     "len":80,
     "isFindLike": true,
 	"nameLabel":"cedula_descripcion"
-  },
-  {
-    "name":"serial",
-    "type":"String",
-    "isNull":false,
-    "description":"Serial",
-    "len":80,
-    "isFindLike": false,
-    "nameLabel":"cedula_serial",
-    "isEncrypt": true
   }  
-  
-  
-  
 
 ]

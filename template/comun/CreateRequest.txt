@@ -34,32 +34,29 @@ public class ${myUtil.entityClassName}CreateRequest  {
     	if (attr.isPk == true){
         	println(""); 
     	}else{
-    	    if (attr.type=="Varchar"){
+    	    if (attr.type=="String" || attr.type=="Varchar"){
     			println("     //" + attr.description);
     			if(attr.isNull == false){ //Requerido
     				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
     				println(""); 
     				%>     @Size(min=1, max=${attr.len}, message="El ${attr.description} debe tener de 1 a ${attr.len} caracteres.") <%
     				println(""); 
-                    println("     private String " + attr.name + ";"); 
+    				if (attr.nameLabel==""){
+    				   println("     private String " + attr.name + ";"); 
+    				}else{
+    				   println("     private String " + attr.nameLabel + ";"); 
+    				}
+                    
                     println("");    				
     			}else{//No requerido
-                    println("     private String " + attr.name + ";");   	
+    			    if (attr.nameLabel==""){
+    			       println("     private String " + attr.name + ";");
+    			    }else{
+    			       println("     private String " + attr.nameLabel + ";");
+    			    }
+                       	
                     println("");			
     			}   	    
-    	    }else if (attr.type=="String"){
-    			println("     //" + attr.description);
-    			if(attr.isNull == false){ //Requerido
-    				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
-    				println(""); 
-    				%>     @Size(min=1, max=${attr.len}, message="El ${attr.description} debe tener de 1 a ${attr.len} caracteres.") <%
-                    println("");
-                    println("     private " + attr.type + " " + attr.name + ";"); 
-                    println("");    				
-    			}else{//No requerido
-                    println("     private " + attr.type + " " + attr.name + ";");   	
-                    println("");			
-    			}
     		}else if (attr.type=="Short"){
         		println("     //" + attr.description);
     			if(attr.isNull == false){ //Requerido
@@ -69,10 +66,18 @@ public class ${myUtil.entityClassName}CreateRequest  {
     				println("");
     				%>     @Max(value = 999, message="El valor del campo ${attr.description} debe ser menos que 999") <% 
     				println("");
-                    println("     private " + attr.type + " " + attr.name + ";"); 
+    				if (attr.nameLabel==""){
+    				   println("     private " + attr.type + " " + attr.name + ";");
+    				}else{
+    				   println("     private " + attr.type + " " + attr.namelabel + ";");
+    				}
                     println("");         				
     			} else { //No requerido
-                    println("     private " + attr.type + " " + attr.name + ";"); 
+    			     if (attr.nameLabel==""){
+    			        println("     private " + attr.type + " " + attr.name + ";"); 
+    			     }else{
+    			        println("     private " + attr.type + " " + attr.nameLabel + ";"); 
+    			     }
                     println("");      			
     			}     		
         	}else if (attr.type=="Integer"){
@@ -84,7 +89,11 @@ public class ${myUtil.entityClassName}CreateRequest  {
     				println("");
     				%>     @Max(value = 99999999, message="El valor del campo ${attr.description} debe ser menos que 99999999") <% 
     				println("");
-                    println("     private " + attr.type + " " + attr.name + ";"); 
+    				if (attr.nameLabel==""){
+    				   println("     private " + attr.type + " " + attr.name + ";");
+    				}else{
+    				   println("     private " + attr.type + " " + attr.nameLabel + ";");
+    				}
                     println("");         				
     			} else { //No requerido
                     println("     private " + attr.type + " " + attr.name + ";"); 
@@ -99,10 +108,18 @@ public class ${myUtil.entityClassName}CreateRequest  {
     				println("");
     				%>     @Max(value = 99999999, message="El valor del campo ${attr.description} debe ser menos que 99999999") <% 
                     println("");
-                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    if (attr.nameLabel==""){
+                       println("     private " + attr.type + " " + attr.name + ";");
+                    }else{
+                       println("     private " + attr.type + " " + attr.nameLabel + ";");
+                    }
                     println("");         				
     			} else { //No requerido
-                    println("     private " + attr.type + " " + attr.name + ";"); 
+    			    if (attr.nameLabel==""){
+    			       println("     private " + attr.type + " " + attr.name + ";");
+    			    }else{
+    			       println("     private " + attr.type + " " + attr.nameLabel + ";");
+    			    }
                     println("");      			
     			}
     		}else if (attr.type=="Double") {
@@ -110,11 +127,18 @@ public class ${myUtil.entityClassName}CreateRequest  {
     			if(attr.isNull == false){ 
     				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
                     println("");
-                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    if (attr.nameLabel==""){
+                       println("     private " + attr.type + " " + attr.name + ";");
+                    }else{
+                       println("     private " + attr.type + " " + attr.nameLabel + ";");
+                    }
                     println("");     				
-    				    			
     			} else { //No requerido
-                    println("     private " + attr.type + " " + attr.name + ";"); 
+    			    if (attr.nameLabel==""){
+    			       println("     private " + attr.type + " " + attr.name + ";");
+    			    }else{
+    			       println("     private " + attr.type + " " + attr.nameLabel + ";");
+    			    }
                     println("");     			
     			} 
     	    }else if (attr.type=="BigDecimal"){   	
@@ -126,11 +150,19 @@ public class ${myUtil.entityClassName}CreateRequest  {
     				println("");
     				%>     @Max(value = 999999999, message="El valor del campo ${attr.description} debe ser menor que 99,999,999.00") <% 
                     println("");
-                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    if (attr.nameLabel==""){
+                       println("     private " + attr.type + " " + attr.name + ";");
+                    }else{
+                       println("     private " + attr.type + " " + attr.nameLabel + ";");
+                    }
                     println(""); 
     	        } else { //No requerido
                     println("");
-                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    if (attr.nameLabel==""){
+                       println("     private " + attr.type + " " + attr.name + ";");
+                    }else{
+                       println("     private " + attr.type + " " + attr.nameLabel + ";");
+                    }
                     println("");      	        
     	        }
     		}else if (attr.type=="Date") {
@@ -138,11 +170,19 @@ public class ${myUtil.entityClassName}CreateRequest  {
     			if(attr.isNull == false){ //Requerido
     				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
                     println("");
-                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    if (attr.nameLabel==""){
+                       println("     private " + attr.type + " " + attr.name + ";");
+                    }else{
+                       println("     private " + attr.type + " " + attr.nameLabel + ";");
+                    }
                     println("");      			
     			} else { //No requerido
                     println("");
-                    println("     private " + attr.type + " " + attr.name + ";"); 
+                    if (attr.nameLabel==""){
+                       println("     private " + attr.type + " " + attr.name + ";");
+                    }else{
+                       println("     private " + attr.type + " " + attr.nameLabel + ";");
+                    }
                     println("");      			
     			}    			
     		} else if(attr.type=="TIMESTAMP"){
@@ -150,11 +190,19 @@ public class ${myUtil.entityClassName}CreateRequest  {
     			if(attr.isNull == false){ //Requerido
     				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
                     println("");
-                    println("     private Date "+ attr.name + ";"); 
+                    if (attr.nameLabel==""){
+                       println("     private Date "+ attr.name + ";"); 
+                    }else{
+                       println("     private Date "+ attr.nameLabel + ";"); 
+                    }
                     println("");      			
     			} else { //No requerido
                     println("");
-                    println("     private Date " + attr.name + ";"); 
+                    if (attr.nameLabel==""){
+                       println("     private Date " + attr.name + ";");
+                    }else{
+                       println("     private Date " + attr.namelabel + ";");
+                    }
                     println("");      			
     			}     		
     		}else if(attr.type=="Boolean"){
@@ -163,64 +211,98 @@ public class ${myUtil.entityClassName}CreateRequest  {
     				%>     @NotNull(message="Este campo es requerido, ${attr.description}.") <%
     				println(""); 
                     println("");
-                    println("     private Date "+ attr.name + ";"); 
+                    if (attr.nameLabel==""){
+                       println("     private Date "+ attr.name + ";");
+                    }else{
+                       println("     private Date "+ attr.namelabel + ";");
+                    }
                     println("");      			
     			} else { //No requerido
                     println("");
-                    println("     private Boolean " + attr.name + ";"); 
+                    if (attr.nameLabel==""){
+                       println("     private Boolean " + attr.name + ";");
+                    }else{
+                       println("     private Boolean " + attr.nameLabel + ";");
+                    }
                     println("");      			
     			}   
     		}else{
     			println("     //" + attr.description);
                 println("");
-                println("     private " + attr.type + " " + attr.name + ";");   	
+                if (attr.nameLabel==""){
+                   println("     private " + attr.type + " " + attr.name + ";");
+                }else{
+                   println("     private " + attr.type + " " + attr.nameLabel + ";");
+                }
+                   	
                 println("");    			
 		}
     	}
     }
 
 %>
+    //Metodos Get's
 <%
-	
-	println("    //Metodos Get's");
-	
 	for(attr in myUtil.list){
 		if (attr.isPk == true){
-        	println(""); 
-		}else if (attr.type=="Varchar"){
-			%>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
-			println("");
-		}else if (attr.type=="String"){
-			%>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
-			println("");
+		}else if (attr.type=="String" || attr.type=="Varchar"){
+		    if (attr.nameLabel==""){
+		       %>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
+		    }else{
+		       %>    public String get${attr.camelCaseNameLabel}() {return UtilValidate.validateString(${attr.nameLabel});}<%
+		    }
 		}else if (attr.type=="Short"){
-			%>    public Short get${attr.camelCaseName}() {return UtilValidate.validateShort(${attr.name});}<%
-			println("");			
+		    if (attr.nameLabel==""){
+		       %>    public Short get${attr.camelCaseName}() {return UtilValidate.validateShort(${attr.name});}<%
+		    }else{
+		       %>    public Short get${attr.camelCaseNameLabel}() {return UtilValidate.validateShort(${attr.nameLabel});}<%
+		    }
 		}else if (attr.type=="Integer"){
-			%>    public Integer get${attr.camelCaseName}() {return UtilValidate.validateInteger(${attr.name});}<%
-			println("");			
+		    if (attr.nameLabel==""){
+		       %>    public Integer get${attr.camelCaseName}() {return UtilValidate.validateInteger(${attr.name});}<%
+		    }else{
+		       %>    public Integer get${attr.camelCaseNameLabel}() {return UtilValidate.validateInteger(${attr.nameLabel});}<%
+		    }
 		}else if (attr.type=="Long"){
-			%>    public Long get${attr.camelCaseName}() {return ${attr.name};}<%
-			println("");				
+		    if (attr.nameLabel==""){
+		       %>    public Long get${attr.camelCaseName}() {return ${attr.name};}<%
+		    }else{
+		       %>    public Long get${attr.camelCaseNameLabel}() {return ${attr.nameLabel};}<%
+		    }
 		}else if (attr.type=="Double") {
-			%>    public Double get${attr.camelCaseName}() {return UtilValidate.validateDouble(${attr.name});}<%
-			println("");				
+		    if (attr.nameLabel==""){
+		       %>    public Double get${attr.camelCaseName}() {return UtilValidate.validateDouble(${attr.name});}<%
+		    }else{
+		       %>    public Double get${attr.camelCaseNameLabel}() {return UtilValidate.validateDouble(${attr.nameLabel});}<%
+		    }
 		}else if (attr.type=="BigDecimal"){
-			%>    public BigDecimal get${attr.camelCaseName}() {return UtilValidate.validateBigDecimal(${attr.name});}<%
-			println("");			
+		    if (attr.nameLabel==""){
+		       %>    public BigDecimal get${attr.camelCaseName}() {return UtilValidate.validateBigDecimal(${attr.name});}<%
+		    }else{
+		       %>    public BigDecimal get${attr.camelCaseNameLabel}() {return UtilValidate.validateBigDecimal(${attr.nameLabel});}<%
+		    }
 		}else if (attr.type=="Date"){
-			%>    public Date get${attr.camelCaseName}() {return UtilValidate.validateDateSql(${attr.name});}<%
-			println("");				
+		    if (attr.nameLabel==""){
+		       %>    public Date get${attr.camelCaseName}() {return UtilValidate.validateDateSql(${attr.name});}<%
+		    }else{
+		       %>    public Date get${attr.camelCaseNameLabel}() {return UtilValidate.validateDateSql(${attr.nameLabel});}<%
+		    }
 		}else if(attr.type=="TIMESTAMP"){
-			%>    public Date get${attr.camelCaseName}() {return ${attr.name};}<%
-			println("");			
+		    if (attr.nameLabel==""){
+		       %>    public Date get${attr.camelCaseName}() {return ${attr.name};}<%
+		    }else{
+		       %>    public Date get${attr.camelCaseNameLabel}() {return ${attr.nameLabel};}<%
+		    }
 		}else if(attr.type=="Boolean"){
-			%>    public Boolean get${attr.camelCaseName}() {return ${attr.name};}<%
-			println("");			
+		    if (attr.nameLabel==""){
+		       %>    public Boolean get${attr.camelCaseName}() {return ${attr.name};}<%
+		    }else{
+		       %>    public Boolean get${attr.camelCaseNameLabel}() {return ${attr.nameLabel};}<%
+		    }
 		}else if(attr.type=="ManyToOne"){
 		    %>    public ${attr.camelCasetableRef} get${attr.uno_mayuscula_tableRef}() {return ${attr.tableRef_lower};}<%
-			println("");
 		}
+		println("");
 	}
 %>
 

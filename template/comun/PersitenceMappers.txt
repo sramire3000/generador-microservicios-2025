@@ -13,6 +13,8 @@ import ${myUtil.packageName}.infrastructure.adapters.output.persistence.entity.$
 public interface I${myUtil.entityClassName}PersitenceMappers {
 
 	/* source = ${myUtil.entityClassName}  target = ${myUtil.entityClassName}Entity */
+	
+	//Entity a Model
 <%
     for(attr in myUtil.list){
        if (attr.nameLabel==""){
@@ -23,11 +25,21 @@ public interface I${myUtil.entityClassName}PersitenceMappers {
        
     }	
 %>
-
-    //Entity a Model
 	${myUtil.entityClassName}Entity to${myUtil.entityClassName}Entity(${myUtil.entityClassName} ${myUtil.entityName});
 	
+	
+	
     //Model a Entity	
+<%
+    for(attr in myUtil.list){
+       if (attr.nameLabel==""){
+          println('    @Mapping(source="'+ attr.name+'", target="'+attr.name+'")');
+       }else{
+          println('    @Mapping(source="'+ attr.name+'", target="'+attr.nameLabel+'")');
+       }
+       
+    }	
+%>    
 	${myUtil.entityClassName} to${myUtil.entityClassName}(${myUtil.entityClassName}Entity entity);
 	
     //List<Entity> a List<Model>
