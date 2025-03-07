@@ -11,6 +11,26 @@ import java.nio.charset.StandardCharsets;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 
+/* EXAMPLE
+ * 
+ * Paso 1 colocar en el properties
+ * 
+ * #Secret Fields
+ * field.secret.key=my_super_secret_key
+ * field.secret.salt=ssshhhhhhhhhhh!!!!
+ * 
+ * paso 2 Importar librerias
+ * 
+ * import org.springframework.beans.factory.annotation.Value;
+ * import sv.com.acme.app.students.utils.UtilAES256;
+ * 
+ * Paso 3 Example
+ * 
+ *  UtilAES256.encrypt(UtilValidate.validateString("PRUEBA"), key, salt);
+ *  
+ */
+ 
+
 public class UtilAES256 {
 
 	public static String encrypt(String strToEncrypt, String field_secret_key, String field_secret_salt) {

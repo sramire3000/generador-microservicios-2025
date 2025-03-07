@@ -10,10 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import ${myUtil.packageName}.utils.UtilValidate;
-import ${myUtil.packageName}.utils.UtilAES256;
 
 @SuppressWarnings("unused")
 @Builder
@@ -22,12 +19,6 @@ import ${myUtil.packageName}.utils.UtilAES256;
 @AllArgsConstructor
 @ToString
 public class ${myUtil.entityClassName}Response  {
-
-	@Value("field.secret.key")
-	private String key;
-	
-	@Value("field.secret.salt")
-	private String salt;	
 
 <%
     
@@ -146,19 +137,11 @@ public class ${myUtil.entityClassName}Response  {
 	
 	for(attr in myUtil.list){
 		if (attr.type=="String" || attr.type=="Varchar"){
-			if (attr.isEncrypt==false){
-			   if (attr.nameLabel==""){
-			      %>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
-			   }else{
-			      %>    public String get${attr.camelCaseNameLabel}() {return UtilValidate.validateString(${attr.nameLabel});}<%
-			   }
-			}else{
-			   if (attr.nameLabel==""){
-			      %>    public String get${attr.camelCaseName}() {return UtilAES256.encrypt(UtilValidate.validateString(${attr.name}), key, salt);}<%
-			   }else{
-			      %>    public String get${attr.camelCaseNameLabel}() {return UtilAES256.encrypt(UtilValidate.validateString(${attr.nameLabel}), key, salt);}<%
-			   }
-			}
+		   if (attr.nameLabel==""){
+		      %>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
+		   }else{
+		      %>    public String get${attr.camelCaseNameLabel}() {return UtilValidate.validateString(${attr.nameLabel});}<%
+		   }
 		}else if (attr.type=="Short"){
 		    if (attr.nameLabel==""){
 	          %>    public Short get${attr.camelCaseName}() {return UtilValidate.validateShort(${attr.name});}<%
