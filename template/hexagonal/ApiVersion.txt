@@ -1,0 +1,27 @@
+package com.example.demo;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class ApiVersion {
+	
+	@Value("${app.version}")
+	private String versionApp;
+	
+	@Value("${app.name}")
+	private String appName;
+	
+	@GetMapping("/version")
+	public Object getVersion() {
+		Map<String, Object> mapVersion = new HashMap<>();
+		mapVersion.put("version", versionApp);
+		mapVersion.put("appName", appName);
+		return mapVersion;
+	}		
+
+}

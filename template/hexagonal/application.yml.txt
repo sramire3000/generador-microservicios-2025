@@ -1,0 +1,20 @@
+app:
+   version: ^project.version^
+   name: ^project.name^
+   group: ^project.groupId^
+spring:
+  profiles:
+    active: ${SPRING_PROFILE_ACTIVE:dev}
+  application:
+    name: ^project.name^
+  config:
+    import: "optional:configserver:${URL_CONFIG_SERVER}"
+  cloud:
+    compatibility-verifier:
+      enabled: false
+    config:
+      uri:
+        - ${URL_CONFIG_SERVER}
+      username: ${CONFIG_USER}
+      password: ${CONFIG_USER_PASS}
+      label: ${CONFIG_LABEL}

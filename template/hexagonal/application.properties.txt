@@ -1,6 +1,9 @@
 #Nombre Aplicacion
 spring.application.name=spring-demo-hexagonal
 
+app.version=1.0.0.0
+app.name=spring-demo-hexagonal
+
 #Puerto Statico
 #server.port=8086
 

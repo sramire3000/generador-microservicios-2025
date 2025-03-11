@@ -185,6 +185,25 @@ public class GeneraHexagonal {
 		myTemplate.setFileName("org.springframework.ide.eclipse.prefs");
 		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator + ".settings"));		
 		
+		
+		//application.yml.txt
+		myTemplate.setTemplateName("application.yml.txt");
+		myTemplate.setFileName("application.yml.txt");
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator + "src/main/resources"));	
+		UtilCopy.CopyFile(myTemplate);		
+		
+		//messages_en.properties
+		myTemplate.setTemplateName("messages_en.properties");
+		myTemplate.setFileName("messages_en.properties.txt");
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator + "src/main/resources"));	
+		UtilCopy.CopyFile(myTemplate);
+		
+		//messages_es.properties
+		myTemplate.setTemplateName("messages_es.properties");
+		myTemplate.setFileName("messages_es.properties.txt");
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator + "src/main/resources"));	
+		UtilCopy.CopyFile(myTemplate);
+		
 		//application.properties
 		myTemplate.setTemplateName("application.properties.txt");
 		myTemplate.setFileName("application.properties");
@@ -232,13 +251,20 @@ public class GeneraHexagonal {
 		UtilCopy.CopyFile(myTemplate);			
 		Utils.replace("com.example.demo", myTemplate.getPackageName(), myTemplate);
 		
-		
-		
 		myTemplate.setTemplateName("ErrorResponse.txt");
 		myTemplate.setFileName("ErrorResponse.java");
 		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "domain/model"));	
 		UtilCopy.CopyFile(myTemplate);	
 		Utils.replace("package com.example.demo;", "package "+myTemplate.getPackageName()+".domain.model;", myTemplate);
+		
+		//ApiVersion.txt
+		myTemplate.setTemplateName("ApiVersion.txt");
+		myTemplate.setFileName("ApiVersion.java");
+		myTemplate.setDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "infrastructure/adapters/input/rest"));	
+		UtilCopy.CopyFile(myTemplate);	
+		Utils.replace("package com.example.demo;", "package "+myTemplate.getPackageName()+".infrastructure.adapters.input.rest;", myTemplate);
+		
+		
 		
 		//Creacion de Carpetas
 		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "application"));		
