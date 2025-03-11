@@ -1,0 +1,30 @@
+Postgress     <=>  Java
+name	       = String
+text	       = String
+varchar	       = String
+CHAR           = String
+
+date	       = Date
+time	       = java.sql.Time
+timetz	       = java.sql.Time
+timestamp	   = TIMESTAMP
+timestamptz	   = TIMESTAMP
+
+oid	           = long
+int8           = long
+int2	       = short
+SERIAL         = int
+INT4           = int
+
+bool	       = boolean
+bit	           = boolean
+numeric	       = BigDecimal
+smallserial	   = short
+float4	       = float
+float8	       = double
+money	       = double
+xml	           = java.sql.SQLXML
+_abc	       = java.sql.array
+
+
+

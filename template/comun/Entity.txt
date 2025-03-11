@@ -149,23 +149,6 @@ public class ${myUtil.entityClassName}Entity {
                     println("");
                     println("     private Boolean " + attr.camelCaseNameLower + ";"); 
                     println("");      			
-    		}else if(attr.type=="ManyToOne"){
-    			println("     //" + attr.description);
-    		    println("     @ManyToOne(optional = " + attr.isNull + ", cascade = CascadeType.ALL, fetch = FetchType.EAGER)");	
-    		    %>     @JoinColumn(name="${attr.name}", nullable=${attr.isNull})<%
-    		    println("");
-    		    println("     private " + attr.tableRef + "Entity " + attr.tableRef_lower + "Entity;");   
-				println("");
-			}else if(attr.type=="ManyToMany"){
-			    println("     //" + attr.description);
-			    println("     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)");
-			    %>     @JoinTable(name="${myUtil.entityName}s_${attr.nombre_lower}s", joinColumns        = @JoinColumn(name="${myUtil.entityName}_id")
-			                         , inverseJoinColumns = @JoinColumn(name="${attr.nombre_lower}_id")
-			                         , uniqueConstraints  = {@UniqueConstraint(columnNames = {"${myUtil.entityName}_id","${attr.nombre_lower}_id"})})
-			    <%
-				println("");
-				println("     private List<" + attr.name + "> " + attr.nombre_lower + "s;");   
-				println("");
     		}else{
     			println("     //" + attr.description);
    				%>     @Column(name="${attr.nameUpper}") <%
