@@ -45,12 +45,12 @@ public class ${myUtil.entityClassName}Entity {
 	        	if (attr.isAutoGen == true){
 	        		println("     @GeneratedValue(strategy = GenerationType.IDENTITY)		//Estrategia de generacion");
 	        	} 	
-	        	println("     private Long " + attr.name + ";");
+	        	println("     private Long " + attr.camelCaseNameLower + ";");
 	        }else if(attr.type=="Integer"){
 	        	if (attr.isAutoGen == true){
 	        		println("     @GeneratedValue(strategy = GenerationType.IDENTITY)		//Estrategia de generacion");
 	        	} 	
-	        	println("     private Integer " + attr.name + ";");	
+	        	println("     private Integer " + attr.camelCaseNameLower + ";");	
 	        	
 	        }else if(attr.type=="BigInteger"){	 
 	        	if (attr.isAutoGen == true){
@@ -61,7 +61,7 @@ public class ${myUtil.entityClassName}Entity {
 	        	if (attr.isAutoGen == true){
 	        		println("     @GeneratedValue(strategy = GenerationType.IDENTITY)		//Estrategia de generacion");
 	        	} 	
-	        	println("     private Integer " + attr.name + ";");		                		
+	        	println("     private Integer " + attr.camelCaseNameLower + ";");		                		
 			}else if (attr.type=="Varchar" ){
 	        	if (attr.isAutoGen == true){
 	        		println("     @GeneratedValue(strategy = GenerationType.UUID)		//Estrategia de generacion");
@@ -70,7 +70,7 @@ public class ${myUtil.entityClassName}Entity {
 	        	    %>     @Column(name="${attr.nameUpper}", length = ${attr.len}, columnDefinition="varchar(${attr.len})" )<%
 	        	} 			
 			    println("");
-				println("     private String " + attr.name + ";");
+				println("     private String " + attr.camelCaseNameLower + ";");
 			}else if (attr.type=="String"){
 	        	if (attr.isAutoGen == true){
 	        		println("     @GeneratedValue(strategy = GenerationType.UUID)		//Estrategia de generacion");
@@ -79,7 +79,7 @@ public class ${myUtil.entityClassName}Entity {
 	        	    %>     @Column(name="${attr.nameUpper}", length = ${attr.len}, columnDefinition="varchar(${attr.len})" )<%
 	        	} 				
 			    println("");
-				println("     private String " + attr.name + ";");
+				println("     private String " + attr.camelCaseNameLower + ";");
 			}
       	
         	println(""); 
@@ -88,7 +88,7 @@ public class ${myUtil.entityClassName}Entity {
     			println("     //" + attr.description);
     			%>     @Column(name="${attr.nameUpper}" <%if (attr.type=="Varchar"){%>, length = ${attr.len}, columnDefinition="varchar(${attr.len})", unique = ${attr.isUnique} )  <%}
                 println("");
-                println("     private String " + attr.name + ";");   	
+                println("     private String " + attr.camelCaseNameLower + ";");   	
                 println("");
     	    }else if (attr.type=="String"){
     			println("     //" + attr.description);
@@ -97,57 +97,57 @@ public class ${myUtil.entityClassName}Entity {
                    %>, length = ${attr.len}, columnDefinition="char(${attr.len})", nullable=false, unique = ${attr.isUnique} )<%
                 } 
                 println("");
-                println("     private " + attr.type + " " + attr.name + ";"); 
+                println("     private " + attr.type + " " + attr.camelCaseNameLower + ";"); 
                 println(""); 
     		}else if (attr.type=="Short"){
         		println("     //" + attr.description);
 				%>     @Column(name="${attr.nameUpper}", columnDefinition="smallint")<%
                 println("");
-                println("     private " + attr.type + " " + attr.name + ";"); 
+                println("     private " + attr.type + " " + attr.camelCaseNameLower + ";"); 
                 println("");      			
         	}else if (attr.type=="Integer"){
         		println("     //" + attr.description);
 				%>     @Column(name="${attr.nameUpper}", columnDefinition="int")<%
                 println("");
-                println("     private " + attr.type + " " + attr.name + ";"); 
+                println("     private " + attr.type + " " + attr.camelCaseNameLower + ";"); 
                 println("");      			
     		}else if (attr.type=="Long") {
     			println("     //" + attr.description);
 				%>     @Column(name="${attr.nameUpper}", columnDefinition="bigint" )<%
                 println("");
-                println("     private " + attr.type + " " + attr.name + ";"); 
+                println("     private " + attr.type + " " + attr.camelCaseNameLower + ";"); 
                 println(""); 
     		}else if (attr.type=="Double") {
     			println("     //" + attr.description);
 				%>     @Column(name="${attr.nameUpper}", columnDefinition="double" )<%
                 println("");
-                println("     private " + attr.type + " " + attr.name + ";"); 
+                println("     private " + attr.type + " " + attr.camelCaseNameLower + ";"); 
                 println("");     			
     	    }else if (attr.type=="BigDecimal"){   	
     	        println("     //" + attr.description);
 				%>     @Column(name="${attr.nameUpper}", columnDefinition="decimal" )<%
                 println("");
-                println("     private " + attr.type + " " + attr.name + ";"); 
+                println("     private " + attr.type + " " + attr.camelCaseNameLower + ";"); 
                 println("");      	        
     		}else if (attr.type=="Date") {
     			println("     //" + attr.description);
 			    println("     @Temporal(TemporalType.DATE)");
 				%>     @Column(name="${attr.nameUpper}" )<%
                 println("");
-                println("     private " + attr.type + " " + attr.name + ";"); 
+                println("     private " + attr.type + " " + attr.camelCaseNameLower + ";"); 
                 println("");      			
     		} else if(attr.type=="TIMESTAMP"){
     			println("     //" + attr.description);
 			    println("     @Temporal(TemporalType.TIMESTAMP)");
 				%>     @Column(name="${attr.nameUpper}" )<%
                 println("");
-                println("     private Date " + attr.name + ";"); 
+                println("     private Date " + attr.camelCaseNameLower + ";"); 
                 println("");      			
     		}else if(attr.type=="Boolean"){
     			println("     //" + attr.description);
     				%>     @Column(name="${attr.nameUpper}" )<%
                     println("");
-                    println("     private Boolean " + attr.name + ";"); 
+                    println("     private Boolean " + attr.camelCaseNameLower + ";"); 
                     println("");      			
     		}else if(attr.type=="ManyToOne"){
     			println("     //" + attr.description);
@@ -170,7 +170,7 @@ public class ${myUtil.entityClassName}Entity {
     			println("     //" + attr.description);
    				%>     @Column(name="${attr.nameUpper}") <%
                 println("");
-                println("     private " + attr.type + " " + attr.name + ";");   	
+                println("     private " + attr.type + " " + attr.camelCaseNameLower + ";");   	
                 println("");    			
 		}
     	}
@@ -183,38 +183,35 @@ public class ${myUtil.entityClassName}Entity {
 	
 	for(attr in myUtil.list){
 		if (attr.type=="Varchar"){
-			%>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
+			%>    public String get${attr.camelCaseNameUpper}() {return UtilValidate.validateString(${attr.camelCaseNameLower});}<%
 			println("");
 		}else if (attr.type=="String"){
-			%>    public String get${attr.camelCaseName}() {return UtilValidate.validateString(${attr.name});}<%
+			%>    public String get${attr.camelCaseNameUpper}() {return UtilValidate.validateString(${attr.camelCaseNameLower});}<%
 			println("");
 		}else if (attr.type=="Short"){
-			%>    public Short get${attr.camelCaseName}() {return UtilValidate.validateShort(${attr.name});}<%
+			%>    public Short get${attr.camelCaseNameUpper}() {return UtilValidate.validateShort(${attr.camelCaseNameLower});}<%
 			println("");			
 		}else if (attr.type=="Integer"){
-			%>    public Integer get${attr.camelCaseName}() {return UtilValidate.validateInteger(${attr.name});}<%
+			%>    public Integer get${attr.camelCaseNameUpper}() {return UtilValidate.validateInteger(${attr.camelCaseNameLower});}<%
 			println("");			
 		}else if (attr.type=="Long"){
-			%>    public Long get${attr.camelCaseName}() {return ${attr.name};}<%
+			%>    public Long get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
 			println("");				
 		}else if (attr.type=="Double") {
-			%>    public Double get${attr.camelCaseName}() {return UtilValidate.validateDouble(${attr.name});}<%
+			%>    public Double get${attr.camelCaseNameUpper}() {return UtilValidate.validateDouble(${attr.camelCaseNameLower});}<%
 			println("");				
 		}else if (attr.type=="BigDecimal"){
-			%>    public BigDecimal get${attr.camelCaseName}() {return UtilValidate.validateBigDecimal(${attr.name});}<%
+			%>    public BigDecimal get${attr.camelCaseNameUpper}() {return UtilValidate.validateBigDecimal(${attr.camelCaseNameLower});}<%
 			println("");			
 		}else if (attr.type=="Date"){
-			%>    public Date get${attr.camelCaseName}() {return UtilValidate.validateDateSql(${attr.name});}<%
+			%>    public Date get${attr.camelCaseNameUpper}() {return UtilValidate.validateDateSql(${attr.camelCaseNameLower});}<%
 			println("");				
 		}else if(attr.type=="TIMESTAMP"){
-			%>    public Date get${attr.camelCaseName}() {return ${attr.name};}<%
+			%>    public Date get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
 			println("");			
 		}else if(attr.type=="Boolean"){
-			%>    public Boolean get${attr.camelCaseName}() {return ${attr.name};}<%
+			%>    public Boolean get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
 			println("");			
-		}else if(attr.type=="ManyToOne"){
-		    %>    public ${attr.camelCasetableRef}Entity get${attr.uno_mayuscula_tableRef}Entity() {return ${attr.tableRef_lower}Entity;}<%
-			println("");
 		}
 	}
 %>

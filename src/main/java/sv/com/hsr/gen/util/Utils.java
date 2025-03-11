@@ -166,15 +166,28 @@ public interface Utils {
 	        	//Instanciando
 	            DataBaseFields dataBaseFields = new DataBaseFields();
 	          
-	            //Name
-	            dataBaseFields.setName(map.get("name").toString());
+	            //Campos de la DB
+	            dataBaseFields.setName(map.get("name").toString());  //Name DB
+	            dataBaseFields.setCamelCaseNameLower(Utils.toCamelCaseLower(map.get("name").toString()));  //camelCaseNameLower
+	            dataBaseFields.setCamelCaseNameUpper(Utils.toCamelCaseUpper(map.get("name").toString()));  //camelCaseNameUpper
 	            
-	            //Label
+	            //
 	            try {
-	            	dataBaseFields.setNameLabel(map.get("nameLabel").toString());
+	            	dataBaseFields.setNameLabel(map.get("nameLabel").toString()); //nameLabel;	
 				} catch (Exception e) {
 					dataBaseFields.setNameLabel("");
 				}
+	            try {
+	            	dataBaseFields.setCamelCaseNameLabelLower(Utils.toCamelCaseLower(map.get("nameLabel").toString())); //camelCaseNameLabelLower;
+				} catch (Exception e) {
+					dataBaseFields.setCamelCaseNameLabelLower("");
+				}
+	            try {
+	            	dataBaseFields.setCamelCaseNameLabelUpper(Utils.toCamelCaseUpper(map.get("nameLabel").toString())); //camelCaseNameLabelUpper;	
+				} catch (Exception e) {
+					dataBaseFields.setCamelCaseNameLabelUpper("");
+				}  
+	              
 	            
 	            
 	            //Type
@@ -254,15 +267,6 @@ public interface Utils {
 				} catch (Exception e) {
 					dataBaseFields.setTableRef("");	
 				}
-	            
-            
-	            dataBaseFields.setCamelCaseName(map.get("name").toString().substring(0, 1).toUpperCase() + map.get("name").toString().substring(1));
-	            
-	            if (!dataBaseFields.getNameLabel().equals("")) {
-	            	dataBaseFields.setCamelCaseNameLabel(map.get("nameLabel").toString().substring(0, 1).toUpperCase() + map.get("nameLabel").toString().substring(1));	
-	            }else {
-	            	dataBaseFields.setCamelCaseNameLabel("");
-	            }
 	            
 	            
 	            String nombre_temp = map.get("name").toString().substring(0, 1).toUpperCase() + map.get("name").toString().substring(1);
@@ -414,6 +418,51 @@ public interface Utils {
 
 	    }
 	    
+	    public static String toCamelCaseLower(String value) {
+	        StringBuilder sb = new StringBuilder();
+	        
+	        try {
+		        final char delimChar = '_';
+		        boolean lower = false;
+		        for (int charInd = 0; charInd < value.length(); ++charInd) {
+		          final char valueChar = value.charAt(charInd);
+		          if (valueChar == delimChar) {
+		            lower = false;
+		          } else if (lower) {
+		            sb.append(Character.toLowerCase(valueChar));
+		          } else {
+		            sb.append(Character.toUpperCase(valueChar));
+		            lower = true;
+		          }
+		        }
+		        
+		        return sb.toString().substring(0,1).toLowerCase()+sb.toString().substring(1,sb.length());				
+			} catch (Exception e) {
+				return "";
+			}
+	      }
 	    
+	    public static String toCamelCaseUpper(String value) {
+	        StringBuilder sb = new StringBuilder();
+	        try {
+		        final char delimChar = '_';
+		        boolean lower = false;
+		        for (int charInd = 0; charInd < value.length(); ++charInd) {
+		          final char valueChar = value.charAt(charInd);
+		          if (valueChar == delimChar) {
+		            lower = false;
+		          } else if (lower) {
+		            sb.append(Character.toLowerCase(valueChar));
+		          } else {
+		            sb.append(Character.toUpperCase(valueChar));
+		            lower = true;
+		          }
+		        }
+		        
+		        return sb.toString();				
+			} catch (Exception e) {
+				return "";
+			}
+	      }	    
 
 }

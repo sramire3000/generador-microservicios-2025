@@ -1,15 +1,16 @@
 [
   {
-    "name":"codigo",
+    "name":"codigo_id",
     "type":"String",
     "isNull":true,
 	"isPk":true,
 	"isAutoGen":true,
     "description":"Key",
-	"len":2
+	"len":2,
+	"nameLabel":"cedula_id"
   },
   {
-    "name":"descripcion",
+    "name":"descripcion_cedula",
     "type":"Varchar",
     "isNull":false,
     "description":"Descripcion ESP",

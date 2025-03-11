@@ -262,22 +262,26 @@ public class GeneraHexagonal {
 		
 		UtilCopy.createDir(new File(myTemplate.getProyecto() + File.separator +"src/main/java"+ File.separator + filePath+ "utils"));
 		
-		createApplicationPortsInputServicePort(myTemplate, "IServicePort.txt");
-		createApplicationPortsOutPutPersistencePort(myTemplate, "IPersistencePort.txt");
-		createApplicationService(myTemplate, "StudentService.txt");
-		createDomainNotFoundException(myTemplate, "NotFoundException.txt");
-		createDomainModel(myTemplate, "Model.txt");
+		
 		createDomainEntity(myTemplate, "Entity.txt");
 		createDomainRepository(myTemplate, "Repository.txt");
 		createInfraPersitenceMappers(myTemplate, "PersitenceMappers.txt");
-		createInfraPersistenceAdapter(myTemplate, "PersistenceAdapter.txt");
+		
+		
+		createDomainNotFoundException(myTemplate, "NotFoundException.txt");
+		createDomainModel(myTemplate, "Model.txt");
 		createInfraPersistenceCreateRequest(myTemplate, "CreateRequest.txt");
 		createInfraPersistenceStudentRsponse(myTemplate, "StudentResponse.txt");
-		
 		createInfraInputRestaMpper(myTemplate, "IStudentRestMapper.txt");
 		
+		createApplicationPortsOutPutPersistencePort(myTemplate, "IPersistencePort.txt");
+		createApplicationPortsInputServicePort(myTemplate, "IServicePort.txt");
+		createApplicationService(myTemplate, "StudentService.txt");
 		createInfraRestAdapter(myTemplate, "StudentRestAdapter.txt");
-	
+		
+		
+		createInfraPersistenceAdapter(myTemplate, "PersistenceAdapter.txt");
+		
 		
 	}
 

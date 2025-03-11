@@ -40,8 +40,8 @@ public class ${myUtil.entityClassName}PersistenceAdapter implements I${myUtil.en
     
 	//Implementacion del Metodo Save
 	@Override
-    public ${myUtil.entityClassName} save(${myUtil.entityClassName} ${myUtil.entityName}){
-        return mapper.to${myUtil.entityClassName}(repository.save(mapper.to${myUtil.entityClassName}Entity(${myUtil.entityName})));
+    public ${myUtil.entityClassName} save(${myUtil.entityClassName} model){
+        return mapper.to${myUtil.entityClassName}(repository.save(mapper.to${myUtil.entityClassName}Entity(model)));
     }
     
     //Implementacion del Metodo Delete
@@ -63,16 +63,16 @@ public class ${myUtil.entityClassName}PersistenceAdapter implements I${myUtil.en
 	    	  println("    //Busqueda por "+ attr.description);
               println("    @Override");
               if (attr.nameLabel==""){
-                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}){ <%
+                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameUpper}(String ${attr.camelCaseNameLower}){ <%
               }else{
-                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameLabel}(String ${attr.nameLabel}){ <%
+                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameLabelUpper}(String ${attr.camelCaseNameLabelLower}){ <%
               }
               
               println("");
               if (attr.nameLabel==""){
-                 %>        return mapper.to${myUtil.entityClassName}List(repository.findBy${attr.camelCaseName}(${attr.name})); <%
+                 %>        return mapper.to${myUtil.entityClassName}List(repository.findBy${attr.camelCaseNameUpper}(${attr.camelCaseNameLower})); <%
               }else{
-                 %>        return mapper.to${myUtil.entityClassName}List(repository.findBy${attr.camelCaseNameLabel}(${attr.nameLabel})); <%
+                 %>        return mapper.to${myUtil.entityClassName}List(repository.findBy${attr.camelCaseNameUpper}(${attr.camelCaseNameLabelLower})); <%
               }
               
               println("");
@@ -85,15 +85,15 @@ public class ${myUtil.entityClassName}PersistenceAdapter implements I${myUtil.en
 	    	  println("    //Busqueda por "+ attr.description);
               println("    @Override");
               if (attr.nameLabel==""){
-                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}){ <%
+                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameUpper}(String ${attr.camelCaseNameLower}){ <%
               }else{
-                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameLabel}(String ${attr.nameLabel}){ <%
+                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameLabelUpper}(String ${attr.camelCaseNameLabelLower}){ <%
               }
               println("");
               if (attr.nameLabel==""){
-                 %>        return mapper.to${myUtil.entityClassName}List(repository.findBy${attr.camelCaseName}("%"+${attr.name}.trim()+"%")); <%
+                 %>        return mapper.to${myUtil.entityClassName}List(repository.findBy${attr.camelCaseNameUpper}("%"+${attr.camelCaseNameLower}.trim()+"%")); <%
               }else{
-                 %>        return mapper.to${myUtil.entityClassName}List(repository.findBy${attr.camelCaseName}("%"+${attr.nameLabel}.trim()+"%")); <%              
+                 %>        return mapper.to${myUtil.entityClassName}List(repository.findBy${attr.camelCaseNameUpper}("%"+${attr.camelCaseNameLabelLower}.trim()+"%")); <%              
               }
               
               println("");

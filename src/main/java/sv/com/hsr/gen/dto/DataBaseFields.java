@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import sv.com.hsr.gen.util.Utils;
 
 
 @NoArgsConstructor              //genera un constructor sin argumentos, uno vacío
@@ -16,7 +17,8 @@ import lombok.ToString;
 @ToString 
 public class DataBaseFields {
     private String name;				//Nombre del Campo
-    private String camelCaseName;       //Nombre del Campo camelCase
+    private String camelCaseNameLower;  //Nombre del Campo camelCase
+    private String camelCaseNameUpper;  //Nombre del Campo camelCase
     private String tableRef;		    //Nombre de la Tabla de las FK
     private String camelCasetableRef;   //Nombre de la Tabla de las FK    
     private String uno_mayuscula_name;  
@@ -31,8 +33,9 @@ public class DataBaseFields {
     private String len;					//Tamaño
     private boolean isUnique;           //Campo Unico
     private boolean isEncrypt;          //Encriptado
-    private String  nameLabel;          //Para el Mapper
-    private String camelCaseNameLabel;  //Nombre del Campo camelCase
+    private String nameLabel;           //Para el Mapper
+    private String camelCaseNameLabelLower;  //Nombre del Campo camelCase
+    private String camelCaseNameLabelUpper;  //Nombre del Campo CamelCase
     
     
 	public String getNombre_lower() {
@@ -50,4 +53,6 @@ public class DataBaseFields {
 	public String nameUpper() {
 		return name.toUpperCase();
 	}
+	
+
 }

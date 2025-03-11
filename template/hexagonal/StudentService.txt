@@ -16,12 +16,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassName}ServicePort  {
 
-	private final I${myUtil.entityClassName}PersistencePort ${myUtil.entityName}PersistencePort;
+	private final I${myUtil.entityClassName}PersistencePort persistencePort;
 
 	//Implementacion del Metodo buscar todos
     @Override
     public List<${myUtil.entityClassName}> findAll(){
-        return ${myUtil.entityName}PersistencePort.findAll();
+        return persistencePort.findAll();
     }
 
 	//Implementacion del Metodo Buscar por Id
@@ -36,20 +36,20 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
         for(attr in myUtil.list){
            if(attr.isPk == true){
               if (attr.nameLabel==""){
-                 print(attr.name);
+                 print(attr.camelCaseNameLower);
               }else{
-                 print(attr.nameLabel);
+                 print(attr.camelCaseNameLabelLower);
               }
            }
         }
         %>){
-        return ${myUtil.entityName}PersistencePort.findById(<%
+        return persistencePort.findById(<%
            for(attr in myUtil.list){
               if(attr.isPk == true){
                  if (attr.nameLabel==""){
-                    print(attr.name);
+                    print(attr.camelCaseNameLower);
                  }else{
-                    print(attr.nameLabel);
+                    print(attr.camelCaseNameLabelLower);
                  }
               }
            }
@@ -58,28 +58,28 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
     
 	//Implementacion del Metodo Save
 	@Override
-    public ${myUtil.entityClassName} save(${myUtil.entityClassName} ${myUtil.entityName}){
-        return ${myUtil.entityName}PersistencePort.save(${myUtil.entityName});
+    public ${myUtil.entityClassName} save(${myUtil.entityClassName} model){
+        return persistencePort.save(model);
     }
     
 	/* Implementacion del Metodo Update */
-    public ${myUtil.entityClassName} update(${myUtil.entityClassName} ${myUtil.entityName}, <%for(attr in myUtil.list){
+    public ${myUtil.entityClassName} update(${myUtil.entityClassName} model, <%for(attr in myUtil.list){
                                                                                                                       	if(attr.isPk == true){
                                                                                                                       	   if (attr.nameLabel==""){
-                                                                                                                      	      %>${attr.type} ${attr.name}<%
+                                                                                                                      	      %>${attr.type} ${attr.camelCaseNameLower}<%
                                                                                                                       	   }else{
-                                                                                                                      	      %>${attr.type} ${attr.nameLabel}<%
+                                                                                                                      	      %>${attr.type} ${attr.camelCaseNameLabelLower}<%
                                                                                                                       	   }
 	                                                                                                                       
 	                                                                                                                    }
                                                                                                                       }%>) {
-    	return ${myUtil.entityName}PersistencePort.findById(<%
+    	return persistencePort.findById(<%
     	for(attr in myUtil.list){
     	    if(attr.isPk == true){
 	    	    if (attr.nameLabel==""){
-	    	        print(attr.name);
+	    	        print(attr.camelCaseNameLower);
 	    	    }else{
-	    	        print(attr.nameLabel);
+	    	        print(attr.camelCaseNameLabelLower);
 	    	    }
     	    }
     	}
@@ -94,16 +94,16 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
     	    	}else{
                     if (!(attr.type=="ManyToMany" || attr.type=="ManyToOne")){
                        if (attr.nameLabel==""){
-                          %>                      save${myUtil.entityClassName}.set${attr.camelCaseName}(${myUtil.entityName}.get${attr.camelCaseName}());<%
+                          %>                      save${myUtil.entityClassName}.set${attr.camelCaseNameUpper}(model.get${attr.camelCaseNameUpper}());<%
                        }else{
-                          %>                      save${myUtil.entityClassName}.set${attr.camelCaseNameLabel}(${myUtil.entityName}.get${attr.camelCaseNameLabel}());<%                       
+                          %>                      save${myUtil.entityClassName}.set${attr.camelCaseNameLabelUpper}(model.get${attr.camelCaseNameLabelUpper}());<%                       
                        }
                        println("");
                     }   
     	    	}
     	    }
 	    %>
-    	             return ${myUtil.entityName}PersistencePort.save(save${myUtil.entityClassName});
+    	             return persistencePort.save(save${myUtil.entityClassName});
     	      })
     	      .orElseThrow(${myUtil.entityClassName}NotFoundException::new);
     }
@@ -116,9 +116,9 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
                print(attr.type);
             }
         }
-    %> <%for(attr in myUtil.list){if(attr.isPk == true){if (attr.nameLabel==""){print(attr.name);}else{print(attr.nameLabel);}}}%>){
-        ${myUtil.entityName}PersistencePort.deleteById(<%for(attr in myUtil.list){if(attr.isPk == true){
-          if (attr.nameLabel==""){print(attr.name);}else{print(attr.nameLabel);}
+    %> <%for(attr in myUtil.list){if(attr.isPk == true){if (attr.nameLabel==""){print(attr.camelCaseNameLower);}else{print(attr.camelCaseNameLabelLower);}}}%>){
+        persistencePort.deleteById(<%for(attr in myUtil.list){if(attr.isPk == true){
+          if (attr.nameLabel==""){print(attr.camelCaseNameLower);}else{print(attr.camelCaseNameLabelLower);}
         }}%>);
     }
     
@@ -130,15 +130,15 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
 	    	  println("    //Busqueda por "+ attr.description);
               println("    @Override");
               if (attr.nameLabel==""){
-                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}){ <%
+                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameUpper}(String ${attr.camelCaseNameLower}){ <%
               }else{
-                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameLabel}(String ${attr.nameLabel}){ <%
+                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameLabelUpper}(String ${attr.camelCaseNameLabelLower}){ <%
               } 
               println("");
               if (attr.nameLabel==""){
-                 %>        return ${myUtil.entityName}PersistencePort.findBy${attr.camelCaseName}(${attr.name}); <%
+                 %>        persistencePort.findBy${attr.camelCaseNameUpper}(${attr.camelCaseNameLower}); <%
               }else{
-                 %>        return ${myUtil.entityName}PersistencePort.findBy${attr.camelCaseNameLabel}(${attr.nameLabel}); <%
+                 %>        return persistencePort.findBy${attr.camelCaseNameLabelUpper}(${attr.camelCaseNameLabelLower}); <%
               }
               
               println("");
@@ -151,16 +151,16 @@ public class ${myUtil.entityClassName}Service implements I${myUtil.entityClassNa
 	    	  println("    //Busqueda por "+ attr.description);
               println("    @Override");
               if (attr.nameLabel==""){
-                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name}){ <%
+                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameUpper}(String ${attr.camelCaseNameLower}){ <%
               }else{
-                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameLabel}(String ${attr.nameLabel}){ <%
+                 %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameLabelUpper}(String ${attr.camelCaseNameLabelLower}){ <%
               }
               
               println("");
               if (attr.nameLabel==""){
-                 %>        return ${myUtil.entityName}PersistencePort.findBy${attr.camelCaseName}("%"+${attr.name}.trim()+"%"); <%
+                 %>        return persistencePort.findBy${attr.camelCaseNameUpper}("%"+${attr.camelCaseNameLower}.trim()+"%"); <%
               }else{
-                 %>        return ${myUtil.entityName}PersistencePort.findBy${attr.camelCaseNameLabel}("%"+${attr.nameLabel}.trim()+"%"); <%
+                 %>        return persistencePort.findBy${attr.camelCaseNameLabelUpper}("%"+${attr.camelCaseNameLabelLower}.trim()+"%"); <%
               }
               
               println("");

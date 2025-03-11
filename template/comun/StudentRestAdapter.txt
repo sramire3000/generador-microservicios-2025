@@ -55,18 +55,18 @@ public class ${myUtil.entityClassName}RestAdapter {
 	@GetMapping(path="/v1/api/{<%for(attr in myUtil.list){
 			                                if(attr.isPk == true){
 			                                   if (attr.nameLabel==""){
-			                                      %>${attr.name}<%
+			                                      %>${attr.camelCaseNameLower}<%
 			                                   }else{
-			                                      %>${attr.nameLabel}<%
+			                                      %>${attr.camelCaseNameLabelLower}<%
 			                                   }
 			                                }
 		                                }%>}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ${myUtil.entityClassName}Response findId(@PathVariable <%for(attr in myUtil.list){
 			                                          if(attr.isPk == true){
 			                                             if (attr.nameLabel==""){
-			                                                %>${attr.type} ${attr.name}<%
+			                                                %>${attr.type} ${attr.camelCaseNameLower}<%
 			                                             }else{
-			                                                %>${attr.type} ${attr.nameLabel}<%
+			                                                %>${attr.type} ${attr.camelCaseNameLabelLower}<%
 			                                             }
 			                                             
 			                                          }
@@ -75,14 +75,14 @@ public class ${myUtil.entityClassName}RestAdapter {
     	log.info("REST request to get ${myUtil.entityClassName} : {}", <%for(attr in myUtil.list){
 			                                                               if(attr.isPk == true){
 			                                                                  if (attr.nameLabel==""){
-			                                                                     %>${attr.name}<%
+			                                                                     %>${attr.camelCaseNameLower}<%
 			                                                                  }else{
-			                                                                     %>${attr.nameLabel}<%
+			                                                                     %>${attr.camelCaseNameLabelLower}<%
 			                                                                  }
 			                                                               }
 		                                                                }%>);
     	
-        return restMapper.to${myUtil.entityClassName}Response(serviceport.findById(<%for(attr in myUtil.list){if(attr.isPk == true){if (attr.nameLabel==""){print(attr.name);}else{print(attr.nameLabel);}
+        return restMapper.to${myUtil.entityClassName}Response(serviceport.findById(<%for(attr in myUtil.list){if(attr.isPk == true){if (attr.nameLabel==""){print(attr.camelCaseNameLower);}else{print(attr.camelCaseNameLabelLower);}
         
         }}%>));
     }
@@ -105,9 +105,9 @@ public class ${myUtil.entityClassName}RestAdapter {
 		for(attr in myUtil.list){
 			if(attr.isPk == true){
 			   if (attr.nameLabel==""){
-			      %>${attr.name}<%
+			      %>${attr.camelCaseNameLower}<%
 			   }else{
-			      %>${attr.nameLabel}<%
+			      %>${attr.camelCaseNameLabelLower}<%
 			   }
 			}
 		}             
@@ -115,9 +115,9 @@ public class ${myUtil.entityClassName}RestAdapter {
     public ${myUtil.entityClassName}Response update(@Valid @RequestBody ${myUtil.entityClassName}CreateRequest request, @PathVariable <%for(attr in myUtil.list){
                                                                                                                       	if(attr.isPk == true){
                                                                                                                       	   if (attr.nameLabel==""){
-                                                                                                                      	      %>${attr.type} ${attr.name}<%
+                                                                                                                      	      %>${attr.type} ${attr.camelCaseNameLower}<%
                                                                                                                       	   }else{
-                                                                                                                      	      %>${attr.type} ${attr.nameLabel}<%
+                                                                                                                      	      %>${attr.type} ${attr.camelCaseNameLabelLower}<%
                                                                                                                       	   }
 	                                                                                                                    }
                                                                                                                       }%>) {
@@ -125,15 +125,15 @@ public class ${myUtil.entityClassName}RestAdapter {
     	log.info("REST request to update ${myUtil.entityClassName} : {}, {}", <%for(attr in myUtil.list){
 	                                                                               if(attr.isPk == true){
 	                                                                                 if (attr.nameLabel==""){
-	                                                                                    %>${attr.name}<%
+	                                                                                    %>${attr.camelCaseNameLower}<%
 	                                                                                 }else{
-	                                                                                    %>${attr.nameLabel}<%
+	                                                                                    %>${attr.camelCaseNameLabelLower}<%
 	                                                                                 }
 	                                                                               }
                                                                                 }%>, request);
                                                                                 
 		return restMapper.to${myUtil.entityClassName}Response(
-				serviceport.update(restMapper.to${myUtil.entityClassName}(request), <%for(attr in myUtil.list){if(attr.isPk == true){if (attr.nameLabel==""){print(attr.name);}else{print(attr.nameLabel);}}}%>)
+				serviceport.update(restMapper.to${myUtil.entityClassName}(request), <%for(attr in myUtil.list){if(attr.isPk == true){if (attr.nameLabel==""){print(attr.camelCaseNameLower);}else{print(attr.camelCaseNameLabelLower);}}}%>)
 		);
     }
    
@@ -143,9 +143,9 @@ public class ${myUtil.entityClassName}RestAdapter {
 		for(attr in myUtil.list){
 			if(attr.isPk == true){
 			   if (attr.nameLabel==""){
-			      %>${attr.name}<%
+			      %>${attr.camelCaseNameLower}<%
 			   }else{
-			      %>${attr.nameLabel}<%
+			      %>${attr.camelCaseNameLabelLower}<%
 			   }
 			 
 			}
@@ -155,9 +155,9 @@ public class ${myUtil.entityClassName}RestAdapter {
     public void delete(@PathVariable <%for(attr in myUtil.list){
 	                                     if(attr.isPk == true){
 	                                       if (attr.nameLabel==""){
-	                                          %>${attr.type} ${attr.name}<%
+	                                          %>${attr.type} ${attr.camelCaseNameLower}<%
 	                                       }else{
-	                                          %>${attr.type} ${attr.nameLabel}<%
+	                                          %>${attr.type} ${attr.camelCaseNameLabelLower}<%
 	                                       }
 	                                       
 	                                     }
@@ -167,9 +167,9 @@ public class ${myUtil.entityClassName}RestAdapter {
        log.info("REST request to delete ${myUtil.entityClassName} : {}", <%for(attr in myUtil.list){
 	                                                                          if(attr.isPk == true){
 	                                                                             if (attr.nameLabel==""){
-	                                                                                %>${attr.name}<%
+	                                                                                %>${attr.camelCaseNameLower}<%
 	                                                                             }else{
-	                                                                                %>${attr.nameLabel}<%
+	                                                                                %>${attr.camelCaseNameLabelLower}<%
 	                                                                             }
 	                                                                             
 	                                                                          }
@@ -178,9 +178,9 @@ public class ${myUtil.entityClassName}RestAdapter {
 	   serviceport.deleteById(<%for(attr in myUtil.list){
 	                                             if(attr.isPk == true){
 	                                                if (attr.nameLabel==""){
-	                                                   %>${attr.name}<%
+	                                                   %>${attr.camelCaseNameLower}<%
 	                                                }else{
-	                                                   %>${attr.nameLabel}<%
+	                                                   %>${attr.camelCaseNameLabelLower}<%
 	                                                }
 	                                                 
 	                                             }
@@ -195,45 +195,28 @@ public class ${myUtil.entityClassName}RestAdapter {
     		    println("");
     		    println("    /* Busqueda por "+ attr.description +" */");
     		    if (attr.nameLabel==""){
-    		       %>    @GetMapping(path="/v1/api/${attr.name}/{${attr.name}}", produces = MediaType.APPLICATION_JSON_VALUE)<%
+    		       %>    @GetMapping(path="/v1/api/${attr.camelCaseNameLower}/{${attr.name}}", produces = MediaType.APPLICATION_JSON_VALUE)<%
     		    }else{
-    		       %>    @GetMapping(path="/v1/api/${attr.nameLabel}/{${attr.nameLabel}}", produces = MediaType.APPLICATION_JSON_VALUE)<%
+    		       %>    @GetMapping(path="/v1/api/${attr.nameLabel}/{${attr.camelCaseNameLabelLower}}", produces = MediaType.APPLICATION_JSON_VALUE)<%
     		    }
     		    
     		    println("");
     		    if (attr.nameLabel==""){
-    		       %>    public List<${myUtil.entityClassName}Response> find${attr.camelCaseName}(@PathVariable String ${attr.name}) {<%
+    		       %>    public List<${myUtil.entityClassName}Response> find${attr.camelCaseNameUpper}(@PathVariable String ${attr.camelCaseNameLower}) {<%
     		    }else{
-    		       %>    public List<${myUtil.entityClassName}Response> find${attr.camelCaseNameLabel}(@PathVariable String ${attr.nameLabel}) {<%
+    		       %>    public List<${myUtil.entityClassName}Response> find${attr.camelCaseNameLabelUpper}(@PathVariable String ${attr.camelCaseNameLabelLower}) {<%
     		    }
     		    println("");
     		    println("    //Retornando respuesta");
     		    if (attr.nameLabel==""){
-    		       %>    return restMapper.to${myUtil.entityClassName}ResponeList(serviceport.findBy${attr.camelCaseName}(${attr.name}));}<%
+    		       %>    return restMapper.to${myUtil.entityClassName}ResponeList(serviceport.findBy${attr.camelCaseNameUpper}(${attr.camelCaseNameLower}));}<%
     		    }else{
-    		       %>    return restMapper.to${myUtil.entityClassName}ResponeList(serviceport.findBy${attr.camelCaseNameLabel}(${attr.nameLabel}));}<%
+    		       %>    return restMapper.to${myUtil.entityClassName}ResponeList(serviceport.findBy${attr.camelCaseNameLabelUpper}(${attr.camelCaseNameLabelLower}));}<%
     		    }
                println("");
     		}
     	} 
     	
-    	if (attr.type=="ManyToOne"){
-    		if (attr.isFind == true){
-    		    println("");
-    		    println("");
-    		    println("    //Busqueda por "+attr.nombre_lower);
-    		    %>    @GetMapping(path="/v1/api/${attr.nombre_lower}/{${attr.nombre_lower}}", produces = MediaType.APPLICATION_JSON_VALUE)<% 		
-    		    println("");
-    		    %>    public List<${myUtil.entityClassName}Response> find${attr.camelCaseName}(@PathVariable Long ${attr.nombre_lower}) {<%
-    		    println("");
-                %>
-    	
-    	//Consulta al servicio
-    	return restMapper.to${myUtil.entityClassName}ResponeList(${myUtil.entityName}serviceport.findBy${attr.camelCaseName}(${attr.nombre_lower}));
-    }<%  		
-    		    
-    		}
-    	}
         
     }	
 %>    

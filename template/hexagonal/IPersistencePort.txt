@@ -15,9 +15,9 @@ public interface I${myUtil.entityClassName}PersistencePort {
         for(attr in myUtil.list){
             if(attr.isPk == true){
             	if (attr.nameLabel==""){
-            	   print(attr.type +" "+attr.name);
+            	   print(attr.type +" "+attr.camelCaseNameLower);
             	}else{
-            	   print(attr.type +" "+attr.nameLabel);
+            	   print(attr.type +" "+attr.camelCaseNameLabelLower);
             	}
             	
             }
@@ -26,16 +26,16 @@ public interface I${myUtil.entityClassName}PersistencePort {
     %>);
     
     //Metodo Guardar
-    public ${myUtil.entityClassName} save(${myUtil.entityClassName} ${myUtil.entityName});
+    public ${myUtil.entityClassName} save(${myUtil.entityClassName} model);
     
     //Metodo Delete
     public void deleteById(<%
         for(attr in myUtil.list){
             if(attr.isPk == true){
             	if (attr.nameLabel==""){
-            	   print(attr.type +" "+attr.name);
+            	   print(attr.type +" "+attr.camelCaseNameLower);
             	}else{
-            	   print(attr.type +" "+attr.nameLabel);
+            	   print(attr.type +" "+attr.camelCaseNameLabelLower);
             	}
             	
             }
@@ -49,23 +49,14 @@ public interface I${myUtil.entityClassName}PersistencePort {
     		if (attr.isFindLike == true){
 	    	  println("    //Busqueda por "+ attr.description);
 	    	  if (attr.nameLabel==""){
-	    	     %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(String ${attr.name});<%
+	    	     %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameUpper}(String ${attr.camelCaseNameLower});<%
 	    	  }else{
-	    	     %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameLabel}(String ${attr.nameLabel});<%
+	    	     %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameLabelUpper}(String ${attr.camelCaseNameLabelLower});<%
 	    	  }
               println("");
               println("");    		
     		}
     	} 
-    	
-    	if (attr.type=="ManyToOne"){
-    		if (attr.isFind == true){
-	    	  println("    //Busqueda por "+attr.nombre_lower);
-              %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseName}(Long ${attr.nombre_lower});<%
-              println("");
-              println("");    		
-    		}
-    	}     	
     }	
 %>
 }

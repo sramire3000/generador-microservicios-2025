@@ -18,9 +18,9 @@ public interface I${myUtil.entityClassName}PersitenceMappers {
 <%
     for(attr in myUtil.list){
        if (attr.nameLabel==""){
-          println('    @Mapping(source="'+ attr.name+'", target="'+attr.name+'")');
+          println('    @Mapping(source="'+ attr.camelCaseNameLower+'", target="'+attr.camelCaseNameLower+'")');
        }else{
-          println('    @Mapping(source="'+ attr.nameLabel+'", target="'+attr.name+'")');
+          println('    @Mapping(source="'+ attr.camelCaseNameLabelLower+'", target="'+attr.camelCaseNameLower+'")');
        }
        
     }	
@@ -33,9 +33,9 @@ public interface I${myUtil.entityClassName}PersitenceMappers {
 <%
     for(attr in myUtil.list){
        if (attr.nameLabel==""){
-          println('    @Mapping(source="'+ attr.name+'", target="'+attr.name+'")');
+          println('    @Mapping(source="'+ attr.camelCaseNameLower+'", target="'+attr.camelCaseNameLower+'")');
        }else{
-          println('    @Mapping(source="'+ attr.name+'", target="'+attr.nameLabel+'")');
+          println('    @Mapping(source="'+ attr.camelCaseNameLower+'", target="'+attr.camelCaseNameLabelLower+'")');
        }
        
     }	
