@@ -35,14 +35,14 @@
   },	  
   {
     "name":"cantidad2",
-    "type":"Short",
+    "type":"BigDecimal",
     "isNull":false,
     "description":"Estado de notificacion enviada",
     "nameLabel":"cedula_cantidad2"
   },
   {
     "name":"fecha2",
-    "type":"Date",
+    "type":"TIMESTAMP",
     "isNull":true,
     "description":"fecha de ingreso",
   "nameLabel":"cedula_fecha2"
