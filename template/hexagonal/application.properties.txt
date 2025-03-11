@@ -38,6 +38,4 @@ logging.logback.rollingpolicy.max-file-size=10MB
 logging.pattern.dateformat="dd-MM-yyyy HH:mm:ss.SSSZ"
 logging.level.org.hibernate.SQL=debug
 
-#Secret Fields
-field.secret.key=my_super_secret_key
-field.secret.salt=ssshhhhhhhhhhh!!!!
+

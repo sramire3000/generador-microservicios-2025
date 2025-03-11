@@ -13,46 +13,89 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-demo-hexagonal</name>
 	<description>Demo project for Spring Boot</description>
-	<url/>
-	
-	<licenses>
-		<license/>
-	</licenses>
-	
-	<developers>
-		<developer/>
-	</developers>
-	
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
-	
+
 	<properties>
 		<java.version>21</java.version>
 		<org.mapstruct.version>1.6.3</org.mapstruct.version>
+		<spring-cloud.version>2024.0.0</spring-cloud.version>
+		<resource.delimiter>^</resource.delimiter>			
 	</properties>
+	
+	<distributionManagement>
+		<repository>
+			<id>releases-repository</id>
+			<url>https://cicdtools.bancocuscatlan.com/nexus/repository/maven-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots-repository</id>
+			<url>https://cicdtools.bancocuscatlan.com/nexus/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>	
 	
 	<dependencies>
 	
-		<!-- SPRING WEB -->
+		<!-- Internal dependencies -->
+		<!--
+		<dependency>
+			<groupId>com.pawahtun</groupId>
+			<artifactId>pawahtun</artifactId>
+			<version>1.0.6-SNAPSHOT</version>
+		</dependency>
+		-->	
+		
+		<!-- Spring boot framework dependencies -->
+		<!--
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>		
+		
+		<!--  SPRING CONFIG -->
+		<!-- 
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
-		<!-- SPRING WEB -->
-
-		<!-- SPRING DEVTOOLS -->
+		-->
+			
+		<!-- SPRING VALIDATION -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
-		<!-- SPRING DEVTOOLS -->
+		<!-- SPRING VALIDATION -->	
 		
+		<!-- MODEL MAPPER -->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>3.1.1</version>
+		</dependency>	
+		
+		<!-- AWS x-ray dependency -->
+		<dependency>
+			<groupId>software.amazon.msk</groupId>
+			<artifactId>aws-msk-iam-auth</artifactId>
+			<version>1.1.5</version>
+		</dependency>
+		
+		<!-- API docs -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.6.4</version>
+		</dependency>		
+		
+		<dependency>
+			<groupId>software.amazon.opentelemetry</groupId>
+			<artifactId>aws-opentelemetry-agent</artifactId>
+		</dependency>				
+				
 		<!-- SPRING ACTUATOR -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -66,13 +109,6 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<!-- SPRING DATA JPA -->		
-
-		<!-- SPRING VALIDATION -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
-		<!-- SPRING VALIDATION -->		
 		
 		<!-- LOMBOK --> 
 		<dependency>
@@ -126,27 +162,6 @@
         </dependency>
         <!-- Junit y Mockito  -->
         
-		<!-- JASPER REPORT -->
-		<dependency>
-		    <groupId>net.sf.jasperreports</groupId>
-		    <artifactId>jasperreports</artifactId>
-		    <version>6.20.5</version>
-		</dependency>
-		<!-- JASPER REPORT --> 
-
-		<!-- LOG4J2 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-log4j2</artifactId>
-	        <exclusions>
-		        <exclusion>
-				  <groupId>org.apache.logging.log4j</groupId>
-				  <artifactId>log4j-slf4j2-impl</artifactId>        
-		        </exclusion>
-	        </exclusions>
-		</dependency>
-		<!-- LOG4J2 -->		  
-		
 		<!-- DB POSTGRES -->
 		<!--
 		<dependency>
@@ -158,15 +173,59 @@
 		<!-- DB POSTGRES -->		     	   
 	    		
 	</dependencies>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>software.amazon.opentelemetry</groupId>
+				<artifactId>aws-opentelemetry-agent</artifactId>
+				<version>1.28.0</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentelemetry.instrumentation</groupId>
+				<artifactId>opentelemetry-logback-1.0</artifactId>
+				<version>1.9.2-alpha</version>
+				<scope>runtime</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>	
 
 	<build>
+	    <finalName>${project.name}</finalName>
 		<plugins>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>		
+
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.9.1.2184</version>
+			</plugin>		
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-	                <source>21</source> <!-- depending on your project -->
-	                <target>21</target> <!-- depending on your project -->				
+	                <source>${java.version}</source> 
+	                <target>${java.version}</target> 	
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.projectlombok</groupId>
@@ -180,18 +239,71 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+			
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.7</version>
+				<executions>
+					<execution>
+						<id>default-prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-prepare-agent-integration</id>
+						<goals>
+							<goal>prepare-agent-integration</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-report-integration</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>report-integration</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<rule>
+									<element>BUNDLE</element>
+									<limits>
+										<limit>
+											<counter>LINE</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>70%</minimum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
 				<configuration>
 					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
+						<exclude>**/**_.class</exclude>
+						<exclude>**/config/**</exclude>
+						<exclude>**/repository/**</exclude>
+						<exclude>**/entity/**</exclude>
+						<exclude>**/dto/**</exclude>
+						<exclude>**/**</exclude>
 					</excludes>
 				</configuration>
-			</plugin>
+			</plugin>			
+			
 		</plugins>
 	</build>
 

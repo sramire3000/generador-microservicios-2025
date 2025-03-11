@@ -16,6 +16,13 @@ public class GeneraHexagonal {
 		
 		myTemplate.setProyecto(myTemplate.getRootPath());		
 		
+		//JkfArchetype.txt
+		myTemplate.setTemplateName("JkfArchetype.txt");
+		myTemplate.setFileName("JkfArchetype");
+		myTemplate.setDir(new File(myTemplate.getProyecto()));
+		UtilCopy.CopyFile(myTemplate);
+		Utils.replace("service-name", myTemplate.getArtifact(), myTemplate);			
+		
 		//.classpath
 		myTemplate.setTemplateName("classpath.txt");
 		myTemplate.setFileName(".classpath");
