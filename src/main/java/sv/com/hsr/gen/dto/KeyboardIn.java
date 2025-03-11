@@ -28,6 +28,14 @@ public class KeyboardIn {
 	private String jdk          ;
 	private String servicio     ;	
 	
+	private String str_group       = "sv.com.acme";
+	private String str_package     = "sv.com.demo.springboot.app.api.core";
+	private String str_artifact    = "springboot-service-students";
+	private String str_descripcion = "Servicio Students project for Spring Boot";
+	private String str_target      = "/prueba/springboot-service-students";
+	private String str_source_json = "json";
+	
+	
 	public void load() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("");
@@ -53,32 +61,28 @@ public class KeyboardIn {
 		System.out.println("");		
 		
 		if (type.trim().toUpperCase().equals("HEXAGONAL")) {
-			System.out.println("   group          : sv.com.acme");
-			
-			System.out.println("   package        : sv.com.demo.springboot.app.api.core");
-			System.out.println("   artifact       : springboot-service-students");
-			System.out.println("   descripcion    : Servicio Students project for Spring Boot");
-			System.out.println("   target         : /prueba/springboot-service-students");
+			System.out.println("   group          : "+str_group);
+			System.out.println("   package        : "+str_package);
+			System.out.println("   artifact       : "+str_artifact);
+			System.out.println("   descripcion    : "+str_descripcion);
+			System.out.println("   target         : "+str_target);
 			System.out.println("   JDK            : 21");
-			System.out.println("   source         : test");
+			System.out.println("   source         : "+str_source_json);
 			System.out.println("");	
 			System.out.println("");
 			
 			//Ingresa el Grupo
 			ingreseGrupo();
+			
+			//Pregunta por el Paquete
+			ingresePaquete();
+
 
 			//Pregunta por el Artifact y Name
 			ingreseArtifac();
 
 			//Ingresa la Descripcion
 			ingreseDescripcion();
-
-			
-			//Pregunta por el Paquete
-			ingresePaquete();
-			
-			
-			
 			
 			//Ingresa el Target
 			ingreseTarget();
@@ -103,7 +107,7 @@ public class KeyboardIn {
 		
 		//Valida el Paquete
 		if ((proy_package ==null) || (proy_package.trim().equals(""))) {
-			if (type.trim().toUpperCase().equals("HEXAGONAL"))         {proy_package= "sv.com.acme.app";}
+			if (type.trim().toUpperCase().equals("HEXAGONAL"))         {proy_package= str_package;}
 			
 //			if (type.trim().toUpperCase().equals("NORMAL"))         {proy_package= "sv.com.demo.springboot.app";
 //			}else if (type.trim().toUpperCase().equals("CLOUD"))    {proy_package= "sv.com.demo.springboot.app";
@@ -123,7 +127,7 @@ public class KeyboardIn {
 		
 		//Valida el artifact
 		if ((artifact ==null) || (artifact.trim().equals(""))) {
-			if (type.trim().toUpperCase().equals("HEXAGONAL"))         {artifact= "springboot-service-students";}			
+			if (type.trim().toUpperCase().equals("HEXAGONAL"))         {artifact= str_artifact;}			
 			
 //			if (type.trim().toUpperCase().equals("NORMAL"))         {artifact= "springboot-service-inventario";
 //			}else if (type.trim().toUpperCase().equals("CLOUD"))    {artifact= null;
@@ -143,7 +147,7 @@ public class KeyboardIn {
 		
 		//Valida la descripcion
 		if ((descripcion ==null) || (descripcion.trim().equals(""))) {
-			descripcion = "Servicio Students project for Spring Boot";
+			descripcion = str_descripcion;
 		}	
 	}	
 	
@@ -155,7 +159,7 @@ public class KeyboardIn {
 		//Valida el group
 		if ((group ==null) || (group.trim().equals(""))) {
 			
-			if (type.trim().toUpperCase().equals("HEXAGONAL"))         {group = "sv.com.acme";}
+			if (type.trim().toUpperCase().equals("HEXAGONAL"))         {group = str_group;}
 
 //			if (type.trim().toUpperCase().equals("NORMAL"))         {group = "sv.com.demo.springboot.app.inventario";
 //			}else if (type.trim().toUpperCase().equals("CLOUD"))    {group = null;
@@ -175,7 +179,7 @@ public class KeyboardIn {
 
 		//Valida el Target
 		if ((proy_target ==null) || (proy_target.trim().equals(""))) {
-			if (type.trim().toUpperCase().equals("HEXAGONAL"))         {proy_target = "/prueba/springboot-service-students";
+			if (type.trim().toUpperCase().equals("HEXAGONAL"))         {proy_target = str_target;
 			}
 			
 			
@@ -205,7 +209,7 @@ public class KeyboardIn {
 		System.out.print("Ingresa source Json?     : =>"); source = scanner.nextLine();
 		//Valida Source
 		if ((source ==null) || (source.trim().equals(""))) {
-			source = "json";
+			source = str_source_json;
 		}			
 	}
 		
