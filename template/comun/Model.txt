@@ -145,69 +145,130 @@ public class ${myUtil.entityClassName}  {
 	println("    //Metodos Get's");
 	
 	for(attr in myUtil.list){
-	
-		if (attr.type=="Varchar"){
-			if (attr.nameLabel==""){
-			   %>    public String get${attr.camelCaseNameUpper}() {return UtilValidate.validateString(${attr.camelCaseNameLower});}<%
-			}else{
-			   %>    public String get${attr.camelCaseNameLabelUpper}() {return UtilValidate.validateString(${attr.camelCaseNameLabelLower});}<%
-			}
-		}else if (attr.type=="String"){
-		    if (attr.nameLabel==""){
-		       %>    public String get${attr.camelCaseNameUpper}() {return UtilValidate.validateString(${attr.camelCaseNameLower});}<%
-		    }else{
-		       %>    public String get${attr.camelCaseNameLabelUpper}() {return UtilValidate.validateString(${attr.camelCaseNameLabelLower});}<%
-		    }
-		}else if (attr.type=="Short"){
-		    if (attr.nameLabel==""){
-		       %>    public Short get${attr.camelCaseNameUpper}() {return UtilValidate.validateShort(${attr.camelCaseNameLower});}<%
-		    }else{
-		       %>    public Short get${attr.camelCaseNameLabelUpper}() {return UtilValidate.validateShort(${attr.camelCaseNameLabelLower});}<%
-		    }
-		}else if (attr.type=="Integer"){
-		    if (attr.nameLabel==""){
-		       %>    public Integer get${attr.camelCaseNameUpper}() {return UtilValidate.validateInteger(${attr.camelCaseNameLower});}<%
-		    }else{
-		       %>    public Integer get${attr.camelCaseNameLabelUpper}() {return UtilValidate.validateInteger(${attr.camelCaseNameLabelLower});}<%
-		    }
-		}else if (attr.type=="Long"){
-		    if (attr.nameLabel==""){
-		       %>    public Long get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
-		    }else{
-		       %>    public Long get${attr.camelCaseNameLabelUpper}() {return ${attr.camelCaseNameLabelLower};}<%
-		    }
-		}else if (attr.type=="Double") {
-		    if (attr.nameLabel==""){
-		       %>    public Double get${attr.camelCaseNameUpper}() {return UtilValidate.validateDouble(${attr.camelCaseNameLower});}<%
-		    }else{
-		       %>    public Double get${attr.camelCaseNameLabelUpper}() {return UtilValidate.validateDouble(${attr.camelCaseNameLabelLower});}<%
-		    }
-		}else if (attr.type=="BigDecimal"){
-		    if (attr.nameLabel==""){
-		       %>    public BigDecimal get${attr.camelCaseNameUpper}() {return UtilValidate.validateBigDecimal(${attr.camelCaseNameLower});}<%
-		    }else{
-		       %>    public BigDecimal get${attr.camelCaseNameLabelUpper}() {return UtilValidate.validateBigDecimal(${attr.camelCaseNameLabelLower});}<%
-		    }
-		}else if (attr.type=="Date"){
-		    if (attr.nameLabel==""){
-		       %>    public Date get${attr.camelCaseNameUpper}() {return UtilValidate.validateDateSql(${attr.camelCaseNameLower});}<%
-		    }else{
-		       %>    public Date get${attr.camelCaseNameLabelUpper}() {return UtilValidate.validateDateSql(${attr.camelCaseNameLabelLower});}<%
-		    }
-		}else if(attr.type=="TIMESTAMP"){
-		    if (attr.nameLabel==""){
-		       %>    public Date get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
-		    }else{
-		       %>    public Date get${attr.camelCaseNameLabelUpper}() {return ${attr.camelCaseNameLabelLower};}<%
-		    }
-		}else if(attr.type=="Boolean"){
-		    if (attr.nameLabel==""){
-		       %>    public Boolean get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
-		    }else{
-		       %>    public Boolean get${attr.camelCaseNameLabelUpper}() {return ${attr.camelCaseNameLabelLower};}<%
-		    }
-			
-		}
+        if (attr.isPk == true){
+			if (attr.type=="Varchar" || attr.type=="String"){
+				if (attr.nameLabel==""){
+				   %>    public String get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
+				}else{
+				   %>    public String get${attr.camelCaseNameLabelUpper}() {return ${attr.camelCaseNameLabelLower};}<%
+				}
+			}else if (attr.type=="Short"){
+			    if (attr.nameLabel==""){
+			       %>    public Short get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
+			    }else{
+			       %>    public Short get${attr.camelCaseNameLabelUpper}() {return ${attr.camelCaseNameLabelLower};}<%
+			    }
+			}else if (attr.type=="Integer"){
+			    if (attr.nameLabel==""){
+			       %>    public Integer get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
+			    }else{
+			       %>    public Integer get${attr.camelCaseNameLabelUpper}() {return ${attr.camelCaseNameLabelLower};}<%
+			    }
+			}else if (attr.type=="Long"){
+			    if (attr.nameLabel==""){
+			       %>    public Long get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
+			    }else{
+			       %>    public Long get${attr.camelCaseNameLabelUpper}() {return ${attr.camelCaseNameLabelLower};}<%
+			    }
+			}else if (attr.type=="Double") {
+			    if (attr.nameLabel==""){
+			       %>    public Double get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
+			    }else{
+			       %>    public Double get${attr.camelCaseNameLabelUpper}() {return${attr.camelCaseNameLabelLower};}<%
+			    }
+			}else if (attr.type=="BigDecimal"){
+			    if (attr.nameLabel==""){
+			       %>    public BigDecimal get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
+			    }else{
+			       %>    public BigDecimal get${attr.camelCaseNameLabelUpper}() {return ${attr.camelCaseNameLabelLower};}<%
+			    }
+			}else if (attr.type=="Date"){
+			    if (attr.nameLabel==""){
+			       %>    public Date get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
+			    }else{
+			       %>    public Date get${attr.camelCaseNameLabelUpper}() {return ${attr.camelCaseNameLabelLower};}<%
+			    }
+			}else if(attr.type=="TIMESTAMP"){
+			    if (attr.nameLabel==""){
+			       %>    public Date get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
+			    }else{
+			       %>    public Date get${attr.camelCaseNameLabelUpper}() {return ${attr.camelCaseNameLabelLower};}<%
+			    }
+			}else if(attr.type=="Boolean"){
+			    if (attr.nameLabel==""){
+			       %>    public Boolean get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
+			    }else{
+			       %>    public Boolean get${attr.camelCaseNameLabelUpper}() {return ${attr.camelCaseNameLabelLower};}<%
+			    }
+				
+			}        
+        
+        }else{
+			if (attr.type=="Varchar"){
+				if (attr.nameLabel==""){
+				   %>    public String get${attr.camelCaseNameUpper}() {return UtilValidate.validateString(${attr.camelCaseNameLower});}<%
+				}else{
+				   %>    public String get${attr.camelCaseNameLabelUpper}() {return UtilValidate.validateString(${attr.camelCaseNameLabelLower});}<%
+				}
+			}else if (attr.type=="String"){
+			    if (attr.nameLabel==""){
+			       %>    public String get${attr.camelCaseNameUpper}() {return UtilValidate.validateString(${attr.camelCaseNameLower});}<%
+			    }else{
+			       %>    public String get${attr.camelCaseNameLabelUpper}() {return UtilValidate.validateString(${attr.camelCaseNameLabelLower});}<%
+			    }
+			}else if (attr.type=="Short"){
+			    if (attr.nameLabel==""){
+			       %>    public Short get${attr.camelCaseNameUpper}() {return UtilValidate.validateShort(${attr.camelCaseNameLower});}<%
+			    }else{
+			       %>    public Short get${attr.camelCaseNameLabelUpper}() {return UtilValidate.validateShort(${attr.camelCaseNameLabelLower});}<%
+			    }
+			}else if (attr.type=="Integer"){
+			    if (attr.nameLabel==""){
+			       %>    public Integer get${attr.camelCaseNameUpper}() {return UtilValidate.validateInteger(${attr.camelCaseNameLower});}<%
+			    }else{
+			       %>    public Integer get${attr.camelCaseNameLabelUpper}() {return UtilValidate.validateInteger(${attr.camelCaseNameLabelLower});}<%
+			    }
+			}else if (attr.type=="Long"){
+			    if (attr.nameLabel==""){
+			       %>    public Long get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
+			    }else{
+			       %>    public Long get${attr.camelCaseNameLabelUpper}() {return ${attr.camelCaseNameLabelLower};}<%
+			    }
+			}else if (attr.type=="Double") {
+			    if (attr.nameLabel==""){
+			       %>    public Double get${attr.camelCaseNameUpper}() {return UtilValidate.validateDouble(${attr.camelCaseNameLower});}<%
+			    }else{
+			       %>    public Double get${attr.camelCaseNameLabelUpper}() {return UtilValidate.validateDouble(${attr.camelCaseNameLabelLower});}<%
+			    }
+			}else if (attr.type=="BigDecimal"){
+			    if (attr.nameLabel==""){
+			       %>    public BigDecimal get${attr.camelCaseNameUpper}() {return UtilValidate.validateBigDecimal(${attr.camelCaseNameLower});}<%
+			    }else{
+			       %>    public BigDecimal get${attr.camelCaseNameLabelUpper}() {return UtilValidate.validateBigDecimal(${attr.camelCaseNameLabelLower});}<%
+			    }
+			}else if (attr.type=="Date"){
+			    if (attr.nameLabel==""){
+			       %>    public Date get${attr.camelCaseNameUpper}() {return UtilValidate.validateDateSql(${attr.camelCaseNameLower});}<%
+			    }else{
+			       %>    public Date get${attr.camelCaseNameLabelUpper}() {return UtilValidate.validateDateSql(${attr.camelCaseNameLabelLower});}<%
+			    }
+			}else if(attr.type=="TIMESTAMP"){
+			    if (attr.nameLabel==""){
+			       %>    public Date get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
+			    }else{
+			       %>    public Date get${attr.camelCaseNameLabelUpper}() {return ${attr.camelCaseNameLabelLower};}<%
+			    }
+			}else if(attr.type=="Boolean"){
+			    if (attr.nameLabel==""){
+			       %>    public Boolean get${attr.camelCaseNameUpper}() {return ${attr.camelCaseNameLower};}<%
+			    }else{
+			       %>    public Boolean get${attr.camelCaseNameLabelUpper}() {return ${attr.camelCaseNameLabelLower};}<%
+			    }
+				
+			}        
+        }	
+        
+
 		println("");
 	}
 %>

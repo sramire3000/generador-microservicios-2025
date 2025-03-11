@@ -56,10 +56,10 @@ public class GeneraHexagonal {
 		
 		
 		//HELP.md
-//		myTemplate.setTemplateName("HELP.md.txt");
-//		myTemplate.setFileName("HELP.md");
-//		myTemplate.setDir(new File(myTemplate.getProyecto()));
-//		UtilCopy.CopyFile(myTemplate);	
+		myTemplate.setTemplateName("HELP.md.txt");
+		myTemplate.setFileName("HELP.md");
+		myTemplate.setDir(new File(myTemplate.getProyecto()));
+		UtilCopy.CopyFile(myTemplate);	
 		
 		//Dockerfile
 		myTemplate.setTemplateName("Dockerfile.txt");

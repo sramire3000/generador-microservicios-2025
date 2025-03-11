@@ -3,6 +3,7 @@ package ${myUtil.packageName}.infrastructure.adapters.output.persistence;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
@@ -23,12 +24,14 @@ public class ${myUtil.entityClassName}PersistenceAdapter implements I${myUtil.en
 	
 	//Implementacion del Metodo buscar todos
     @Override
+    @Transactional(readOnly = true)
     public List<${myUtil.entityClassName}> findAll(){
         return mapper.to${myUtil.entityClassName}List(repository.findAll());
     }
 
 	//Implementacion del Metodo Buscar por Id
 	@Override
+	@Transactional(readOnly = true)
     public Optional<${myUtil.entityClassName}> findById(<%
         for(attr in myUtil.list){
             if(attr.isPk == true)
@@ -40,12 +43,14 @@ public class ${myUtil.entityClassName}PersistenceAdapter implements I${myUtil.en
     
 	//Implementacion del Metodo Save
 	@Override
+	@Transactional
     public ${myUtil.entityClassName} save(${myUtil.entityClassName} model){
         return mapper.to${myUtil.entityClassName}(repository.save(mapper.to${myUtil.entityClassName}Entity(model)));
     }
     
     //Implementacion del Metodo Delete
 	@Override
+	@Transactional
     public void deleteById(<%
         for(attr in myUtil.list){
             if(attr.isPk == true)
@@ -62,6 +67,8 @@ public class ${myUtil.entityClassName}PersistenceAdapter implements I${myUtil.en
     		if (attr.isFind == true){
 	    	  println("    //Busqueda por "+ attr.description);
               println("    @Override");
+              %>    @Transactional(readOnly = true)<%
+              println("");
               if (attr.nameLabel==""){
                  %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameUpper}(String ${attr.camelCaseNameLower}){ <%
               }else{
@@ -84,6 +91,8 @@ public class ${myUtil.entityClassName}PersistenceAdapter implements I${myUtil.en
     		if (attr.isFindLike == true){
 	    	  println("    //Busqueda por "+ attr.description);
               println("    @Override");
+              %>    @Transactional(readOnly = true)<%
+              println("");
               if (attr.nameLabel==""){
                  %>    public List<${myUtil.entityClassName}> findBy${attr.camelCaseNameUpper}(String ${attr.camelCaseNameLower}){ <%
               }else{

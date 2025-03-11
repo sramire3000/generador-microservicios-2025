@@ -17,35 +17,5 @@
     "len":80,
     "isFindLike": true,
 	"nameLabel":"cedula_descripcion"
-  },
-  
-  {
-    "name":"fecha",
-    "type":"Date",
-    "isNull":true,
-    "description":"fecha de ingreso",
-	"nameLabel":"cedula_fecha"
-  },
-  {
-    "name":"cantidad1",
-    "type":"Short",
-    "isNull":false,
-    "description":"Estado de notificacion enviada",
-    "nameLabel":"cedula_cantidad1"
-  },	  
-  {
-    "name":"cantidad2",
-    "type":"BigDecimal",
-    "isNull":false,
-    "description":"Estado de notificacion enviada",
-    "nameLabel":"cedula_cantidad2"
-  },
-  {
-    "name":"fecha2",
-    "type":"TIMESTAMP",
-    "isNull":true,
-    "description":"fecha de ingreso",
-  "nameLabel":"cedula_fecha2"
   }
-
 ]
