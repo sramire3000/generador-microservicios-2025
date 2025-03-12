@@ -16,6 +16,7 @@ import sv.com.hsr.gen.util.Utils;
 @EqualsAndHashCode              //genera los métodos equals y hashcode.
 @ToString 
 public class DataBaseFields {
+	private String dbName;
     private String name;				//Nombre del Campo
     private String camelCaseNameLower;  //Nombre del Campo camelCase
     private String camelCaseNameUpper;  //Nombre del Campo camelCase

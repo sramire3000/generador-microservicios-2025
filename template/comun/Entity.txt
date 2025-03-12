@@ -65,18 +65,18 @@ public class ${myUtil.entityClassName}Entity {
 			}else if (attr.type=="Varchar" ){
 	        	if (attr.isAutoGen == true){
 	        		println("     @GeneratedValue(strategy = GenerationType.UUID)		//Estrategia de generacion");
-	        		%>     @Column(name="${attr.nameUpper}", length = 64, columnDefinition="varchar(64)" )<%
+	        		%>     @Column(name="${attr.dbName}", length = 64, columnDefinition="varchar(64)" )<%
 	        	}else{
-	        	    %>     @Column(name="${attr.nameUpper}", length = ${attr.len}, columnDefinition="varchar(${attr.len})" )<%
+	        	    %>     @Column(name="${attr.dbName}", length = ${attr.len}, columnDefinition="varchar(${attr.len})" )<%
 	        	} 			
 			    println("");
 				println("     private String " + attr.camelCaseNameLower + ";");
 			}else if (attr.type=="String"){
 	        	if (attr.isAutoGen == true){
 	        		println("     @GeneratedValue(strategy = GenerationType.UUID)		//Estrategia de generacion");
-	        		%>     @Column(name="${attr.nameUpper}", length = 64, columnDefinition="varchar(64)" )<%
+	        		%>     @Column(name="${attr.dbName}", length = 64, columnDefinition="varchar(64)" )<%
 	        	}else{
-	        	    %>     @Column(name="${attr.nameUpper}", length = ${attr.len}, columnDefinition="varchar(${attr.len})" )<%
+	        	    %>     @Column(name="${attr.dbName}", length = ${attr.len}, columnDefinition="varchar(${attr.len})" )<%
 	        	} 				
 			    println("");
 				println("     private String " + attr.camelCaseNameLower + ";");
@@ -86,13 +86,13 @@ public class ${myUtil.entityClassName}Entity {
     	}else{
     	    if (attr.type=="Varchar"){
     			println("     //" + attr.description);
-    			%>     @Column(name="${attr.nameUpper}" <%if (attr.type=="Varchar"){%>, length = ${attr.len}, columnDefinition="varchar(${attr.len})", unique = ${attr.isUnique} )  <%}
+    			%>     @Column(name="${attr.dbName}" <%if (attr.type=="Varchar"){%>, length = ${attr.len}, columnDefinition="varchar(${attr.len})", unique = ${attr.isUnique} )  <%}
                 println("");
                 println("     private String " + attr.camelCaseNameLower + ";");   	
                 println("");
     	    }else if (attr.type=="String"){
     			println("     //" + attr.description);
-				%>     @Column(name="${attr.nameUpper}" <%
+				%>     @Column(name="${attr.dbName}" <%
                 if (attr.type=="String"){
                    %>, length = ${attr.len}, columnDefinition="char(${attr.len})", nullable=false, unique = ${attr.isUnique} )<%
                 } 
@@ -101,57 +101,57 @@ public class ${myUtil.entityClassName}Entity {
                 println(""); 
     		}else if (attr.type=="Short"){
         		println("     //" + attr.description);
-				%>     @Column(name="${attr.nameUpper}", columnDefinition="smallint")<%
+				%>     @Column(name="${attr.dbName}", columnDefinition="smallint")<%
                 println("");
                 println("     private " + attr.type + " " + attr.camelCaseNameLower + ";"); 
                 println("");      			
         	}else if (attr.type=="Integer"){
         		println("     //" + attr.description);
-				%>     @Column(name="${attr.nameUpper}", columnDefinition="int")<%
+				%>     @Column(name="${attr.dbName}", columnDefinition="int")<%
                 println("");
                 println("     private " + attr.type + " " + attr.camelCaseNameLower + ";"); 
                 println("");      			
     		}else if (attr.type=="Long") {
     			println("     //" + attr.description);
-				%>     @Column(name="${attr.nameUpper}", columnDefinition="bigint" )<%
+				%>     @Column(name="${attr.dbName}", columnDefinition="bigint" )<%
                 println("");
                 println("     private " + attr.type + " " + attr.camelCaseNameLower + ";"); 
                 println(""); 
     		}else if (attr.type=="Double") {
     			println("     //" + attr.description);
-				%>     @Column(name="${attr.nameUpper}", columnDefinition="double" )<%
+				%>     @Column(name="${attr.dbName}", columnDefinition="double" )<%
                 println("");
                 println("     private " + attr.type + " " + attr.camelCaseNameLower + ";"); 
                 println("");     			
     	    }else if (attr.type=="BigDecimal"){   	
     	        println("     //" + attr.description);
-				%>     @Column(name="${attr.nameUpper}", columnDefinition="decimal" )<%
+				%>     @Column(name="${attr.dbName}", columnDefinition="decimal" )<%
                 println("");
                 println("     private " + attr.type + " " + attr.camelCaseNameLower + ";"); 
                 println("");      	        
     		}else if (attr.type=="Date") {
     			println("     //" + attr.description);
 			    println("     @Temporal(TemporalType.DATE)");
-				%>     @Column(name="${attr.nameUpper}" )<%
+				%>     @Column(name="${attr.dbName}" )<%
                 println("");
                 println("     private " + attr.type + " " + attr.camelCaseNameLower + ";"); 
                 println("");      			
     		} else if(attr.type=="TIMESTAMP"){
     			println("     //" + attr.description);
 			    println("     @Temporal(TemporalType.TIMESTAMP)");
-				%>     @Column(name="${attr.nameUpper}" )<%
+				%>     @Column(name="${attr.dbName}" )<%
                 println("");
                 println("     private Date " + attr.camelCaseNameLower + ";"); 
                 println("");      			
     		}else if(attr.type=="Boolean"){
     			println("     //" + attr.description);
-    				%>     @Column(name="${attr.nameUpper}" )<%
+    				%>     @Column(name="${attr.dbName}" )<%
                     println("");
                     println("     private Boolean " + attr.camelCaseNameLower + ";"); 
                     println("");      			
     		}else{
     			println("     //" + attr.description);
-   				%>     @Column(name="${attr.nameUpper}") <%
+   				%>     @Column(name="${attr.dbName}") <%
                 println("");
                 println("     private " + attr.type + " " + attr.camelCaseNameLower + ";");   	
                 println("");    			

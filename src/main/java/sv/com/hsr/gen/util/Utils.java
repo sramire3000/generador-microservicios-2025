@@ -167,6 +167,7 @@ public interface Utils {
 	            DataBaseFields dataBaseFields = new DataBaseFields();
 	          
 	            //Campos de la DB
+	            dataBaseFields.setDbName(map.get("dbName").toString().toUpperCase());
 	            dataBaseFields.setName(map.get("name").toString());  //Name DB
 	            dataBaseFields.setCamelCaseNameLower(Utils.toCamelCaseLower(map.get("name").toString()));  //camelCaseNameLower
 	            dataBaseFields.setCamelCaseNameUpper(Utils.toCamelCaseUpper(map.get("name").toString()));  //camelCaseNameUpper

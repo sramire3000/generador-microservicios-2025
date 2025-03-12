@@ -1,0 +1,33 @@
+[
+  {
+	"dbName":"S_PAIS",
+    "name":"spais",
+    "type":"String",
+    "isNull":false,
+	"isPk":true,
+	"isAutoGen":false,
+    "description":"Key",
+	"len":2,
+	"nameLabel":"pais_id"
+  },
+  {
+	"dbName":"S_NOMBRE_PAIS",
+    "name":"snombre_pais",
+    "type":"Varchar",
+    "isNull":false,
+    "description":"Descripcion del pais",
+    "len":80,
+    "isFindLike": true,
+	"nameLabel":"pais_descripcion"
+  },
+  {
+	"dbName":"S_IDIOMA",
+    "name":"sidioma",
+    "type":"String",
+    "isNull":false,
+    "description":"Idioma id",
+    "len":2,
+    "nameLabel":"idioma_id"
+  }
+  
+]

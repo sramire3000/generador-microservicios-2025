@@ -1,5 +1,6 @@
 [
   {
+	"dbName":"codigo_id",
     "name":"codigo_id",
     "type":"String",
     "isNull":true,
@@ -10,6 +11,7 @@
 	"nameLabel":"cedula_id"
   },
   {
+	"dbName":"descripcion",
     "name":"descripcion_cedula",
     "type":"Varchar",
     "isNull":false,
