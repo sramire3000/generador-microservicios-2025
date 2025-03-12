@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import sv.com.hsr.gen.util.Utils;
 
 @NoArgsConstructor              //genera un constructor sin argumentos, uno vacío
 @AllArgsConstructor             //genera un constructor para todos los atributos de la clase.
@@ -40,6 +41,10 @@ public class MyTemplate {
     private String descripcion;
     private String group;
     private String source;
+    
+    public String getEntityNameCamelCaseLower() {
+    	return Utils.toCamelCaseLower(entityName);
+    }
     
     public String getPackagePath(){
         String packagePath = "";

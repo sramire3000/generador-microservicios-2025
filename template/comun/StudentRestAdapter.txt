@@ -31,7 +31,7 @@ import ${myUtil.packageName}.infrastructure.adapters.input.rest.model.response.$
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping("/${myUtil.entityName}")
+@RequestMapping("/${myUtil.entityNameCamelCaseLower}")
 public class ${myUtil.entityClassName}RestAdapter {
 
     //Para el log
