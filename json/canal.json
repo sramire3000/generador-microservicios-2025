@@ -1,0 +1,31 @@
+[
+  {
+	"dbName":"ID_CANAL",
+    "name":"id_canal",
+    "type":"Short",
+    "isNull":false,
+	"isPk":true,
+	"isAutoGen":false,
+    "description":"Key",
+	"nameLabel":"canal_id"
+  },
+  {
+	"dbName":"S_CANAL",
+    "name":"scanal",
+    "type":"Varchar",
+    "isNull":false,
+    "description":"Canal",
+    "len":5,
+	"nameLabel":"canal_descripcion"
+  },
+  {
+	"dbName":"DT_CREATED_AT",
+    "name":"dt_create_at",
+    "type":"TIMESTAMP",
+    "isNull":false,
+    "description":"fecha Creacion",
+    "len":2,
+    "nameLabel":"canal_dt_cracion"
+  }
+  
+]

@@ -46,12 +46,16 @@ public class ${myUtil.entityClassName}Entity {
 	        		println("     @GeneratedValue(strategy = GenerationType.IDENTITY)		//Estrategia de generacion");
 	        	} 	
 	        	println("     private Long " + attr.camelCaseNameLower + ";");
+	        }else if(attr.type=="Short"){
+	        	if (attr.isAutoGen == true){
+	        		println("     @GeneratedValue(strategy = GenerationType.IDENTITY)		//Estrategia de generacion");
+	        	} 	
+	        	println("     private Short " + attr.camelCaseNameLower + ";");	
 	        }else if(attr.type=="Integer"){
 	        	if (attr.isAutoGen == true){
 	        		println("     @GeneratedValue(strategy = GenerationType.IDENTITY)		//Estrategia de generacion");
 	        	} 	
 	        	println("     private Integer " + attr.camelCaseNameLower + ";");	
-	        	
 	        }else if(attr.type=="BigInteger"){	 
 	        	if (attr.isAutoGen == true){
 	        		println("     @GeneratedValue(strategy = GenerationType.IDENTITY)		//Estrategia de generacion");

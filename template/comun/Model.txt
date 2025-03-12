@@ -35,6 +35,12 @@ public class ${myUtil.entityClassName}  {
 				}else{
 				   println("    private Long " + attr.camelCaseNameLabelLower + ";" + "     //"+ attr.description);
 				}
+	        }else if(attr.type=="Short"){
+	            if (attr.nameLabel==""){
+	               println("    private Short " + attr.camelCaseNameLower + ";" + "     //"+ attr.description);
+	            }else{
+	               println("    private Short " + attr.camelCaseNameLabelLower + ";" + "     //"+ attr.description);
+	            }
 	        }else if(attr.type=="Integer"){
 	            if (attr.nameLabel==""){
 	               println("    private Integer " + attr.camelCaseNameLower + ";" + "     //"+ attr.description);
